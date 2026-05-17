@@ -137,8 +137,11 @@
         </div>
 
         <div class="flex justify-center mb-6">
-          <img src="assets/icon-black.png" alt="Banca Remota" class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl shadow-xl dark:hidden" />
-          <img src="assets/icon-white.png" alt="Banca Remota" class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl shadow-xl hidden dark:block" />
+          <div class="relative">
+            <img src="assets/icon-black.png" alt="Banca Remota" class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl shadow-xl dark:hidden" />
+            <img src="assets/icon-white.png" alt="Banca Remota" class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl shadow-xl hidden dark:block" />
+            <span class="absolute -top-3 -right-3 w-9 h-9 flex items-center justify-center bg-gradient-to-tr from-gold to-[#dbab46] text-white text-[13px] font-black rounded-full shadow-md border-[3px] border-white dark:border-gray-950">V2</span>
+          </div>
         </div>
 
         <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-5">
@@ -687,13 +690,13 @@
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
-              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium">Sin internet</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center text-accent">✓</td><td class="px-6 py-3 text-center text-red-400">✗</td></tr>
+              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium">100% Gratis y sin anuncios</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center text-accent">✓</td><td class="px-6 py-3 text-center text-red-400">✗</td></tr>
+              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium">Disponible para iPhone (iOS)</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center text-accent">✓</td><td class="px-6 py-3 text-center">-</td></tr>
               <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium">Favoritos personalizables</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center text-red-400">✗</td><td class="px-6 py-3 text-center text-yellow-400">Parcial</td></tr>
               <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium">Gestor de claves local</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center text-red-400">✗</td><td class="px-6 py-3 text-center text-red-400">✗</td></tr>
-              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium">Sin servidores ni cuentas</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center text-accent">✓</td><td class="px-6 py-3 text-center text-red-400">✗</td></tr>
-              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium">Face ID / Touch ID</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center text-red-400">✗</td><td class="px-6 py-3 text-center text-yellow-400">Parcial</td></tr>
+              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium">Face ID / Touch ID</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center text-red-400">✗</td><td class="px-6 py-3 text-center text-green-400">✓</td></tr>
+              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium">Sin servidores ni cuentas</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center text-accent">✓</td><td class="px-6 py-3 text-center">-</td></tr>
               <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium">Código abierto</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center">–</td><td class="px-6 py-3 text-center text-red-400">✗</td></tr>
-              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium rounded-bl-2xl">BPA + BANDEC + BM</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center text-accent">✓</td><td class="px-6 py-3 text-center text-yellow-400 rounded-br-2xl">Varía</td></tr>
             </tbody>
           </table>
         </div>
@@ -931,6 +934,16 @@
         dragX: 0, dragY: 0,
         startX: 0, startY: 0,
         flying: false, flyDir: 1,
+
+        init() {
+          // Preload images for instantaneous theme switching
+          setTimeout(() => {
+            this.cards.forEach(card => {
+              const imgL = new Image(); imgL.src = card.light;
+              const imgD = new Image(); imgD.src = card.dark;
+            });
+          }, 500);
+        },
 
         fanPos: [
           { r:  0,  x:          0, y:         0, z: 50 },
