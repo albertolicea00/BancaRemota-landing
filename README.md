@@ -16,23 +16,23 @@ BancaRemota_landing/
 
 ## Sections
 
-| # | Section |
-|---|---------|
-| 1 | Hero — headline and app value |
-| 2 | Tagline — short value message |
-| 3 | Primary CTA — GitHub / App Store |
-| 4 | App preview — iPhone mockup |
-| 5 | Main features |
-| 6 | What you can do |
-| 7 | How it works |
-| 9 | Compatibility (banks / iOS) |
-| 10 | Advantages over alternatives |
-| 11 | User manual (accordion) |
-| 12 | FAQ (accordion) |
-| 13 | Roadmap |
-| 14 | Beta notify + Newsletter + Telegram |
-| 15 | Final CTA |
-| 16 | Footer |
+| #   | Section                             |
+| --- | ----------------------------------- |
+| 1   | Hero — headline and app value       |
+| 2   | Tagline — short value message       |
+| 3   | Primary CTA — GitHub / App Store    |
+| 4   | App preview — iPhone mockup         |
+| 5   | Main features                       |
+| 6   | What you can do                     |
+| 7   | How it works                        |
+| 9   | Compatibility (banks / iOS)         |
+| 10  | Advantages over alternatives        |
+| 11  | User manual (accordion)             |
+| 12  | FAQ (accordion)                     |
+| 13  | Roadmap                             |
+| 14  | Beta notify + Newsletter + Telegram |
+| 15  | Final CTA                           |
+| 16  | Footer                              |
 
 ## Development
 
@@ -55,19 +55,19 @@ npx serve .
 - [ ] Replace `og:image` meta tag image with a real social preview (`1200×630px`).
 - [ ] Wire up the newsletter form to an email provider (Mailchimp, ConvertKit, Resend, etc.) — see `notifyForm()` in `index.html`.
 - [ ] Update Telegram channel link (`t.me/BancaRemotaCuba`) once the channel is created.
-- [ ] Add a real `favicon.ico` / `apple-touch-icon.png`.
+- [ ] Add a real `favicon.ico` / `apple-touch-icon.webp`.
 - [ ] Replace all GitHub URLs with the definitive repository URL if it changes.
 - [ ] Once in App Store: add the App Store download button and update all CTAs.
 
 ## Colors
 
-| Token | Hex | Usage |
-|-------|-----|-------|
-| `--color-bpa` | `#1E5F52` | BPA green — primary brand |
-| `--color-bandec` | `#5B2A1F` | BANDEC brown — secondary |
-| `--color-accent` | `#81D717` | Lime — CTAs, highlights |
-| `--color-gold` | `#B38B4D` | Gold — `appPrimary` default |
-| `--color-bm` | `#1A3A6B` | BM navy blue |
+| Token            | Hex       | Usage                       |
+| ---------------- | --------- | --------------------------- |
+| `--color-bpa`    | `#1E5F52` | BPA green — primary brand   |
+| `--color-bandec` | `#5B2A1F` | BANDEC brown — secondary    |
+| `--color-accent` | `#81D717` | Lime — CTAs, highlights     |
+| `--color-gold`   | `#B38B4D` | Gold — `appPrimary` default |
+| `--color-bm`     | `#1A3A6B` | BM navy blue                |
 
 ## Dark mode
 
@@ -79,4 +79,4 @@ See the main project's [CONTRIBUTING.md](../BancaRemota_app/CONTRIBUTING.md). Is
 
 ---
 
-*Part of the [Banca Remota](https://github.com/albertolicea00/BancaRemota) project by [Alberto Licea](https://www.linkedin.com/in/albertolicea00).*
+_Part of the [Banca Remota](https://github.com/albertolicea00/BancaRemota) project by [Alberto Licea](https://www.linkedin.com/in/albertolicea00)._

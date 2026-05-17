@@ -141,16 +141,16 @@
         <!-- Card stack — mobile only (desktop covered by features section) -->
         <div class="flex justify-center lg:hidden"
              x-data="cardStack([
-               {id:'home',     light:'assets/mockups/home-view-light.png',     dark:'assets/mockups/home-view-dark.png'},
-               {id:'bpa',      light:'assets/mockups/bpm-view-light.png',      dark:'assets/mockups/bpm-view-dark.png'},
-               {id:'bandec',   light:'assets/mockups/bandec-view-light.png',   dark:'assets/mockups/bandec-view-dark.png'},
-               {id:'bm',       light:'assets/mockups/bm-view-light.png',       dark:'assets/mockups/bm-view-dark.png'},
-               {id:'cards',    light:'assets/mockups/card-view-light.png',     dark:'assets/mockups/card-view-dark.png'},
-               {id:'card-add', light:'assets/mockups/card-add-view-light.png', dark:'assets/mockups/card-add-view-dark.png'},
-               {id:'nauta',    light:'assets/mockups/nauta-view-light.png',    dark:'assets/mockups/nauta-view-dark.png'},
-               {id:'services', light:'assets/mockups/services-view-light.png', dark:'assets/mockups/services-view-dark.png'},
-               {id:'keys',     light:'assets/mockups/key-view-light.png',      dark:'assets/mockups/key-view-dark.png'},
-               {id:'settings', light:'assets/mockups/settings-view-light.png', dark:'assets/mockups/settings-view-dark.png'},
+               {id:'home',     light:'assets/mockups/home-view-light.webp',     dark:'assets/mockups/home-view-dark.webp'},
+               {id:'bpa',      light:'assets/mockups/bpm-view-light.webp',      dark:'assets/mockups/bpm-view-dark.webp'},
+               {id:'bandec',   light:'assets/mockups/bandec-view-light.webp',   dark:'assets/mockups/bandec-view-dark.webp'},
+               {id:'bm',       light:'assets/mockups/bm-view-light.webp',       dark:'assets/mockups/bm-view-dark.webp'},
+               {id:'cards',    light:'assets/mockups/card-view-light.webp',     dark:'assets/mockups/card-view-dark.webp'},
+               {id:'card-add', light:'assets/mockups/card-add-view-light.webp', dark:'assets/mockups/card-add-view-dark.webp'},
+               {id:'nauta',    light:'assets/mockups/nauta-view-light.webp',    dark:'assets/mockups/nauta-view-dark.webp'},
+               {id:'services', light:'assets/mockups/services-view-light.webp', dark:'assets/mockups/services-view-dark.webp'},
+               {id:'keys',     light:'assets/mockups/key-view-light.webp',      dark:'assets/mockups/key-view-dark.webp'},
+               {id:'settings', light:'assets/mockups/settings-view-light.webp', dark:'assets/mockups/settings-view-dark.webp'},
              ])">
           <div class="relative select-none" style="width:13rem;height:27rem;touch-action:none;"
                @pointerdown="startDrag($event)"
@@ -252,9 +252,9 @@
             <!-- helper macro: a swipeable mini stack for each feature -->
             <div x-show="feat === 'banking'" x-transition:enter="animate-fadeIn"
                  x-data="cardStack([
-                   {id:'bpa',    light:'assets/mockups/bpm-view-light.png',    dark:'assets/mockups/bpm-view-dark.png'},
-                   {id:'bandec', light:'assets/mockups/bandec-view-light.png', dark:'assets/mockups/bandec-view-dark.png'},
-                   {id:'bm',     light:'assets/mockups/bm-view-light.png',     dark:'assets/mockups/bm-view-dark.png'},
+                   {id:'bpa',    light:'assets/mockups/bpm-view-light.webp',    dark:'assets/mockups/bpm-view-dark.webp'},
+                   {id:'bandec', light:'assets/mockups/bandec-view-light.webp', dark:'assets/mockups/bandec-view-dark.webp'},
+                   {id:'bm',     light:'assets/mockups/bm-view-light.webp',     dark:'assets/mockups/bm-view-dark.webp'},
                  ], true)"
                  class="relative select-none" style="width:10rem;height:21rem;touch-action:none;"
                  @pointerdown="startDrag($event)" @pointermove.window="drag($event)"
@@ -268,8 +268,8 @@
 
             <div x-show="feat === 'favorites'" x-transition:enter="animate-fadeIn"
                  x-data="cardStack([
-                   {id:'home',     light:'assets/mockups/home-view-light.png',     dark:'assets/mockups/home-view-dark.png'},
-                   {id:'settings', light:'assets/mockups/settings-view-light.png', dark:'assets/mockups/settings-view-dark.png'},
+                   {id:'home',     light:'assets/mockups/home-view-light.webp',     dark:'assets/mockups/home-view-dark.webp'},
+                   {id:'settings', light:'assets/mockups/settings-view-light.webp', dark:'assets/mockups/settings-view-dark.webp'},
                  ], true)"
                  class="relative select-none" style="width:10rem;height:21rem;touch-action:none;"
                  @pointerdown="startDrag($event)" @pointermove.window="drag($event)"
@@ -283,8 +283,8 @@
 
             <div x-show="feat === 'accounts'" x-transition:enter="animate-fadeIn"
                  x-data="cardStack([
-                   {id:'card',     light:'assets/mockups/card-view-light.png',     dark:'assets/mockups/card-view-dark.png'},
-                   {id:'card-add', light:'assets/mockups/card-add-view-light.png', dark:'assets/mockups/card-add-view-dark.png'},
+                   {id:'card',     light:'assets/mockups/card-view-light.webp',     dark:'assets/mockups/card-view-dark.webp'},
+                   {id:'card-add', light:'assets/mockups/card-add-view-light.webp', dark:'assets/mockups/card-add-view-dark.webp'},
                  ], true)"
                  class="relative select-none" style="width:10rem;height:21rem;touch-action:none;"
                  @pointerdown="startDrag($event)" @pointermove.window="drag($event)"
@@ -298,8 +298,8 @@
 
             <div x-show="feat === 'nauta'" x-transition:enter="animate-fadeIn"
                  x-data="cardStack([
-                   {id:'nauta',     light:'assets/mockups/nauta-view-light.png',     dark:'assets/mockups/nauta-view-dark.png'},
-                   {id:'nauta-add', light:'assets/mockups/nauta-add-view-light.png', dark:'assets/mockups/nauta-add-view-dark.png'},
+                   {id:'nauta',     light:'assets/mockups/nauta-view-light.webp',     dark:'assets/mockups/nauta-view-dark.webp'},
+                   {id:'nauta-add', light:'assets/mockups/nauta-add-view-light.webp', dark:'assets/mockups/nauta-add-view-dark.webp'},
                  ], true)"
                  class="relative select-none" style="width:10rem;height:21rem;touch-action:none;"
                  @pointerdown="startDrag($event)" @pointermove.window="drag($event)"
@@ -313,8 +313,8 @@
 
             <div x-show="feat === 'services'" x-transition:enter="animate-fadeIn"
                  x-data="cardStack([
-                   {id:'services',     light:'assets/mockups/services-view-light.png',     dark:'assets/mockups/services-view-dark.png'},
-                   {id:'services-add', light:'assets/mockups/services-add-view-light.png', dark:'assets/mockups/services-add-view-dark.png'},
+                   {id:'services',     light:'assets/mockups/services-view-light.webp',     dark:'assets/mockups/services-view-dark.webp'},
+                   {id:'services-add', light:'assets/mockups/services-add-view-light.webp', dark:'assets/mockups/services-add-view-dark.webp'},
                  ], true)"
                  class="relative select-none" style="width:10rem;height:21rem;touch-action:none;"
                  @pointerdown="startDrag($event)" @pointermove.window="drag($event)"
@@ -328,8 +328,8 @@
 
             <div x-show="feat === 'keys'" x-transition:enter="animate-fadeIn"
                  x-data="cardStack([
-                   {id:'key',     light:'assets/mockups/key-view-light.png',     dark:'assets/mockups/key-view-dark.png'},
-                   {id:'key-add', light:'assets/mockups/key-add-view-light.png', dark:'assets/mockups/key-add-view-dark.png'},
+                   {id:'key',     light:'assets/mockups/key-view-light.webp',     dark:'assets/mockups/key-view-dark.webp'},
+                   {id:'key-add', light:'assets/mockups/key-add-view-light.webp', dark:'assets/mockups/key-add-view-dark.webp'},
                  ], true)"
                  class="relative select-none" style="width:10rem;height:21rem;touch-action:none;"
                  @pointerdown="startDrag($event)" @pointermove.window="drag($event)"
@@ -343,8 +343,8 @@
 
             <div x-show="feat === 'settings'" x-transition:enter="animate-fadeIn"
                  x-data="cardStack([
-                   {id:'settings', light:'assets/mockups/settings-view-light.png', dark:'assets/mockups/settings-view-dark.png'},
-                   {id:'home',     light:'assets/mockups/home-view-light.png',     dark:'assets/mockups/home-view-dark.png'},
+                   {id:'settings', light:'assets/mockups/settings-view-light.webp', dark:'assets/mockups/settings-view-dark.webp'},
+                   {id:'home',     light:'assets/mockups/home-view-light.webp',     dark:'assets/mockups/home-view-dark.webp'},
                  ], true)"
                  class="relative select-none" style="width:10rem;height:21rem;touch-action:none;"
                  @pointerdown="startDrag($event)" @pointermove.window="drag($event)"
@@ -402,7 +402,7 @@
             <!-- Mockup -->
             <div class="flex justify-center">
               <div class="relative">
-                <img :src="darkMode ? 'assets/mockups/bpm-view-dark.png' : 'assets/mockups/bpm-view-light.png'"
+                <img :src="darkMode ? 'assets/mockups/bpm-view-dark.webp' : 'assets/mockups/bpm-view-light.webp'"
                      alt="Vista BPA en Banca Remota"
                      class="w-52 sm:w-64 rounded-[2.5rem] shadow-2xl ring-4 ring-bpa/20 transition-all duration-500" />
                 <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-bpa text-white text-xs font-bold px-4 py-1.5 rounded-full shadow">
@@ -440,7 +440,7 @@
           <div x-show="bank === 'bandec'" x-transition:enter="animate-fadeIn" class="grid lg:grid-cols-2 gap-10 items-center">
             <div class="flex justify-center">
               <div class="relative">
-                <img :src="darkMode ? 'assets/mockups/bandec-view-dark.png' : 'assets/mockups/bandec-view-light.png'"
+                <img :src="darkMode ? 'assets/mockups/bandec-view-dark.webp' : 'assets/mockups/bandec-view-light.webp'"
                      alt="Vista BANDEC en Banca Remota"
                      class="w-52 sm:w-64 rounded-[2.5rem] shadow-2xl ring-4 ring-bandec/20 transition-all duration-500" />
                 <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-bandec text-white text-xs font-bold px-4 py-1.5 rounded-full shadow">
@@ -477,7 +477,7 @@
           <div x-show="bank === 'bm'" x-transition:enter="animate-fadeIn" class="grid lg:grid-cols-2 gap-10 items-center">
             <div class="flex justify-center">
               <div class="relative">
-                <img :src="darkMode ? 'assets/mockups/bm-view-dark.png' : 'assets/mockups/bm-view-light.png'"
+                <img :src="darkMode ? 'assets/mockups/bm-view-dark.webp' : 'assets/mockups/bm-view-light.webp'"
                      alt="Vista BM en Banca Remota"
                      class="w-52 sm:w-64 rounded-[2.5rem] shadow-2xl ring-4 ring-bm/20 transition-all duration-500" />
                 <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-bm text-white text-xs font-bold px-4 py-1.5 rounded-full shadow">
@@ -547,7 +547,7 @@
         <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 border border-gray-100 dark:border-gray-700 shadow-sm">
           <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-center">
             <div class="flex flex-col items-center gap-2">
-              <img src="assets/icon-tint.png" alt="Banca Remota" class="w-12 h-12" />
+              <img src="assets/icon-tint.webp" alt="Banca Remota" class="w-12 h-12" />
               <span class="text-sm font-semibold">Banca Remota</span>
             </div>
             <div class="flow-arrow">→</div>
@@ -612,21 +612,21 @@
         <div class="grid sm:grid-cols-3 gap-6 mb-12">
 
           <div class="bank-card" style="border-color: rgba(30,95,82,.4)">
-            <img src="assets/banks/bpa-logo.png" alt="BPA" class="h-14 object-contain mx-auto mb-3 rounded-xl" />
+            <img src="assets/banks/bpa-logo.webp" alt="BPA" class="h-14 object-contain mx-auto mb-3 rounded-xl" />
             <h3 class="font-bold text-center">Banco Popular de Ahorro</h3>
             <p class="text-xs text-center text-gray-400 mt-1">*444*40*01#</p>
             <span class="bank-badge" style="background:rgba(30,95,82,.12);color:#1E5F52">Soporte completo</span>
           </div>
 
           <div class="bank-card" style="border-color: rgba(91,42,31,.4)">
-            <img src="assets/banks/bandec-logo.png" alt="BANDEC" class="h-14 object-contain mx-auto mb-3 rounded-xl" />
+            <img src="assets/banks/bandec-logo.webp" alt="BANDEC" class="h-14 object-contain mx-auto mb-3 rounded-xl" />
             <h3 class="font-bold text-center">BANDEC</h3>
             <p class="text-xs text-center text-gray-400 mt-1">*444*40*02#</p>
             <span class="bank-badge" style="background:rgba(91,42,31,.12);color:#5B2A1F">Soporte completo</span>
           </div>
 
           <div class="bank-card" style="border-color: rgba(26,58,107,.4)">
-            <img src="assets/banks/bm-logo.png" alt="BM" class="h-14 object-contain mx-auto mb-3 rounded-xl" />
+            <img src="assets/banks/bm-logo.webp" alt="BM" class="h-14 object-contain mx-auto mb-3 rounded-xl" />
             <h3 class="font-bold text-center">Banco Metropolitano</h3>
             <p class="text-xs text-center text-gray-400 mt-1">*444*40*03#</p>
             <span class="bank-badge" style="background:rgba(26,58,107,.12);color:#1A3A6B">Soporte completo</span>
@@ -835,7 +835,7 @@
             </button>
             <div x-show="open === 6" x-transition class="px-5 pb-5 text-sm text-gray-600 dark:text-gray-300">
               <div class="mt-4 rounded-xl overflow-hidden mb-4">
-                <img :src="darkMode ? 'assets/mockups/settings-view-dark.png' : 'assets/mockups/settings-view-light.png'"
+                <img :src="darkMode ? 'assets/mockups/settings-view-dark.webp' : 'assets/mockups/settings-view-light.webp'"
                      alt="Pantalla de ajustes" class="w-full max-w-xs mx-auto block rounded-xl" />
               </div>
               <ul class="space-y-1.5 list-disc list-inside">
