@@ -6,6 +6,8 @@
   <title>Banca Remota — Banca cubana desde tu iPhone</title>
   <meta name="description" content="App nativa para iPhone que simplifica las operaciones bancarias cubanas mediante códigos USSD. Sin internet. Compatible con BPA, BANDEC y BM." />
   <meta name="theme-color" content="#B38B4D" />
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="Banca Remota — Banca cubana desde tu iPhone" />
@@ -65,8 +67,8 @@
       <div class="hidden md:flex items-center gap-6 text-sm text-gray-600 dark:text-gray-400">
         <a href="#features"    class="nav-link">Funciones</a>
         <a href="#how-it-works" class="nav-link">Cómo funciona</a>
-        <a href="#banks"       class="nav-link">Bancos</a>
         <a href="#manual"      class="nav-link">Manual</a>
+        <a href="#banks"       class="nav-link">Bancos</a>
         <a href="#faq"         class="nav-link">FAQ</a>
       </div>
 
@@ -97,8 +99,8 @@
       <div class="px-4 pt-2 pb-6 space-y-1 shadow-lg">
         <a href="#features" @click="mobileMenuOpen = false" class="block px-3 py-3 rounded-xl text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">Funciones</a>
         <a href="#how-it-works" @click="mobileMenuOpen = false" class="block px-3 py-3 rounded-xl text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">Cómo funciona</a>
-        <a href="#banks" @click="mobileMenuOpen = false" class="block px-3 py-3 rounded-xl text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">Bancos</a>
         <a href="#manual" @click="mobileMenuOpen = false" class="block px-3 py-3 rounded-xl text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">Manual</a>
+        <a href="#banks" @click="mobileMenuOpen = false" class="block px-3 py-3 rounded-xl text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">Bancos</a>
         <a href="#faq" @click="mobileMenuOpen = false" class="block px-3 py-3 rounded-xl text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">FAQ</a>
       </div>
     </div>
@@ -439,160 +441,16 @@
           </div>
           <p class="text-center text-xs text-gray-400 dark:text-gray-500 mt-6">La app solo lanza el código — la comunicación es directamente entre el teléfono y el banco. Banca Remota no intercepta ni almacena ninguna respuesta bancaria.</p>
         </div>
-      </div>
-    </section>
 
-    <!-- ════════════════════════════════════════
-         9 — COMPATIBILIDAD
-    ════════════════════════════════════════ -->
-    <section id="banks" class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900">
-      <div class="max-w-5xl mx-auto">
-        <div class="text-center mb-10">
-          <span class="section-badge">Compatibilidad</span>
-          <h2 class="section-title">Bancos soportados</h2>
+        <!-- ════════════════════════════════════════
+             MANUAL DE USUARIO INTEGRADO
+        ════════════════════════════════════════ -->
+        <div id="manual" class="text-center mt-24 mb-10">
+          <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Manual Completo</h3>
+          <p class="text-gray-500 dark:text-gray-400 mt-2">Guía paso a paso para configurar y usar todas las funciones avanzadas.</p>
         </div>
 
-        <!-- Marquesina de aviso sobre códigos USSD -->
-        <div class="relative overflow-hidden mb-12 border-y border-gold/30 bg-gold/5 dark:bg-gold/10 py-3 -mx-4 sm:-mx-6 lg:-mx-8">
-          <div class="marquee-track flex gap-12 whitespace-nowrap text-sm font-medium text-gold dark:text-amber-400">
-            <span class="marquee-content">
-              📡 Los códigos USSD son gestionados por los propios bancos y suelen ser bastante estables en el tiempo &nbsp;·&nbsp;
-              ⚠️ Nuevas funcionalidades bancarias pueden requerir actualizar el archivo <code>codes.json</code> de la app &nbsp;·&nbsp;
-              🔄 Si un código deja de funcionar, puedes editarlo directamente en <code>codes.json</code> sin tocar nada más &nbsp;·&nbsp;
-              📥 Descarga la última versión del listado de códigos desde GitHub &nbsp;·&nbsp;
-              🛠️ Los códigos pueden cambiar por decisión del banco sin previo aviso — si algo falla, revisa primero el JSON &nbsp;·&nbsp;
-              💡 ¿Encontraste un código nuevo o desactualizado? Abre un PR en GitHub y ayuda a la comunidad &nbsp;·&nbsp;
-            </span>
-            <!-- Copia idéntica para que el loop sea continuo y sin salto -->
-            <span class="marquee-content" aria-hidden="true">
-              📡 Los códigos USSD son gestionados por los propios bancos y suelen ser bastante estables en el tiempo &nbsp;·&nbsp;
-              ⚠️ Nuevas funcionalidades bancarias pueden requerir actualizar el archivo <code>codes.json</code> de la app &nbsp;·&nbsp;
-              🔄 Si un código deja de funcionar, puedes editarlo directamente en <code>codes.json</code> sin tocar nada más &nbsp;·&nbsp;
-              📥 Descarga la última versión del listado de códigos desde GitHub &nbsp;·&nbsp;
-              🛠️ Los códigos pueden cambiar por decisión del banco sin previo aviso — si algo falla, revisa primero el JSON &nbsp;·&nbsp;
-              💡 ¿Encontraste un código nuevo o desactualizado? Abre un PR en GitHub y ayuda a la comunidad &nbsp;·&nbsp;
-            </span>
-          </div>
-        </div>
-
-        <div class="grid sm:grid-cols-3 gap-6 mb-12">
-
-          <div class="bank-card" style="border-color: rgba(30,95,82,.4)">
-            <img src="assets/banks/bpa-logo.webp" alt="BPA" class="h-14 object-contain mx-auto mb-3 rounded-xl" />
-            <h3 class="font-bold text-center">Banco Popular de Ahorro</h3>
-            <p class="text-xs text-center text-gray-400 mt-1">*444*40*01#</p>
-            <span class="bank-badge" style="background:rgba(30,95,82,.12);color:#1E5F52">Soporte completo</span>
-          </div>
-
-          <div class="bank-card" style="border-color: rgba(91,42,31,.4)">
-            <img src="assets/banks/bandec-logo.webp" alt="BANDEC" class="h-14 object-contain mx-auto mb-3 rounded-xl" />
-            <h3 class="font-bold text-center">BANDEC</h3>
-            <p class="text-xs text-center text-gray-400 mt-1">*444*40*02#</p>
-            <span class="bank-badge" style="background:rgba(91,42,31,.12);color:#5B2A1F">Soporte completo</span>
-          </div>
-
-          <div class="bank-card" style="border-color: rgba(26,58,107,.4)">
-            <img src="assets/banks/bm-logo.webp" alt="BM" class="h-14 object-contain mx-auto mb-3 rounded-xl" />
-            <h3 class="font-bold text-center">Banco Metropolitano</h3>
-            <p class="text-xs text-center text-gray-400 mt-1">*444*40*03#</p>
-            <span class="bank-badge" style="background:rgba(26,58,107,.12);color:#1A3A6B">Soporte completo</span>
-          </div>
-
-        </div>
-
-        <!-- Descarga codes.json -->
-        <div class="mb-8 bg-white dark:bg-gray-800 rounded-2xl p-5 border border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
-          <div class="flex items-start gap-4">
-            <span class="text-3xl flex-shrink-0">📄</span>
-            <div>
-              <p class="font-bold text-gray-900 dark:text-white">Listado de códigos USSD — <code class="text-gold font-mono text-sm">codes.json</code></p>
-              <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">El archivo que alimenta la app: bancos, categorías y todos los códigos USSD organizados. Actualizable sin recompilar.</p>
-            </div>
-          </div>
-          <a href="https://raw.githubusercontent.com/albertolicea00/Banca_Remota/refs/heads/main/BancaRemota/codes.json"
-             download="codes.json"
-             target="_blank" rel="noopener"
-             class="flex-shrink-0 inline-flex items-center gap-2 bg-gold hover:bg-amber-500 text-gray-900 font-bold px-5 py-2.5 rounded-xl text-sm transition-all whitespace-nowrap shadow shadow-gold/30">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-            Descargar codes.json
-          </a>
-        </div>
-
-        <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 flex flex-col sm:flex-row gap-6 items-center justify-around text-center">
-          <div class="flex items-center gap-3">
-            <span class="text-3xl">🍎</span>
-            <div class="text-left">
-              <p class="font-bold">iOS 16.0+</p>
-              <p class="text-sm text-gray-400">iPhone exclusivamente</p>
-            </div>
-          </div>
-          <div class="w-px h-10 bg-gray-200 dark:bg-gray-700 hidden sm:block"></div>
-          <div class="flex items-center gap-3">
-            <span class="text-3xl">📡</span>
-            <div class="text-left">
-              <p class="font-bold">Red ETECSA</p>
-              <p class="text-sm text-gray-400">Sin internet · USSD</p>
-            </div>
-          </div>
-          <div class="w-px h-10 bg-gray-200 dark:bg-gray-700 hidden sm:block"></div>
-          <div class="flex items-center gap-3">
-            <span class="text-3xl">🔓</span>
-            <div class="text-left">
-              <p class="font-bold">Open Source</p>
-              <p class="text-sm text-gray-400">MIT License · GitHub</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ════════════════════════════════════════
-         10 — VENTAJAS
-    ════════════════════════════════════════ -->
-    <section id="advantages" class="py-24 px-4 sm:px-6 lg:px-8">
-      <div class="max-w-5xl mx-auto">
-        <div class="text-center mb-16">
-          <span class="section-badge">Ventajas</span>
-          <h2 class="section-title">¿Por qué Banca Remota?</h2>
-          <p class="section-subtitle">Comparado con otras opciones disponibles en Cuba.</p>
-        </div>
-
-        <div class="overflow-x-auto rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm">
-          <table class="w-full text-sm">
-            <thead>
-              <tr class="bg-gray-900 dark:bg-gray-800 text-white">
-                <th class="px-6 py-4 text-left font-semibold rounded-tl-2xl">Característica</th>
-                <th class="px-6 py-4 text-center font-semibold text-gold">Banca Remota</th>
-                <th class="px-6 py-4 text-center font-semibold">Marcar manual</th>
-                <th class="px-6 py-4 text-center font-semibold rounded-tr-2xl">Apps similares</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
-              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium">Sin internet</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center text-accent">✓</td><td class="px-6 py-3 text-center text-red-400">✗</td></tr>
-              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium">Favoritos personalizables</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center text-red-400">✗</td><td class="px-6 py-3 text-center text-yellow-400">Parcial</td></tr>
-              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium">Gestor de claves local</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center text-red-400">✗</td><td class="px-6 py-3 text-center text-red-400">✗</td></tr>
-              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium">Sin servidores ni cuentas</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center text-accent">✓</td><td class="px-6 py-3 text-center text-red-400">✗</td></tr>
-              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium">Face ID / Touch ID</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center text-red-400">✗</td><td class="px-6 py-3 text-center text-yellow-400">Parcial</td></tr>
-              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium">Código abierto</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center">–</td><td class="px-6 py-3 text-center text-red-400">✗</td></tr>
-              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium rounded-bl-2xl">BPA + BANDEC + BM</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center text-accent">✓</td><td class="px-6 py-3 text-center text-yellow-400 rounded-br-2xl">Varía</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- ════════════════════════════════════════
-         MANUAL DE USUARIO
-    ════════════════════════════════════════ -->
-    <section id="manual" class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900">
-      <div class="max-w-4xl mx-auto">
-        <div class="text-center mb-16">
-          <span class="section-badge">Manual</span>
-          <h2 class="section-title">Cómo usar Banca Remota</h2>
-          <p class="section-subtitle">Guía paso a paso para sacarle el máximo provecho.</p>
-        </div>
-
-        <div x-data="{ open: null }" class="space-y-4">
+        <div x-data="{ open: null }" class="space-y-4 max-w-4xl mx-auto">
 
           <div class="manual-step" :class="open === 1 ? 'ring-2 ring-gold' : ''">
             <button @click="open = open === 1 ? null : 1" class="w-full flex items-center justify-between p-5 text-left">
@@ -610,7 +468,7 @@
                 <li>Conecta tu iPhone y selecciónalo como destino de compilación.</li>
                 <li>Presiona <kbd class="kbd">⌘R</kbd> para compilar e instalar en tu dispositivo.</li>
               </ol>
-              <p class="text-amber-600 dark:text-amber-400 mt-3 flex items-start gap-1.5">
+              <p class="text-gold mt-3 flex items-start gap-1.5">
                 <span>⚠️</span>
                 <span>Requiere iPhone físico — los simuladores no pueden realizar llamadas USSD.</span>
               </p>
@@ -700,7 +558,6 @@
               <svg class="w-5 h-5 text-gray-400 transition-transform" :class="open === 6 ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
             </button>
             <div x-show="open === 6" x-transition class="px-5 pb-5 text-sm text-gray-600 dark:text-gray-300">
-
               <ul class="space-y-1.5 list-disc list-inside">
                 <li><strong>Tema:</strong> claro, oscuro o según el sistema.</li>
                 <li><strong>Face ID / Touch ID:</strong> activar y configurar sesión.</li>
@@ -711,6 +568,146 @@
             </div>
           </div>
 
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════
+         9 — COMPATIBILIDAD
+    ════════════════════════════════════════ -->
+    <section id="banks" class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-10">
+          <span class="section-badge">Compatibilidad</span>
+          <h2 class="section-title">Bancos soportados</h2>
+        </div>
+
+        <!-- Marquesina de aviso sobre códigos USSD -->
+        <div class="relative overflow-hidden mb-12 border-y border-gold/30 bg-gold/5 dark:bg-gold/10 py-3 -mx-4 sm:-mx-6 lg:-mx-8">
+          <div class="marquee-track flex gap-12 whitespace-nowrap text-sm font-medium text-gold">
+            <span class="marquee-content">
+              📡 Los códigos USSD son gestionados por los propios bancos y suelen ser bastante estables en el tiempo &nbsp;·&nbsp;
+              ⚠️ Nuevas funcionalidades bancarias pueden requerir actualizar el archivo <code>codes.json</code> de la app &nbsp;·&nbsp;
+              🔄 Si un código deja de funcionar, puedes editarlo directamente en <code>codes.json</code> sin tocar nada más &nbsp;·&nbsp;
+              📥 Descarga la última versión del listado de códigos desde GitHub &nbsp;·&nbsp;
+              🛠️ Los códigos pueden cambiar por decisión del banco sin previo aviso — si algo falla, revisa primero el JSON &nbsp;·&nbsp;
+              💡 ¿Encontraste un código nuevo o desactualizado? Abre un PR en GitHub y ayuda a la comunidad &nbsp;·&nbsp;
+            </span>
+            <!-- Copia idéntica para que el loop sea continuo y sin salto -->
+            <span class="marquee-content" aria-hidden="true">
+              📡 Los códigos USSD son gestionados por los propios bancos y suelen ser bastante estables en el tiempo &nbsp;·&nbsp;
+              ⚠️ Nuevas funcionalidades bancarias pueden requerir actualizar el archivo <code>codes.json</code> de la app &nbsp;·&nbsp;
+              🔄 Si un código deja de funcionar, puedes editarlo directamente en <code>codes.json</code> sin tocar nada más &nbsp;·&nbsp;
+              📥 Descarga la última versión del listado de códigos desde GitHub &nbsp;·&nbsp;
+              🛠️ Los códigos pueden cambiar por decisión del banco sin previo aviso — si algo falla, revisa primero el JSON &nbsp;·&nbsp;
+              💡 ¿Encontraste un código nuevo o desactualizado? Abre un PR en GitHub y ayuda a la comunidad &nbsp;·&nbsp;
+            </span>
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-3 gap-6 mb-12">
+
+          <div class="bank-card" style="border-color: rgba(30,95,82,.4)">
+            <img src="assets/banks/bpa-logo.png" alt="BPA" class="h-14 object-contain mx-auto mb-3 rounded-xl" />
+            <h3 class="font-bold text-center">Banco Popular de Ahorro</h3>
+            <p class="text-xs text-center text-gray-400 mt-1">*444*40*01#</p>
+            <span class="bank-badge" style="background:rgba(30,95,82,.12);color:#1E5F52">Soporte completo</span>
+          </div>
+
+          <div class="bank-card" style="border-color: rgba(91,42,31,.4)">
+            <img src="assets/banks/bandec-logo.png" alt="BANDEC" class="h-14 object-contain mx-auto mb-3 rounded-xl" />
+            <h3 class="font-bold text-center">BANDEC</h3>
+            <p class="text-xs text-center text-gray-400 mt-1">*444*40*02#</p>
+            <span class="bank-badge" style="background:rgba(91,42,31,.12);color:#5B2A1F">Soporte completo</span>
+          </div>
+
+          <div class="bank-card" style="border-color: rgba(26,58,107,.4)">
+            <img src="assets/banks/bm-logo.png" alt="BM" class="h-14 object-contain mx-auto mb-3 rounded-xl" />
+            <h3 class="font-bold text-center">Banco Metropolitano</h3>
+            <p class="text-xs text-center text-gray-400 mt-1">*444*40*03#</p>
+            <span class="bank-badge" style="background:rgba(26,58,107,.12);color:#1A3A6B">Soporte completo</span>
+          </div>
+
+        </div>
+
+        <!-- Descarga codes.json -->
+        <div class="mb-8 bg-white dark:bg-gray-800 rounded-2xl p-5 border border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
+          <div class="flex items-start gap-4">
+            <span class="text-3xl flex-shrink-0">📄</span>
+            <div>
+              <p class="font-bold text-gray-900 dark:text-white">Listado de códigos USSD — <code class="text-gold font-mono text-sm">codes.json</code></p>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">El archivo que alimenta la app: bancos, categorías y todos los códigos USSD organizados. Actualizable sin recompilar.</p>
+            </div>
+          </div>
+          <a href="https://raw.githubusercontent.com/albertolicea00/Banca_Remota/refs/heads/main/BancaRemota/codes.json"
+             download="codes.json"
+             target="_blank" rel="noopener"
+             class="flex-shrink-0 inline-flex items-center gap-2 bg-gold hover:bg-gold/80 text-gray-900 font-bold px-5 py-2.5 rounded-xl text-sm transition-all whitespace-nowrap shadow shadow-gold/30">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            Descargar codes.json
+          </a>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 flex flex-col sm:flex-row gap-6 items-center justify-around text-center">
+          <div class="flex items-center gap-3">
+            <span class="text-3xl">🍎</span>
+            <div class="text-left">
+              <p class="font-bold">iOS 16.0+</p>
+              <p class="text-sm text-gray-400">iPhone exclusivamente</p>
+            </div>
+          </div>
+          <div class="w-px h-10 bg-gray-200 dark:bg-gray-700 hidden sm:block"></div>
+          <div class="flex items-center gap-3">
+            <span class="text-3xl">📡</span>
+            <div class="text-left">
+              <p class="font-bold">Red ETECSA</p>
+              <p class="text-sm text-gray-400">Sin internet · USSD</p>
+            </div>
+          </div>
+          <div class="w-px h-10 bg-gray-200 dark:bg-gray-700 hidden sm:block"></div>
+          <div class="flex items-center gap-3">
+            <span class="text-3xl">🔓</span>
+            <div class="text-left">
+              <p class="font-bold">Open Source</p>
+              <p class="text-sm text-gray-400">MIT License · GitHub</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════
+         10 — VENTAJAS
+    ════════════════════════════════════════ -->
+    <section id="advantages" class="py-24 px-4 sm:px-6 lg:px-8">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-16">
+          <span class="section-badge">Ventajas</span>
+          <h2 class="section-title">¿Por qué Banca Remota?</h2>
+          <p class="section-subtitle">Comparado con otras opciones disponibles en Cuba.</p>
+        </div>
+
+        <div class="overflow-x-auto rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="bg-gray-900 dark:bg-gray-800 text-white">
+                <th class="px-6 py-4 text-left font-semibold rounded-tl-2xl">Característica</th>
+                <th class="px-6 py-4 text-center font-semibold text-gold">Banca Remota</th>
+                <th class="px-6 py-4 text-center font-semibold">Marcar manual</th>
+                <th class="px-6 py-4 text-center font-semibold rounded-tr-2xl">Apps similares</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
+              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium">Sin internet</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center text-accent">✓</td><td class="px-6 py-3 text-center text-red-400">✗</td></tr>
+              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium">Favoritos personalizables</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center text-red-400">✗</td><td class="px-6 py-3 text-center text-yellow-400">Parcial</td></tr>
+              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium">Gestor de claves local</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center text-red-400">✗</td><td class="px-6 py-3 text-center text-red-400">✗</td></tr>
+              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium">Sin servidores ni cuentas</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center text-accent">✓</td><td class="px-6 py-3 text-center text-red-400">✗</td></tr>
+              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium">Face ID / Touch ID</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center text-red-400">✗</td><td class="px-6 py-3 text-center text-yellow-400">Parcial</td></tr>
+              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium">Código abierto</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center">–</td><td class="px-6 py-3 text-center text-red-400">✗</td></tr>
+              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium rounded-bl-2xl">BPA + BANDEC + BM</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center text-accent">✓</td><td class="px-6 py-3 text-center text-yellow-400 rounded-br-2xl">Varía</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
@@ -785,7 +782,7 @@
           <input x-model="email" type="email" required placeholder="tucorreo@ejemplo.com"
             class="flex-1 px-4 py-3 rounded-xl bg-white dark:bg-white/10 backdrop-blur border border-gray-300 dark:border-white/20 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-gold shadow-sm dark:shadow-none" />
           <button type="submit" :disabled="sent"
-            class="px-6 py-3 bg-gold hover:bg-amber-500 text-gray-900 font-bold rounded-xl transition-all whitespace-nowrap disabled:opacity-60 shadow-sm dark:shadow-none">
+            class="px-6 py-3 bg-gold hover:bg-gold/80 text-gray-900 font-bold rounded-xl transition-all whitespace-nowrap disabled:opacity-60 shadow-sm dark:shadow-none">
             <span x-show="!sent">Notificarme</span>
             <span x-show="sent">✓ ¡Listo!</span>
           </button>
@@ -828,11 +825,6 @@
             <span class="text-gray-900 dark:text-white font-bold text-lg">Banca Remota</span>
           </div>
           <p class="text-sm leading-relaxed mb-4 text-gray-500 dark:text-gray-400">App nativa para iPhone que simplifica las operaciones bancarias cubanas mediante USSD. Sin internet.</p>
-          <div class="flex gap-2 mt-4">
-            <img src="assets/banks/bpa-icon.svg"    alt="BPA"    class="h-6 opacity-40 hover:opacity-80 transition-opacity dark:invert" />
-            <img src="assets/banks/bandec-icon.svg" alt="BANDEC" class="h-6 opacity-40 hover:opacity-80 transition-opacity dark:invert" />
-            <img src="assets/banks/bm-icon.svg"     alt="BM"     class="h-6 opacity-40 hover:opacity-80 transition-opacity dark:invert" />
-          </div>
         </div>
 
         <div>
@@ -861,7 +853,7 @@
           <ul class="space-y-2 text-sm">
             <li>
               <a href="https://t.me/BancaRemotaCuba" target="_blank" rel="noopener" class="footer-link flex items-center gap-2">
-                <svg class="w-4 h-4 text-[#229ED9]" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
                 Telegram
               </a>
             </li>
@@ -873,14 +865,8 @@
             </li>
             <li>
               <a href="https://www.linkedin.com/in/albertolicea00" target="_blank" rel="noopener" class="footer-link flex items-center gap-2">
-                <svg class="w-4 h-4 text-[#0A66C2]" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                 LinkedIn
-              </a>
-            </li>
-            <li>
-              <a href="mailto:Alberto.Licea@pinkzebrahome.com" class="footer-link flex items-center gap-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                Contacto
               </a>
             </li>
           </ul>
@@ -888,8 +874,8 @@
 
       </div>
 
-      <div class="border-t border-gray-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-600">
-        <p>© 2024 Alberto Licea. Inspirada en la app original de
+      <div class="border-t border-gray-200 dark:border-gray-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-600 dark:text-gray-600">
+        <p>© <span x-text="new Date().getFullYear()">2026</span> Alberto Licea. Inspirada en la app original de
           <a href="https://www.linkedin.com/in/henrycruzmederos" target="_blank" rel="noopener" class="hover:text-gold underline transition-colors">Henry Cruz</a>.
         </p>
         <div class="flex gap-4 items-center">
