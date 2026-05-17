@@ -1,0 +1,128 @@
+function app() {
+  return {
+    mobileMenuOpen: false,
+    darkMode: localStorage.getItem('darkMode') === 'true' ||
+      (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches),
+    faqs: [
+      {
+        q: '¿Necesito internet para usar la app?',
+        a: 'No. Banca Remota no usa internet en ningún momento. Las operaciones se realizan mediante códigos USSD sobre la red telefónica de ETECSA, igual que cuando marcas el código manualmente en el teléfono.'
+      },
+      {
+        q: '¿Es seguro guardar mis datos en la app?',
+        a: 'Sí. Todos los datos se guardan localmente en tu iPhone (UserDefaults). No hay servidores, no hay nube, y la sección de claves requiere Face ID / Touch ID. El código es open source: puedes verificarlo tú mismo.'
+      },
+      {
+        q: '¿Cuándo estará en la App Store?',
+        a: 'Actualmente está en beta — solo disponible instalando desde el código fuente en GitHub. <a href="#notify" class="text-gold underline">Suscríbete</a> para recibir una notificación en cuanto se publique.'
+      },
+      {
+        q: '¿Cuánto cuesta la app?',
+        a: 'Cero. Nada. Ya bastante caro te salió el iPhone como para que también tengas que pagar por revisar tu banco. 😉'
+      },
+      {
+        q: '¿La app realiza las operaciones bancarias por mí?',
+        a: 'No. La app solo abre el marcador del iPhone con el código USSD correcto preescrito. Tú confirmas la llamada y el banco responde por la red telefónica. Banca Remota es un lanzador de códigos, no un bot.'
+      },
+      {
+        q: '¿Puedo contribuir al proyecto?',
+        a: 'Sí. Mira <code class="code-inline">CONTRIBUTING.md</code> en el repositorio. Issues, PRs y commits deben estar en inglés, aunque la UI de la app está en español.'
+      },
+    ],
+    init() {
+      this.$watch('darkMode', val => localStorage.setItem('darkMode', val));
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        if (!localStorage.getItem('darkMode')) {
+          this.darkMode = e.matches;
+        }
+      });
+    }
+  }
+}
+
+// cards: array of {id, light, dark}
+// compact: true for the smaller feature-section stacks (tighter fan offsets)
+function cardStack(cards, compact = false) {
+  const s = compact ? 0.55 : 1  // scale factor for fan offsets
+  return {
+    cards: [...cards],
+    dragging: false,
+    dragX: 0, dragY: 0,
+    startX: 0, startY: 0,
+    flying: false, flyDir: 1,
+
+    init() {
+      // Preload images for instantaneous theme switching
+      setTimeout(() => {
+        this.cards.forEach(card => {
+          const imgL = new Image(); imgL.src = card.light;
+          const imgD = new Image(); imgD.src = card.dark;
+        });
+      }, 500);
+    },
+
+    fanPos: [
+      { r:  0,  x:          0, y:         0, z: 50 },
+      { r: -7,  x: -22 * s,   y:  4 * s,    z: 40 },
+      { r:  7,  x:  22 * s,   y:  4 * s,    z: 30 },
+      { r: -13, x: -40 * s,   y:  8 * s,    z: 20 },
+      { r:  13, x:  40 * s,   y:  8 * s,    z: 10 },
+    ],
+
+    fanStyle(i) {
+      const p = this.fanPos[i] || this.fanPos[this.fanPos.length - 1]
+      if (i === 0) {
+        if (this.dragging) {
+          const rot = this.dragX * 0.07
+          return `transform:translate(${this.dragX}px,${this.dragY * 0.35}px) rotate(${rot}deg);z-index:50;transition:none;`
+        }
+        if (this.flying) {
+          return `transform:translate(${this.flyDir * 520}px,60px) rotate(${this.flyDir * 28}deg);z-index:50;opacity:0;transition:transform 0.35s ease,opacity 0.3s ease;`
+        }
+        return `transform:rotate(0deg) translate(0,0);z-index:50;transition:transform 0.45s cubic-bezier(0.34,1.4,0.64,1);`
+      }
+      return `transform:rotate(${p.r}deg) translate(${p.x}px,${p.y}px);z-index:${p.z};transition:transform 0.4s ease;`
+    },
+
+    startDrag(e) {
+      if (this.flying) return
+      this.dragging = true
+      this.startX = e.clientX
+      this.startY = e.clientY
+      this.dragX = 0; this.dragY = 0
+      e.currentTarget.setPointerCapture(e.pointerId)
+    },
+    drag(e) {
+      if (!this.dragging) return
+      this.dragX = e.clientX - this.startX
+      this.dragY = e.clientY - this.startY
+    },
+    endDrag() {
+      if (!this.dragging) return
+      this.dragging = false
+      if (Math.abs(this.dragX) > 75) {
+        this.flyDir = this.dragX > 0 ? 1 : -1
+        this.flying = true
+        setTimeout(() => {
+          this.cards.push(this.cards.shift())
+          this.dragX = 0; this.dragY = 0; this.flying = false
+        }, 360)
+      } else {
+        this.dragX = 0; this.dragY = 0
+      }
+    },
+  }
+}
+
+function notifyForm() {
+  return {
+    email: '',
+    sent: false,
+    submit() {
+      if (!this.email) return
+      // TODO: connect to Mailchimp / ConvertKit / Resend
+      console.log('Suscripción:', this.email)
+      this.sent = true
+    }
+  }
+}
