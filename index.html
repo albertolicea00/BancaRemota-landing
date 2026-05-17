@@ -59,7 +59,7 @@
   </script>
 </head>
 
-<body class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 font-sans antialiased transition-colors duration-300">
+<body class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 font-sans antialiased transition-colors duration-300 overflow-x-hidden">
 
   <!-- ════════════════════════════════════════
        NAV
@@ -166,7 +166,7 @@
         </div>
 
         <!-- Card stack — mobile only (desktop covered by features section) -->
-        <div class="flex justify-center lg:hidden"
+        <div class="flex justify-center lg:hidden mt-12"
              x-data="cardStack([
                {id:'home',     light:'assets/mockups/home-view-light.webp',     dark:'assets/mockups/home-view-dark.webp'},
                {id:'bpa',      light:'assets/mockups/bpm-view-light.webp',      dark:'assets/mockups/bpm-view-dark.webp'},
@@ -189,7 +189,8 @@
                    :style="fanStyle(i)"
                    :class="i === 0 ? 'cursor-grab active:cursor-grabbing' : 'pointer-events-none'">
                 <img :src="darkMode ? card.dark : card.light" :alt="card.id"
-                     class="w-full h-full object-cover object-top rounded-[2.25rem] shadow-2xl shadow-black/60 ring-1 ring-white/10"
+                     class="w-full h-full object-cover object-top rounded-[2.25rem] ring-1 ring-gold/40"
+                     :class="i === 0 ? 'shadow-2xl shadow-black/50' : 'shadow-lg shadow-black/20'"
                      draggable="false" />
               </div>
             </template>
@@ -288,7 +289,7 @@
                  @pointerup.window="endDrag()" @pointercancel.window="endDrag()">
               <template x-for="(card,i) in cards" :key="card.id">
                 <div class="absolute inset-0" :style="fanStyle(i)" :class="i===0?'cursor-grab active:cursor-grabbing':'pointer-events-none'">
-                  <img :src="darkMode?card.dark:card.light" :alt="card.id" class="w-full h-full object-cover object-top rounded-[1.75rem] shadow-xl ring-1 ring-black/8" draggable="false"/>
+                  <img :src="darkMode?card.dark:card.light" :alt="card.id" class="w-full h-full object-cover object-top rounded-[1.75rem] ring-1 ring-gold/40" :class="i === 0 ? 'shadow-2xl shadow-black/40' : 'shadow-md shadow-black/10'" draggable="false"/>
                 </div>
               </template>
             </div>
@@ -303,7 +304,7 @@
                  @pointerup.window="endDrag()" @pointercancel.window="endDrag()">
               <template x-for="(card,i) in cards" :key="card.id">
                 <div class="absolute inset-0" :style="fanStyle(i)" :class="i===0?'cursor-grab active:cursor-grabbing':'pointer-events-none'">
-                  <img :src="darkMode?card.dark:card.light" :alt="card.id" class="w-full h-full object-cover object-top rounded-[1.75rem] shadow-xl ring-1 ring-black/8" draggable="false"/>
+                  <img :src="darkMode?card.dark:card.light" :alt="card.id" class="w-full h-full object-cover object-top rounded-[1.75rem] ring-1 ring-gold/40" :class="i === 0 ? 'shadow-2xl shadow-black/40' : 'shadow-md shadow-black/10'" draggable="false"/>
                 </div>
               </template>
             </div>
@@ -318,7 +319,7 @@
                  @pointerup.window="endDrag()" @pointercancel.window="endDrag()">
               <template x-for="(card,i) in cards" :key="card.id">
                 <div class="absolute inset-0" :style="fanStyle(i)" :class="i===0?'cursor-grab active:cursor-grabbing':'pointer-events-none'">
-                  <img :src="darkMode?card.dark:card.light" :alt="card.id" class="w-full h-full object-cover object-top rounded-[1.75rem] shadow-xl ring-1 ring-black/8" draggable="false"/>
+                  <img :src="darkMode?card.dark:card.light" :alt="card.id" class="w-full h-full object-cover object-top rounded-[1.75rem] ring-1 ring-gold/40" :class="i === 0 ? 'shadow-2xl shadow-black/40' : 'shadow-md shadow-black/10'" draggable="false"/>
                 </div>
               </template>
             </div>
@@ -333,7 +334,7 @@
                  @pointerup.window="endDrag()" @pointercancel.window="endDrag()">
               <template x-for="(card,i) in cards" :key="card.id">
                 <div class="absolute inset-0" :style="fanStyle(i)" :class="i===0?'cursor-grab active:cursor-grabbing':'pointer-events-none'">
-                  <img :src="darkMode?card.dark:card.light" :alt="card.id" class="w-full h-full object-cover object-top rounded-[1.75rem] shadow-xl ring-1 ring-black/8" draggable="false"/>
+                  <img :src="darkMode?card.dark:card.light" :alt="card.id" class="w-full h-full object-cover object-top rounded-[1.75rem] ring-1 ring-gold/40" :class="i === 0 ? 'shadow-2xl shadow-black/40' : 'shadow-md shadow-black/10'" draggable="false"/>
                 </div>
               </template>
             </div>
@@ -348,7 +349,7 @@
                  @pointerup.window="endDrag()" @pointercancel.window="endDrag()">
               <template x-for="(card,i) in cards" :key="card.id">
                 <div class="absolute inset-0" :style="fanStyle(i)" :class="i===0?'cursor-grab active:cursor-grabbing':'pointer-events-none'">
-                  <img :src="darkMode?card.dark:card.light" :alt="card.id" class="w-full h-full object-cover object-top rounded-[1.75rem] shadow-xl ring-1 ring-black/8" draggable="false"/>
+                  <img :src="darkMode?card.dark:card.light" :alt="card.id" class="w-full h-full object-cover object-top rounded-[1.75rem] ring-1 ring-gold/40" :class="i === 0 ? 'shadow-2xl shadow-black/40' : 'shadow-md shadow-black/10'" draggable="false"/>
                 </div>
               </template>
             </div>
@@ -363,7 +364,7 @@
                  @pointerup.window="endDrag()" @pointercancel.window="endDrag()">
               <template x-for="(card,i) in cards" :key="card.id">
                 <div class="absolute inset-0" :style="fanStyle(i)" :class="i===0?'cursor-grab active:cursor-grabbing':'pointer-events-none'">
-                  <img :src="darkMode?card.dark:card.light" :alt="card.id" class="w-full h-full object-cover object-top rounded-[1.75rem] shadow-xl ring-1 ring-black/8" draggable="false"/>
+                  <img :src="darkMode?card.dark:card.light" :alt="card.id" class="w-full h-full object-cover object-top rounded-[1.75rem] ring-1 ring-gold/40" :class="i === 0 ? 'shadow-2xl shadow-black/40' : 'shadow-md shadow-black/10'" draggable="false"/>
                 </div>
               </template>
             </div>
@@ -378,7 +379,7 @@
                  @pointerup.window="endDrag()" @pointercancel.window="endDrag()">
               <template x-for="(card,i) in cards" :key="card.id">
                 <div class="absolute inset-0" :style="fanStyle(i)" :class="i===0?'cursor-grab active:cursor-grabbing':'pointer-events-none'">
-                  <img :src="darkMode?card.dark:card.light" :alt="card.id" class="w-full h-full object-cover object-top rounded-[1.75rem] shadow-xl ring-1 ring-black/8" draggable="false"/>
+                  <img :src="darkMode?card.dark:card.light" :alt="card.id" class="w-full h-full object-cover object-top rounded-[1.75rem] ring-1 ring-gold/40" :class="i === 0 ? 'shadow-2xl shadow-black/40' : 'shadow-md shadow-black/10'" draggable="false"/>
                 </div>
               </template>
             </div>
@@ -420,36 +421,6 @@
           </div>
         </div>
 
-        <!-- Diagrama de flujo -->
-        <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 border border-gray-100 dark:border-gray-700 shadow-sm">
-          <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-center">
-            <div class="flex flex-col items-center gap-2">
-              <img src="assets/icon-tint.webp" alt="Banca Remota" class="w-12 h-12 rounded-xl shadow-sm" />
-              <span class="text-sm font-semibold">Banca Remota</span>
-            </div>
-            <div class="flow-arrow">→</div>
-            <div class="flex flex-col items-center gap-2">
-              <span class="text-4xl">📞</span>
-              <span class="text-sm font-semibold">Marcador iPhone</span>
-            </div>
-            <div class="flow-arrow">→</div>
-            <div class="flex flex-col items-center gap-2">
-              <span class="text-4xl">📡</span>
-              <span class="text-sm font-semibold">Red ETECSA</span>
-            </div>
-            <div class="flow-arrow">→</div>
-            <div class="flex flex-col items-center gap-2">
-              <span class="text-4xl">🏦</span>
-              <span class="text-sm font-semibold">Servidor del banco</span>
-            </div>
-            <div class="flow-arrow">→</div>
-            <div class="flex flex-col items-center gap-2">
-              <span class="text-4xl">✅</span>
-              <span class="text-sm font-semibold">Respuesta USSD</span>
-            </div>
-          </div>
-          <p class="text-center text-xs text-gray-400 dark:text-gray-500 mt-6">La app solo lanza el código — la comunicación es directamente entre el teléfono y el banco. Banca Remota no intercepta ni almacena ninguna respuesta bancaria.</p>
-        </div>
 
         <!-- ════════════════════════════════════════
              MANUAL DE USUARIO INTEGRADO
@@ -955,10 +926,10 @@
 
         fanPos: [
           { r:  0,  x:          0, y:         0, z: 50 },
-          { r: -7,  x: -22 * s,   y:  8 * s,    z: 40 },
-          { r:  7,  x:  22 * s,   y:  8 * s,    z: 30 },
-          { r: -13, x: -40 * s,   y: 18 * s,    z: 20 },
-          { r:  13, x:  40 * s,   y: 18 * s,    z: 10 },
+          { r: -7,  x: -22 * s,   y:  4 * s,    z: 40 },
+          { r:  7,  x:  22 * s,   y:  4 * s,    z: 30 },
+          { r: -13, x: -40 * s,   y:  8 * s,    z: 20 },
+          { r:  13, x:  40 * s,   y:  8 * s,    z: 10 },
         ],
 
         fanStyle(i) {

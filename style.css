@@ -262,14 +262,19 @@ html { scroll-behavior: smooth; }
 .dark .step-card { background: #1f2937; border-color: #374151; }
 
 .step-number {
-  width: 3rem; height: 3rem;
+  width: 3.5rem; height: 3.5rem;
   border-radius: 9999px;
-  background: var(--color-gold);
+  background: linear-gradient(135deg, var(--color-gold), #c9a05a);
   color: #fff;
   font-weight: 900;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 1rem;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 4px 16px color-mix(in srgb, var(--color-gold) 40%, transparent);
+  border: 3px solid #fff;
+}
+.dark .step-number {
+  border-color: #1f2937;
 }
 
 .step-title { font-weight: 700; font-size: 1.05rem; margin-bottom: 0.5rem; color: #111827; }
@@ -326,14 +331,19 @@ html { scroll-behavior: smooth; }
 .dark .manual-step { background: #1f2937; border-color: #374151; }
 
 .step-badge {
-  width: 2rem; height: 2rem;
+  width: 2.25rem; height: 2.25rem;
   border-radius: 9999px;
-  background: var(--color-gold);
+  background: linear-gradient(135deg, var(--color-gold), #c9a05a);
   color: #fff;
-  font-weight: 700;
-  font-size: 0.875rem;
+  font-weight: 800;
+  font-size: 1rem;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--color-gold) 40%, transparent);
+  border: 2px solid #fff;
+}
+.dark .step-badge {
+  border-color: #1f2937;
 }
 
 .code-inline {
