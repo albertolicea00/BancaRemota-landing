@@ -57,10 +57,9 @@
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
 
       <a href="#" class="flex items-center gap-2.5 font-bold text-gold text-lg">
-        <img src="assets/icon-black.png"  alt="Banca Remota" class="w-8 h-8 dark:hidden" />
-        <img src="assets/icon-white.png"  alt="Banca Remota" class="w-8 h-8 hidden dark:block" />
-        <img src="assets/logo.png" alt="Banca Remota" class="h-5 dark:hidden" />
-        <span class="hidden dark:inline text-white font-bold">Banca Remota</span>
+        <img src="assets/icon-black.png"  alt="Banca Remota" class="w-8 h-8 dark:hidden rounded-lg shadow-sm" />
+        <img src="assets/icon-white.png"  alt="Banca Remota" class="w-8 h-8 hidden dark:block rounded-lg shadow-sm" />
+        <span class="text-gray-900 dark:text-white font-bold">Banca Remota</span>
       </a>
 
       <div class="hidden md:flex items-center gap-6 text-sm text-gray-600 dark:text-gray-400">
@@ -84,6 +83,23 @@
           <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.21.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
           GitHub
         </a>
+
+        <!-- Mobile menu button -->
+        <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden p-2 text-gray-600 dark:text-gray-300 ml-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+          <svg x-show="!mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <svg x-show="mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: none;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div x-show="mobileMenuOpen" x-transition class="md:hidden border-t border-gray-100 dark:border-gray-800 bg-white/95 dark:bg-gray-950/95 backdrop-blur-md">
+      <div class="px-4 pt-2 pb-6 space-y-1 shadow-lg">
+        <a href="#features" @click="mobileMenuOpen = false" class="block px-3 py-3 rounded-xl text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">Funciones</a>
+        <a href="#how-it-works" @click="mobileMenuOpen = false" class="block px-3 py-3 rounded-xl text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">Cómo funciona</a>
+        <a href="#banks" @click="mobileMenuOpen = false" class="block px-3 py-3 rounded-xl text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">Bancos</a>
+        <a href="#manual" @click="mobileMenuOpen = false" class="block px-3 py-3 rounded-xl text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">Manual</a>
+        <a href="#faq" @click="mobileMenuOpen = false" class="block px-3 py-3 rounded-xl text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">FAQ</a>
       </div>
     </div>
   </nav>
@@ -93,7 +109,7 @@
     <!-- ════════════════════════════════════════
          1·2·3·4 — HERO + MOCKUP CAROUSEL
     ════════════════════════════════════════ -->
-    <section id="hero" class="pt-28 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 text-white overflow-hidden relative">
+    <section id="hero" class="pt-28 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-white via-gray-50 to-white dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 text-gray-900 dark:text-white overflow-hidden relative transition-colors duration-300">
 
       <!-- Blobs de fondo -->
       <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
@@ -114,11 +130,11 @@
           <span class="text-gold">desde tu iPhone</span>
         </h1>
 
-        <p class="text-xl text-white/70 leading-relaxed mb-3">
+        <p class="text-xl text-gray-600 dark:text-white/70 leading-relaxed mb-3">
           Consulta saldos, transfiere y paga servicios —
-          <strong class="text-white">sin internet</strong>, directo por la red telefónica.
+          <strong class="text-gray-900 dark:text-white">sin internet</strong>, directo por la red telefónica.
         </p>
-        <p class="text-sm text-white/40 mb-8">Compatible con BPA, BANDEC y BM · iOS 16+ · Datos 100% locales</p>
+        <p class="text-sm text-gray-500 dark:text-white/40 mb-8">Compatible con BPA, BANDEC y BM · iOS 16+ · Datos 100% locales</p>
 
         <div class="flex flex-col sm:flex-row gap-3 justify-center mb-8">
           <a href="https://github.com/albertolicea00/BancaRemota" target="_blank" rel="noopener" class="btn-primary">
@@ -132,10 +148,10 @@
 
         <!-- Bank badges -->
         <div class="flex items-center justify-center gap-3 flex-wrap mb-12">
-          <span class="text-xs text-white/30 uppercase tracking-widest">Compatible con</span>
-          <img src="assets/banks/bpa-icon.svg"    alt="BPA"    class="h-7 opacity-70 hover:opacity-100 transition-opacity" title="Banco Popular de Ahorro" />
-          <img src="assets/banks/bandec-icon.svg" alt="BANDEC" class="h-7 opacity-70 hover:opacity-100 transition-opacity" title="BANDEC" />
-          <img src="assets/banks/bm-icon.svg"     alt="BM"     class="h-7 opacity-70 hover:opacity-100 transition-opacity" title="Banco Metropolitano" />
+          <span class="text-xs text-gray-500 dark:text-white/30 uppercase tracking-widest">Compatible con</span>
+          <img src="assets/banks/bpa-icon.svg"    alt="BPA"    class="h-7 opacity-70 hover:opacity-100 transition-opacity dark:invert" title="Banco Popular de Ahorro" />
+          <img src="assets/banks/bandec-icon.svg" alt="BANDEC" class="h-7 opacity-70 hover:opacity-100 transition-opacity dark:invert" title="BANDEC" />
+          <img src="assets/banks/bm-icon.svg"     alt="BM"     class="h-7 opacity-70 hover:opacity-100 transition-opacity dark:invert" title="Banco Metropolitano" />
         </div>
 
         <!-- Card stack — mobile only (desktop covered by features section) -->
@@ -362,157 +378,7 @@
       </div>
     </section>
 
-    <!-- ════════════════════════════════════════
-         6 — QUÉ PUEDES HACER (tabs por banco con mockups)
-    ════════════════════════════════════════ -->
-    <section id="what-you-can-do" class="py-24 px-4 sm:px-6 lg:px-8">
-      <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-16">
-          <span class="section-badge">¿Qué puedes hacer?</span>
-          <h2 class="section-title">Un toque, y el banco llama</h2>
-          <p class="section-subtitle">Operaciones reales disponibles ahora mismo. Selecciona tu banco.</p>
-        </div>
 
-        <div x-data="{ bank: 'bpa' }">
-
-          <!-- Tabs -->
-          <div class="flex justify-center gap-3 mb-10 flex-wrap">
-            <button @click="bank = 'bpa'"
-              :class="bank === 'bpa' ? 'bg-bpa text-white shadow-lg shadow-bpa/30' : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'"
-              class="flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all">
-              <img src="assets/banks/bpa-icon.svg" alt="BPA" class="h-5" />
-              BPA
-            </button>
-            <button @click="bank = 'bandec'"
-              :class="bank === 'bandec' ? 'bg-bandec text-white shadow-lg shadow-bandec/30' : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'"
-              class="flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all">
-              <img src="assets/banks/bandec-icon.svg" alt="BANDEC" class="h-5" />
-              BANDEC
-            </button>
-            <button @click="bank = 'bm'"
-              :class="bank === 'bm' ? 'bg-bm text-white shadow-lg shadow-bm/30' : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'"
-              class="flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all">
-              <img src="assets/banks/bm-icon.svg" alt="BM" class="h-5" />
-              BM
-            </button>
-          </div>
-
-          <!-- Content: BPA -->
-          <div x-show="bank === 'bpa'" x-transition:enter="animate-fadeIn" class="grid lg:grid-cols-2 gap-10 items-center">
-            <!-- Mockup -->
-            <div class="flex justify-center">
-              <div class="relative">
-                <img :src="darkMode ? 'assets/mockups/bpm-view-dark.webp' : 'assets/mockups/bpm-view-light.webp'"
-                     alt="Vista BPA en Banca Remota"
-                     class="w-52 sm:w-64 rounded-[2.5rem] shadow-2xl ring-4 ring-bpa/20 transition-all duration-500" />
-                <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-bpa text-white text-xs font-bold px-4 py-1.5 rounded-full shadow">
-                  Banco Popular de Ahorro
-                </div>
-              </div>
-            </div>
-            <!-- Ops list -->
-            <div>
-              <div class="flex items-center gap-3 mb-6">
-                <img src="assets/banks/bpa-logo.png" alt="BPA" class="h-10 rounded-xl" />
-                <div>
-                  <h3 class="font-bold text-lg text-gray-900 dark:text-white">Banco Popular de Ahorro</h3>
-                  <p class="text-xs text-gray-400">Código: <code class="code-inline">*444*40*01#</code></p>
-                </div>
-              </div>
-              <div class="grid grid-cols-2 gap-2">
-                <div class="op-item">💰 Consultar saldo</div>
-                <div class="op-item">↔️ Transferencia</div>
-                <div class="op-item">⚡ Electricidad</div>
-                <div class="op-item">📱 Recargar móvil</div>
-                <div class="op-item">🌐 Recargar Nauta</div>
-                <div class="op-item">🏠 Nauta Hogar</div>
-                <div class="op-item">💧 Agua / Gas</div>
-                <div class="op-item">📋 Últ. operaciones</div>
-                <div class="op-item">📌 Límite tarjeta</div>
-                <div class="op-item">✉️ Giro postal</div>
-                <div class="op-item">🏦 Plazo fijo</div>
-                <div class="op-item">💱 Tipo de cambio</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Content: BANDEC -->
-          <div x-show="bank === 'bandec'" x-transition:enter="animate-fadeIn" class="grid lg:grid-cols-2 gap-10 items-center">
-            <div class="flex justify-center">
-              <div class="relative">
-                <img :src="darkMode ? 'assets/mockups/bandec-view-dark.webp' : 'assets/mockups/bandec-view-light.webp'"
-                     alt="Vista BANDEC en Banca Remota"
-                     class="w-52 sm:w-64 rounded-[2.5rem] shadow-2xl ring-4 ring-bandec/20 transition-all duration-500" />
-                <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-bandec text-white text-xs font-bold px-4 py-1.5 rounded-full shadow">
-                  BANDEC
-                </div>
-              </div>
-            </div>
-            <div>
-              <div class="flex items-center gap-3 mb-6">
-                <img src="assets/banks/bandec-logo.png" alt="BANDEC" class="h-10 rounded-xl" />
-                <div>
-                  <h3 class="font-bold text-lg text-gray-900 dark:text-white">Banco de Crédito y Comercio</h3>
-                  <p class="text-xs text-gray-400">Código: <code class="code-inline">*444*40*02#</code></p>
-                </div>
-              </div>
-              <div class="grid grid-cols-2 gap-2">
-                <div class="op-item">💰 Consultar saldo</div>
-                <div class="op-item">↔️ Transferencia</div>
-                <div class="op-item">⚡ Electricidad</div>
-                <div class="op-item">📱 Recargar móvil</div>
-                <div class="op-item">🔄 Cambio tarjeta RED</div>
-                <div class="op-item">📋 Historial ops.</div>
-                <div class="op-item">💱 Tipo de cambio</div>
-                <div class="op-item">🏛️ Pagar ONAT</div>
-                <div class="op-item">🔐 Gestión de PIN</div>
-                <div class="op-item">📑 Consultar créditos</div>
-                <div class="op-item">✉️ Giro postal</div>
-                <div class="op-item">📌 Límite tarjeta</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Content: BM -->
-          <div x-show="bank === 'bm'" x-transition:enter="animate-fadeIn" class="grid lg:grid-cols-2 gap-10 items-center">
-            <div class="flex justify-center">
-              <div class="relative">
-                <img :src="darkMode ? 'assets/mockups/bm-view-dark.webp' : 'assets/mockups/bm-view-light.webp'"
-                     alt="Vista BM en Banca Remota"
-                     class="w-52 sm:w-64 rounded-[2.5rem] shadow-2xl ring-4 ring-bm/20 transition-all duration-500" />
-                <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-bm text-white text-xs font-bold px-4 py-1.5 rounded-full shadow">
-                  Banco Metropolitano
-                </div>
-              </div>
-            </div>
-            <div>
-              <div class="flex items-center gap-3 mb-6">
-                <img src="assets/banks/bm-logo.png" alt="BM" class="h-10 rounded-xl" />
-                <div>
-                  <h3 class="font-bold text-lg text-gray-900 dark:text-white">Banco Metropolitano</h3>
-                  <p class="text-xs text-gray-400">Código: <code class="code-inline">*444*40*03#</code></p>
-                </div>
-              </div>
-              <div class="grid grid-cols-2 gap-2">
-                <div class="op-item">💰 Consultar saldo</div>
-                <div class="op-item">↔️ Transferencia</div>
-                <div class="op-item">⚡ Electricidad</div>
-                <div class="op-item">📱 Recargar móvil</div>
-                <div class="op-item">🔄 Cambio tarjeta</div>
-                <div class="op-item">📋 Historial ops.</div>
-                <div class="op-item">💱 Tipo de cambio</div>
-                <div class="op-item">🏛️ Pagar ONAT</div>
-                <div class="op-item">🔐 Gestión de PIN</div>
-                <div class="op-item">📑 Consultar créditos</div>
-                <div class="op-item">✉️ Giro postal</div>
-                <div class="op-item">📌 Límite tarjeta</div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
 
     <!-- ════════════════════════════════════════
          7 — CÓMO FUNCIONA
@@ -547,7 +413,7 @@
         <div class="bg-white dark:bg-gray-800 rounded-3xl p-8 border border-gray-100 dark:border-gray-700 shadow-sm">
           <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-center">
             <div class="flex flex-col items-center gap-2">
-              <img src="assets/icon-tint.webp" alt="Banca Remota" class="w-12 h-12" />
+              <img src="assets/icon-tint.webp" alt="Banca Remota" class="w-12 h-12 rounded-xl shadow-sm" />
               <span class="text-sm font-semibold">Banca Remota</span>
             </div>
             <div class="flow-arrow">→</div>
@@ -587,7 +453,7 @@
         </div>
 
         <!-- Marquesina de aviso sobre códigos USSD -->
-        <div class="relative overflow-hidden mb-12 rounded-2xl border border-gold/30 bg-gold/5 dark:bg-gold/10 py-3">
+        <div class="relative overflow-hidden mb-12 border-y border-gold/30 bg-gold/5 dark:bg-gold/10 py-3 -mx-4 sm:-mx-6 lg:-mx-8">
           <div class="marquee-track flex gap-12 whitespace-nowrap text-sm font-medium text-gold dark:text-amber-400">
             <span class="marquee-content">
               📡 Los códigos USSD son gestionados por los propios bancos y suelen ser bastante estables en el tiempo &nbsp;·&nbsp;
@@ -635,12 +501,12 @@
         </div>
 
         <!-- Descarga codes.json -->
-        <div class="mb-8 bg-gray-900 dark:bg-gray-800 rounded-2xl p-5 border border-gray-700 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="mb-8 bg-white dark:bg-gray-800 rounded-2xl p-5 border border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
           <div class="flex items-start gap-4">
             <span class="text-3xl flex-shrink-0">📄</span>
             <div>
-              <p class="font-bold text-white">Listado de códigos USSD — <code class="text-gold font-mono text-sm">codes.json</code></p>
-              <p class="text-sm text-gray-400 mt-0.5">El archivo que alimenta la app: bancos, categorías y todos los códigos USSD organizados. Actualizable sin recompilar.</p>
+              <p class="font-bold text-gray-900 dark:text-white">Listado de códigos USSD — <code class="text-gold font-mono text-sm">codes.json</code></p>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">El archivo que alimenta la app: bancos, categorías y todos los códigos USSD organizados. Actualizable sin recompilar.</p>
             </div>
           </div>
           <a href="https://raw.githubusercontent.com/albertolicea00/Banca_Remota/refs/heads/main/BancaRemota/codes.json"
@@ -834,10 +700,7 @@
               <svg class="w-5 h-5 text-gray-400 transition-transform" :class="open === 6 ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
             </button>
             <div x-show="open === 6" x-transition class="px-5 pb-5 text-sm text-gray-600 dark:text-gray-300">
-              <div class="mt-4 rounded-xl overflow-hidden mb-4">
-                <img :src="darkMode ? 'assets/mockups/settings-view-dark.webp' : 'assets/mockups/settings-view-light.webp'"
-                     alt="Pantalla de ajustes" class="w-full max-w-xs mx-auto block rounded-xl" />
-              </div>
+
               <ul class="space-y-1.5 list-disc list-inside">
                 <li><strong>Tema:</strong> claro, oscuro o según el sistema.</li>
                 <li><strong>Face ID / Touch ID:</strong> activar y configurar sesión.</li>
@@ -895,8 +758,7 @@
           <div class="roadmap-item roadmap-done"><span class="roadmap-status" style="background:rgba(129,215,23,.15);color:#4a7f0a">✓ Listo</span><div><h4 class="font-semibold text-gray-900 dark:text-white">Gestor de cuentas, Nauta, facturas y claves</h4><p class="text-sm text-gray-400">Todo tu ecosistema financiero en un lugar, protegido con Face ID.</p></div></div>
           <div class="roadmap-item roadmap-progress"><span class="roadmap-status" style="background:rgba(251,191,36,.15);color:#92600a">⚡ En progreso</span><div><h4 class="font-semibold text-gray-900 dark:text-white">Publicación en App Store</h4><p class="text-sm text-gray-400">Proceso de revisión de Apple y distribución pública.</p></div></div>
           <div class="roadmap-item roadmap-planned"><span class="roadmap-status bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400">📋 Planeado</span><div><h4 class="font-semibold text-gray-900 dark:text-white">Widgets para pantalla de inicio</h4><p class="text-sm text-gray-400">Acceso a favoritos directamente desde el home de iOS.</p></div></div>
-          <div class="roadmap-item roadmap-planned"><span class="roadmap-status bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400">📋 Planeado</span><div><h4 class="font-semibold text-gray-900 dark:text-white">Soporte iPad &amp; Atajos de Siri</h4><p class="text-sm text-gray-400">Interfaz adaptada a pantallas grandes y comandos de voz.</p></div></div>
-          <div class="roadmap-item roadmap-planned"><span class="roadmap-status bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400">📋 Planeado</span><div><h4 class="font-semibold text-gray-900 dark:text-white">Versión Android</h4><p class="text-sm text-gray-400">Porta nativa para el ecosistema Android.</p></div></div>
+          <div class="roadmap-item roadmap-planned"><span class="roadmap-status bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400">📋 Planeado</span><div><h4 class="font-semibold text-gray-900 dark:text-white">Sección de Tasa de Cambio</h4><p class="text-sm text-gray-400">Consulta de las tasas de cambio vigentes de forma rápida.</p></div></div>
         </div>
       </div>
     </section>
@@ -904,7 +766,7 @@
     <!-- ════════════════════════════════════════
          NOTIFICACIÓN BETA + NEWSLETTER + TELEGRAM
     ════════════════════════════════════════ -->
-    <section id="notify" class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-950 text-white relative overflow-hidden">
+    <section id="notify" class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-white relative overflow-hidden transition-colors duration-300">
       <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div class="absolute top-0 right-1/4 w-80 h-80 rounded-full bg-gold opacity-10 blur-3xl"></div>
         <div class="absolute bottom-0 left-1/4 w-64 h-64 rounded-full bg-bpa opacity-10 blur-3xl"></div>
@@ -916,30 +778,30 @@
           Pronto en App Store
         </div>
         <h2 class="text-3xl sm:text-4xl font-black mb-4">Avísame cuando esté lista</h2>
-        <p class="text-white/60 mb-10 text-lg">La app está en beta. Déjanos tu correo y serás el primero en saber cuando esté disponible en la App Store.</p>
+        <p class="text-gray-600 dark:text-white/60 mb-10 text-lg">La app está en beta. Déjanos tu correo y serás el primero en saber cuando esté disponible en la App Store.</p>
 
         <!-- Formulario email -->
         <form x-data="notifyForm()" @submit.prevent="submit()" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-4">
           <input x-model="email" type="email" required placeholder="tucorreo@ejemplo.com"
-            class="flex-1 px-4 py-3 rounded-xl bg-white/10 backdrop-blur border border-white/20 text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-gold" />
+            class="flex-1 px-4 py-3 rounded-xl bg-white dark:bg-white/10 backdrop-blur border border-gray-300 dark:border-white/20 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-gold shadow-sm dark:shadow-none" />
           <button type="submit" :disabled="sent"
-            class="px-6 py-3 bg-gold hover:bg-amber-500 text-gray-900 font-bold rounded-xl transition-all whitespace-nowrap disabled:opacity-60">
+            class="px-6 py-3 bg-gold hover:bg-amber-500 text-gray-900 font-bold rounded-xl transition-all whitespace-nowrap disabled:opacity-60 shadow-sm dark:shadow-none">
             <span x-show="!sent">Notificarme</span>
             <span x-show="sent">✓ ¡Listo!</span>
           </button>
         </form>
         <p x-data="notifyForm()" x-show="sent" x-transition class="text-accent text-sm mb-8">¡Te avisaremos en cuanto la app esté en la App Store! 🎉</p>
 
-        <div class="mt-10 pt-8 border-t border-white/10">
-          <p class="text-white/40 text-sm mb-5">O únete directamente a la comunidad</p>
+        <div class="mt-10 pt-8 border-t border-gray-200 dark:border-white/10">
+          <p class="text-gray-500 dark:text-white/40 text-sm mb-5">O únete directamente a la comunidad</p>
           <div class="flex flex-col sm:flex-row gap-3 justify-center">
             <a href="https://t.me/BancaRemotaCuba" target="_blank" rel="noopener"
-              class="inline-flex items-center justify-center gap-2 bg-[#229ED9] hover:bg-[#1a8bbf] text-white font-semibold px-6 py-3 rounded-xl transition-all shadow-lg">
+              class="inline-flex items-center justify-center gap-2 bg-[#229ED9] hover:bg-[#1a8bbf] text-white font-semibold px-6 py-3 rounded-xl transition-all shadow-sm dark:shadow-lg">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
               Canal de Telegram
             </a>
             <a href="https://github.com/albertolicea00/BancaRemota" target="_blank" rel="noopener"
-              class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold px-6 py-3 rounded-xl transition-all">
+              class="inline-flex items-center justify-center gap-2 bg-white dark:bg-white/10 hover:bg-gray-50 dark:hover:bg-white/20 border border-gray-200 dark:border-white/20 text-gray-900 dark:text-white font-semibold px-6 py-3 rounded-xl transition-all shadow-sm dark:shadow-none">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.21.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
               Seguir en GitHub
             </a>
@@ -948,56 +810,33 @@
       </div>
     </section>
 
-    <!-- ════════════════════════════════════════
-         13 — CTA FINAL
-    ════════════════════════════════════════ -->
-    <section id="cta-final" class="py-24 px-4 sm:px-6 lg:px-8">
-      <div class="max-w-3xl mx-auto text-center">
-        <img src="assets/icon-tint.png" alt="Banca Remota" class="w-16 h-16 mx-auto mb-6 rounded-2xl shadow-lg shadow-gold/30" />
-        <h2 class="text-3xl sm:text-4xl font-black mb-4">
-          Tu banca cubana,<br/>
-          <span class="text-gold">siempre en tu bolsillo</span>
-        </h2>
-        <p class="text-gray-500 dark:text-gray-400 mb-8 text-lg">Código abierto, sin internet, sin servidores. Hecho con orgullo para Cuba.</p>
 
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="https://github.com/albertolicea00/BancaRemota" target="_blank" rel="noopener"
-            class="inline-flex items-center justify-center gap-2 bg-gold hover:bg-amber-500 text-gray-900 font-bold px-8 py-4 rounded-2xl text-base transition-all shadow-lg shadow-gold/30 hover:-translate-y-0.5">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.21.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
-            Ver código en GitHub
-          </a>
-          <button @click="document.getElementById('notify').scrollIntoView({behavior:'smooth'})"
-            class="inline-flex items-center justify-center gap-2 border-2 border-gold text-gold hover:bg-gold/10 font-bold px-8 py-4 rounded-2xl text-base transition-all">
-            🔔 Avisarme del lanzamiento
-          </button>
-        </div>
-      </div>
-    </section>
 
   </main>
 
   <!-- ════════════════════════════════════════
        14 — FOOTER
   ════════════════════════════════════════ -->
-  <footer class="bg-gray-950 text-gray-400 py-16 px-4 sm:px-6 lg:px-8 border-t border-gray-800">
+  <footer class="bg-gray-50 dark:bg-gray-950 text-gray-600 dark:text-gray-400 py-16 px-4 sm:px-6 lg:px-8 border-t border-gray-200 dark:border-gray-800 transition-colors duration-300">
     <div class="max-w-6xl mx-auto">
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
 
         <div class="lg:col-span-1">
           <div class="flex items-center gap-2.5 mb-4">
-            <img src="assets/icon-white.png" alt="Banca Remota" class="w-8 h-8" />
-            <img src="assets/logo.png" alt="Banca Remota" class="h-5 brightness-0 invert" />
+            <img src="assets/icon-black.png" alt="Banca Remota" class="w-8 h-8 rounded-lg shadow-sm dark:hidden" />
+            <img src="assets/icon-white.png" alt="Banca Remota" class="w-8 h-8 rounded-lg shadow-sm hidden dark:block" />
+            <span class="text-gray-900 dark:text-white font-bold text-lg">Banca Remota</span>
           </div>
-          <p class="text-sm leading-relaxed mb-4">App nativa para iPhone que simplifica las operaciones bancarias cubanas mediante USSD. Sin internet.</p>
+          <p class="text-sm leading-relaxed mb-4 text-gray-500 dark:text-gray-400">App nativa para iPhone que simplifica las operaciones bancarias cubanas mediante USSD. Sin internet.</p>
           <div class="flex gap-2 mt-4">
-            <img src="assets/banks/bpa-icon.svg"    alt="BPA"    class="h-6 opacity-40" />
-            <img src="assets/banks/bandec-icon.svg" alt="BANDEC" class="h-6 opacity-40" />
-            <img src="assets/banks/bm-icon.svg"     alt="BM"     class="h-6 opacity-40" />
+            <img src="assets/banks/bpa-icon.svg"    alt="BPA"    class="h-6 opacity-40 hover:opacity-80 transition-opacity dark:invert" />
+            <img src="assets/banks/bandec-icon.svg" alt="BANDEC" class="h-6 opacity-40 hover:opacity-80 transition-opacity dark:invert" />
+            <img src="assets/banks/bm-icon.svg"     alt="BM"     class="h-6 opacity-40 hover:opacity-80 transition-opacity dark:invert" />
           </div>
         </div>
 
         <div>
-          <h4 class="text-white font-semibold mb-4 text-sm">Navegación</h4>
+          <h4 class="text-gray-900 dark:text-white font-semibold mb-4 text-sm">Navegación</h4>
           <ul class="space-y-2 text-sm">
             <li><a href="#features"     class="footer-link">Funciones</a></li>
             <li><a href="#how-it-works" class="footer-link">Cómo funciona</a></li>
@@ -1008,7 +847,7 @@
         </div>
 
         <div>
-          <h4 class="text-white font-semibold mb-4 text-sm">Proyecto</h4>
+          <h4 class="text-gray-900 dark:text-white font-semibold mb-4 text-sm">Proyecto</h4>
           <ul class="space-y-2 text-sm">
             <li><a href="https://github.com/albertolicea00/BancaRemota"                          target="_blank" rel="noopener" class="footer-link">GitHub</a></li>
             <li><a href="https://github.com/albertolicea00/BancaRemota/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener" class="footer-link">Contribuir</a></li>
@@ -1018,7 +857,7 @@
         </div>
 
         <div>
-          <h4 class="text-white font-semibold mb-4 text-sm">Comunidad</h4>
+          <h4 class="text-gray-900 dark:text-white font-semibold mb-4 text-sm">Comunidad</h4>
           <ul class="space-y-2 text-sm">
             <li>
               <a href="https://t.me/BancaRemotaCuba" target="_blank" rel="noopener" class="footer-link flex items-center gap-2">
@@ -1068,6 +907,7 @@
   <script>
     function app() {
       return {
+        mobileMenuOpen: false,
         darkMode: localStorage.getItem('darkMode') === 'true' ||
           (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches),
         faqs: [
@@ -1084,8 +924,8 @@
             a: 'Actualmente está en beta — solo disponible instalando desde el código fuente en GitHub. <a href="#notify" class="text-gold underline">Suscríbete</a> para recibir una notificación en cuanto se publique.'
           },
           {
-            q: '¿Funciona con Android?',
-            a: 'Por ahora no. Banca Remota es nativa de iPhone (SwiftUI). Una versión Android está en el roadmap.'
+            q: '¿Cuánto cuesta la app?',
+            a: 'Cero. Nada. Ya bastante caro te salió el iPhone como para que también tengas que pagar por revisar tu banco. 😉'
           },
           {
             q: '¿La app realiza las operaciones bancarias por mí?',

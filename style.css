@@ -64,9 +64,9 @@ html { scroll-behavior: smooth; }
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background: rgba(255,255,255,.08);
-  border: 1px solid rgba(255,255,255,.2);
-  color: #fff;
+  background: rgba(0,0,0,.04);
+  border: 1px solid rgba(0,0,0,.1);
+  color: #1f2937;
   font-weight: 600;
   padding: 1rem 2rem;
   border-radius: 1rem;
@@ -75,7 +75,14 @@ html { scroll-behavior: smooth; }
   transition: background 0.2s;
   backdrop-filter: blur(8px);
 }
-.btn-ghost:hover { background: rgba(255,255,255,.14); }
+.btn-ghost:hover { background: rgba(0,0,0,.08); }
+
+.dark .btn-ghost {
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.2);
+  color: #fff;
+}
+.dark .btn-ghost:hover { background: rgba(255,255,255,.14); }
 
 /* ══════════════════════════════════════════
    SECTION — typography and badges
@@ -426,12 +433,13 @@ kbd.kbd {
    FOOTER LINKS
 ══════════════════════════════════════════ */
 .footer-link {
-  color: #9ca3af;
+  color: #6b7280;
   text-decoration: none;
   transition: color 0.15s;
   font-size: 0.875rem;
 }
-.footer-link:hover { color: var(--color-gold); }
+.dark .footer-link { color: #9ca3af; }
+.footer-link:hover, .dark .footer-link:hover { color: var(--color-gold); }
 
 /* ══════════════════════════════════════════
    MARQUEE
