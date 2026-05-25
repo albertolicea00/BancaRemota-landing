@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git -C /Users/albertolicea00/Develop/BancaRemota/BancaRemota_landing diff --name-only HEAD)"
+      "Bash(git -C /Users/albertolicea00/Develop/BancaRemota/BancaRemota_landing diff --name-only HEAD)",
+      "Bash(python3 -c ' *)"
     ]
   }
 }

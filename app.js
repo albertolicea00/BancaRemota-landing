@@ -20,7 +20,7 @@ function app() {
       },
       {
         q: '¿Cuánto cuesta la app?',
-        a: 'Cero. Nada. Ya bastante caro te salió el iPhone como para que también tengas que pagar por revisar tu banco. 😉'
+        a: 'Cero. Nada. Ya bastante caro te salió el iPhone como para que también tengas que pagar por revisar tu banco.'
       },
       {
         q: '¿La app realiza las operaciones bancarias por mí?',
@@ -77,7 +77,6 @@ function cardStack(cards, compact = false) {
     ],
 
     fanStyle(i) {
-      const p = this.fanPos[i] || this.fanPos[this.fanPos.length - 1]
       if (i === 0) {
         if (this.dragging) {
           const rot = this.dragX * 0.07
@@ -88,7 +87,12 @@ function cardStack(cards, compact = false) {
         }
         return `transform:rotate(0deg) translate(0,0);z-index:50;transition:transform 0.45s cubic-bezier(0.34,1.4,0.64,1);`
       }
-      return `transform:rotate(${p.r}deg) translate(${p.x}px,${p.y}px);z-index:${p.z};transition:transform 0.4s ease;`
+      // While flying, pre-animate each card one step forward so they're already
+      // in position when the array reshuffles — no jump
+      const targetIdx = this.flying ? i - 1 : i
+      const p = this.fanPos[targetIdx] ?? this.fanPos[this.fanPos.length - 1]
+      const z = (this.fanPos[i] ?? this.fanPos[this.fanPos.length - 1]).z
+      return `transform:rotate(${p.r}deg) translate(${p.x}px,${p.y}px);z-index:${z};transition:transform 0.35s ease;`
     },
 
     startDrag(e) {
