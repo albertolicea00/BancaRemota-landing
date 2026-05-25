@@ -160,7 +160,7 @@
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.21.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
             Ver en GitHub
           </a>
-          <button @click="document.getElementById('notify').scrollIntoView({behavior:'smooth'})" class="btn-ghost">
+          <button @click="notifyOpen = true" class="btn-ghost">
             🔔 Avísame cuando esté en App Store
           </button>
         </div>
@@ -751,62 +751,127 @@
       </div>
     </section>
 
-    <!-- ════════════════════════════════════════
-         NOTIFICACIÓN BETA + NEWSLETTER + TELEGRAM
-    ════════════════════════════════════════ -->
-    <section id="notify" class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-white relative overflow-hidden transition-colors duration-300">
-      <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div class="absolute top-0 right-1/4 w-80 h-80 rounded-full bg-gold opacity-10 blur-3xl"></div>
-        <div class="absolute bottom-0 left-1/4 w-64 h-64 rounded-full bg-bpa opacity-10 blur-3xl"></div>
-      </div>
+  </main>
 
-      <div class="relative max-w-3xl mx-auto text-center">
-        <div class="inline-flex items-center gap-2 bg-gold/10 border border-gold/30 text-gold text-xs font-semibold uppercase tracking-widest rounded-full px-4 py-1.5 mb-5">
-          <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+  <!-- ════════════════════════════════════════
+       MODAL — AVÍSAME CUANDO ESTÉ LISTA
+  ════════════════════════════════════════ -->
+  <div x-show="notifyOpen"
+       x-transition:enter="transition ease-out duration-200"
+       x-transition:enter-start="opacity-0"
+       x-transition:enter-end="opacity-100"
+       x-transition:leave="transition ease-in duration-150"
+       x-transition:leave-start="opacity-100"
+       x-transition:leave-end="opacity-0"
+       class="fixed inset-0 z-50 flex items-center justify-center p-4"
+       style="display:none">
+
+    <!-- Backdrop -->
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="notifyOpen = false"></div>
+
+    <!-- Card -->
+    <div x-show="notifyOpen"
+         x-transition:enter="transition ease-out duration-200"
+         x-transition:enter-start="opacity-0 scale-95 translate-y-2"
+         x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+         x-transition:leave="transition ease-in duration-150"
+         x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+         x-transition:leave-end="opacity-0 scale-95 translate-y-2"
+         class="relative w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-2xl overflow-hidden"
+         @keydown.escape.window="notifyOpen = false">
+
+      <!-- Gold top bar -->
+      <div class="h-1 bg-gradient-to-r from-gold via-[#dbab46] to-gold"></div>
+
+      <!-- Close button -->
+      <button @click="notifyOpen = false"
+              class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-gray-500 dark:text-gray-400">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <div class="p-8">
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 bg-gold/10 border border-gold/30 text-gold text-xs font-semibold uppercase tracking-widest rounded-full px-3 py-1 mb-5">
+          <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
           Pronto en App Store
         </div>
-        <h2 class="text-3xl sm:text-4xl font-black mb-4">Avísame cuando esté lista</h2>
-        <p class="text-gray-600 dark:text-white/60 mb-10 text-lg">La app está en beta. Déjanos tu correo y serás el primero en saber cuando esté disponible en la App Store.</p>
 
-        <!-- Email subscription form -->
-        <form x-data="notifyForm()" @submit.prevent="submit()" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto mb-4">
-          <input x-model="email" type="email" required placeholder="tucorreo@ejemplo.com"
-            class="flex-1 px-4 py-3 rounded-xl bg-white dark:bg-white/10 backdrop-blur border border-gray-300 dark:border-white/20 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-gold shadow-sm dark:shadow-none" />
-          <button type="submit" :disabled="sent"
-            class="px-6 py-3 bg-gold hover:bg-gold/80 text-gray-900 font-bold rounded-xl transition-all whitespace-nowrap disabled:opacity-60 shadow-sm dark:shadow-none">
-            <span x-show="!sent">Notificarme</span>
-            <span x-show="sent">✓ ¡Listo!</span>
-          </button>
-        </form>
-        <p x-data="notifyForm()" x-show="sent" x-transition class="text-accent text-sm mb-8">¡Te avisaremos en cuanto la app esté en la App Store! 🎉</p>
+        <h2 class="text-2xl font-black text-gray-900 dark:text-white mb-2">Avísame cuando esté lista</h2>
+        <p class="text-gray-500 dark:text-gray-400 text-sm mb-6 leading-relaxed">La app está en beta. Déjanos tu correo y serás el primero en saber cuando esté disponible en la App Store.</p>
 
-        <div class="mt-10 pt-8 border-t border-gray-200 dark:border-white/10">
-          <p class="text-gray-500 dark:text-white/40 text-sm mb-5">O únete directamente a la comunidad</p>
-          <div class="flex flex-col sm:flex-row gap-3 justify-center">
-            <a href="https://t.me/BancaRemotaCuba" target="_blank" rel="noopener"
-              class="inline-flex items-center justify-center gap-2 bg-[#229ED9] hover:bg-[#1a8bbf] text-white font-semibold px-6 py-3 rounded-xl transition-all shadow-sm dark:shadow-lg">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-              Canal de Telegram
-            </a>
-            <a href="https://github.com/albertolicea00/BancaRemota" target="_blank" rel="noopener"
-              class="inline-flex items-center justify-center gap-2 bg-white dark:bg-white/10 hover:bg-gray-50 dark:hover:bg-white/20 border border-gray-200 dark:border-white/20 text-gray-900 dark:text-white font-semibold px-6 py-3 rounded-xl transition-all shadow-sm dark:shadow-none">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.21.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
-              Seguir en GitHub
-            </a>
-          </div>
+        <!-- Form -->
+        <div x-data="notifyForm()">
+          <form @submit.prevent="submit()" class="flex flex-col gap-3">
+            <input x-model="email" type="email" required placeholder="tucorreo@ejemplo.com"
+              :disabled="loading || sent"
+              class="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-white/10 border border-gray-200 dark:border-white/15 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-gold disabled:opacity-50 transition" />
+            <button type="submit" :disabled="loading || sent"
+              class="w-full px-6 py-3 bg-gold hover:bg-gold/85 text-white font-bold rounded-xl transition-all disabled:opacity-60 flex items-center justify-center gap-2 shadow shadow-gold/30">
+              <span x-show="!loading && !sent">🔔 Notificarme</span>
+              <span x-show="loading" class="animate-pulse">Enviando...</span>
+              <span x-show="sent">✓ ¡Listo, te avisamos!</span>
+            </button>
+          </form>
+          <p x-show="error" x-text="error" x-transition class="text-red-500 dark:text-red-400 text-xs mt-2"></p>
+          <p x-show="sent" x-transition class="text-accent text-xs mt-2 font-medium">¡Suscrito! Te avisaremos en cuanto la app esté en la App Store. 🎉</p>
+        </div>
+
+        <!-- Divider -->
+        <div class="flex items-center gap-3 my-5">
+          <div class="flex-1 h-px bg-gray-200 dark:bg-white/10"></div>
+          <span class="text-xs text-gray-400 dark:text-gray-500">o únete a la comunidad</span>
+          <div class="flex-1 h-px bg-gray-200 dark:bg-white/10"></div>
+        </div>
+
+        <!-- Community links -->
+        <div class="flex gap-3">
+          <a href="https://t.me/BancaRemotaCuba" target="_blank" rel="noopener"
+            class="flex-1 inline-flex items-center justify-center gap-2 bg-[#229ED9] hover:bg-[#1a8bbf] text-white font-semibold px-4 py-2.5 rounded-xl transition-all text-sm">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            Telegram
+          </a>
+          <a href="https://github.com/albertolicea00/BancaRemota" target="_blank" rel="noopener"
+            class="flex-1 inline-flex items-center justify-center gap-2 bg-gray-900 dark:bg-white/10 hover:bg-gray-800 dark:hover:bg-white/20 text-white font-semibold px-4 py-2.5 rounded-xl transition-all text-sm">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.21.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
         </div>
       </div>
-    </section>
-
-
-
-  </main>
+    </div>
+  </div>
 
   <!-- ════════════════════════════════════════
        14 — FOOTER
   ════════════════════════════════════════ -->
   <footer class="bg-gray-50 dark:bg-gray-950 text-gray-600 dark:text-gray-400 py-16 px-4 sm:px-6 lg:px-8 border-t border-gray-200 dark:border-gray-800 transition-colors duration-300">
     <div class="max-w-6xl mx-auto">
+
+      <!-- Newsletter bar -->
+      <div class="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl px-6 py-6 mb-12 flex flex-col sm:flex-row items-center gap-5 shadow-sm">
+        <div class="flex-1 min-w-0">
+          <p class="font-bold text-gray-900 dark:text-white text-sm flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-accent animate-pulse flex-shrink-0"></span>
+            Pronto en la App Store — avísame cuando esté lista
+          </p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Sin spam. Solo un email cuando la app esté disponible.</p>
+        </div>
+        <div x-data="notifyForm()" class="w-full sm:w-auto">
+          <form @submit.prevent="submit()" class="flex gap-2">
+            <input x-model="email" type="email" required placeholder="tu@correo.com"
+              :disabled="loading || sent"
+              class="w-full sm:w-52 px-3 py-2 text-sm rounded-lg bg-gray-50 dark:bg-white/10 border border-gray-200 dark:border-white/15 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-gold disabled:opacity-50 transition" />
+            <button type="submit" :disabled="loading || sent"
+              class="px-4 py-2 text-sm bg-gold hover:bg-gold/85 text-white font-bold rounded-lg transition-all disabled:opacity-60 whitespace-nowrap flex items-center gap-1.5 shadow shadow-gold/25">
+              <span x-show="!loading && !sent">Notificarme</span>
+              <span x-show="loading" class="animate-pulse">...</span>
+              <span x-show="sent">✓ Listo</span>
+            </button>
+          </form>
+          <p x-show="error" x-text="error" x-transition class="text-red-500 text-xs mt-1.5"></p>
+          <p x-show="sent" x-transition class="text-accent text-xs mt-1.5 font-medium">¡Suscrito! Te avisaremos en cuanto salga. 🎉</p>
+        </div>
+      </div>
+
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
 
         <div class="lg:col-span-1">

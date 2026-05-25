@@ -1,6 +1,7 @@
 function app() {
   return {
     mobileMenuOpen: false,
+    notifyOpen: false,
     darkMode: localStorage.getItem('darkMode') === 'true' ||
       (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches),
     faqs: [
@@ -14,7 +15,7 @@ function app() {
       },
       {
         q: '¿Cuándo estará en la App Store?',
-        a: 'Actualmente está en beta — solo disponible instalando desde el código fuente en GitHub. <a href="#notify" class="text-gold underline">Suscríbete</a> para recibir una notificación en cuanto se publique.'
+        a: 'Actualmente está en beta — solo disponible instalando desde el código fuente en GitHub. <button onclick="window.dispatchEvent(new CustomEvent(\'notify:open\'))" class="text-gold underline cursor-pointer">Suscríbete</button> para recibir una notificación en cuanto se publique.'
       },
       {
         q: '¿Cuánto cuesta la app?',
@@ -36,6 +37,7 @@ function app() {
           this.darkMode = e.matches;
         }
       });
+      window.addEventListener('notify:open', () => { this.notifyOpen = true; });
     }
   }
 }
@@ -118,11 +120,30 @@ function notifyForm() {
   return {
     email: '',
     sent: false,
-    submit() {
-      if (!this.email) return
-      // TODO: connect to Mailchimp / ConvertKit / Resend
-      console.log('Suscripción:', this.email)
-      this.sent = true
+    loading: false,
+    error: '',
+    async submit() {
+      if (!this.email) return;
+      this.loading = true;
+      this.error = '';
+
+      try {
+        const res = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: this.email })
+        });
+
+        if (res.ok) {
+          this.sent = true;
+        } else {
+          this.error = 'Hubo un error al suscribirte. Inténtalo de nuevo.';
+        }
+      } catch (err) {
+        this.error = 'Error de red. Por favor, revisa tu conexión e inténtalo de nuevo.';
+      } finally {
+        this.loading = false;
+      }
     }
   }
 }
