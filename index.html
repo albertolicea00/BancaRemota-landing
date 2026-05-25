@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="es" x-data="app()" :class="{ 'dark': darkMode }">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Banca Remota — Banca cubana desde tu iPhone</title>
-  <meta name="description" content="App nativa para iPhone que simplifica las operaciones bancarias cubanas mediante códigos USSD. Sin internet. Compatible con BPA, BANDEC y BM." />
+  <meta name="description"
+    content="App nativa para iPhone que simplifica las operaciones bancarias cubanas mediante códigos USSD. Sin internet. Compatible con BPA, BANDEC y BM." />
   <meta name="theme-color" content="#B38B4D" />
   <link rel="icon" type="image/png" href="assets/icon-white.png" />
   <link rel="apple-touch-icon" href="assets/icon-white.png" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="Banca Remota — Banca cubana desde tu iPhone" />
-  <meta property="og:description" content="Gestiona tus finanzas en Cuba sin internet. Consulta saldos, transfiere, paga servicios y más — todo por red telefónica." />
+  <meta property="og:description"
+    content="Gestiona tus finanzas en Cuba sin internet. Consulta saldos, transfiere, paga servicios y más — todo por red telefónica." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://banca-remota-landing.vercel.app/assets/icon-white.png" />
 
@@ -23,14 +26,14 @@
       theme: {
         extend: {
           colors: {
-            bpa:    '#1E5F52',
+            bpa: '#1E5F52',
             bandec: '#5B2A1F',
             accent: '#81D717',
-            gold:   '#B38B4D',
-            bm:     '#1A3A6B',
+            gold: '#B38B4D',
+            bm: '#1A3A6B',
           },
           fontFamily: {
-            sans: ['-apple-system','BlinkMacSystemFont','SF Pro Display','Segoe UI','sans-serif'],
+            sans: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'Segoe UI', 'sans-serif'],
           },
           keyframes: {
             fadeIn: { '0%': { opacity: '0', transform: 'translateY(8px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
@@ -59,58 +62,94 @@
   </script>
 </head>
 
-<body class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 font-sans antialiased transition-colors duration-300 overflow-x-hidden">
+<body
+  class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 font-sans antialiased transition-colors duration-300 overflow-x-hidden">
 
   <!-- ════════════════════════════════════════
        NAV
   ════════════════════════════════════════ -->
-  <nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
+  <nav
+    class="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
 
       <a href="#" class="flex items-center gap-2.5 font-bold text-gold text-lg">
-        <img src="assets/icon-black.png"  alt="Banca Remota" class="w-8 h-8 dark:hidden rounded-lg shadow-sm" />
-        <img src="assets/icon-white.png"  alt="Banca Remota" class="w-8 h-8 hidden dark:block rounded-lg shadow-sm" />
+        <img src="assets/icon-black.png" alt="Banca Remota" class="w-8 h-8 dark:hidden rounded-lg shadow-sm" />
+        <img src="assets/icon-white.png" alt="Banca Remota" class="w-8 h-8 hidden dark:block rounded-lg shadow-sm" />
         <span class="text-gray-900 dark:text-white font-bold">Banca Remota</span>
       </a>
 
       <div class="hidden md:flex items-center gap-6 text-sm text-gray-600 dark:text-gray-400">
-        <a href="#features"    class="nav-link">Funciones</a>
+        <a href="#features" class="nav-link">Funciones</a>
         <a href="#how-it-works" class="nav-link">Cómo funciona</a>
-        <a href="#manual"      class="nav-link">Manual</a>
-        <a href="#banks"       class="nav-link">Bancos</a>
-        <a href="#faq"         class="nav-link">FAQ</a>
+        <a href="#manual" class="nav-link">Manual</a>
+        <a href="#banks" class="nav-link">Bancos</a>
+        <a href="#faq" class="nav-link">FAQ</a>
       </div>
 
       <div class="flex items-center gap-3">
         <button @click="darkMode = !darkMode"
           class="w-9 h-9 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
           :title="darkMode ? 'Modo claro' : 'Modo oscuro'">
-          <span x-show="!darkMode">🌙</span>
-          <span x-show="darkMode">☀️</span>
+          <span x-show="!darkMode"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+              stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+            </svg></span>
+          <span x-show="darkMode"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+              stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 3v2.25m0 13.5V21m8.974-8.974h-2.25M4.25 12h2.25m13.308-7.308l-1.591 1.591M6.829 17.171l-1.591 1.591m12.932 0l-1.591-1.591M6.829 6.829L5.238 5.238M17.5 12A5.5 5.5 0 1112 6.5a5.5 5.5 0 015.5 5.5z" />
+            </svg></span>
         </button>
 
         <a href="https://github.com/albertolicea00/BancaRemota" target="_blank" rel="noopener"
           class="hidden sm:inline-flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-gold dark:hover:border-gold transition-colors">
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.21.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.21.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z" />
+          </svg>
           <span x-text="githubStars !== null ? '★ ' + githubStars : 'GitHub'"></span>
         </a>
 
         <!-- Mobile menu button -->
-        <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden p-2 text-gray-600 dark:text-gray-300 ml-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-          <svg x-show="!mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-          <svg x-show="mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: none;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        <button @click="mobileMenuOpen = !mobileMenuOpen"
+          class="md:hidden p-2 text-gray-600 dark:text-gray-300 ml-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+          <svg x-show="!mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg x-show="mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            style="display: none;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
         </button>
       </div>
     </div>
 
     <!-- Mobile Menu -->
-    <div x-show="mobileMenuOpen" x-transition class="md:hidden border-t border-gray-100 dark:border-gray-800 bg-white/95 dark:bg-gray-950/95 backdrop-blur-md">
+    <div x-show="mobileMenuOpen" x-transition
+      class="md:hidden border-t border-gray-100 dark:border-gray-800 bg-white/95 dark:bg-gray-950/95 backdrop-blur-md">
       <div class="px-4 pt-2 pb-6 space-y-1 shadow-lg">
-        <a href="#features" @click="mobileMenuOpen = false" class="block px-3 py-3 rounded-xl text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">Funciones</a>
-        <a href="#how-it-works" @click="mobileMenuOpen = false" class="block px-3 py-3 rounded-xl text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">Cómo funciona</a>
-        <a href="#manual" @click="mobileMenuOpen = false" class="block px-3 py-3 rounded-xl text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">Manual</a>
-        <a href="#banks" @click="mobileMenuOpen = false" class="block px-3 py-3 rounded-xl text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">Bancos</a>
-        <a href="#faq" @click="mobileMenuOpen = false" class="block px-3 py-3 rounded-xl text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">FAQ</a>
+        <a href="#features" @click="mobileMenuOpen = false"
+          class="block px-3 py-3 rounded-xl text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">Funciones</a>
+        <a href="#how-it-works" @click="mobileMenuOpen = false"
+          class="block px-3 py-3 rounded-xl text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">Cómo
+          funciona</a>
+        <a href="#manual" @click="mobileMenuOpen = false"
+          class="block px-3 py-3 rounded-xl text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">Manual</a>
+        <a href="#banks" @click="mobileMenuOpen = false"
+          class="block px-3 py-3 rounded-xl text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">Bancos</a>
+        <a href="#faq" @click="mobileMenuOpen = false"
+          class="block px-3 py-3 rounded-xl text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">FAQ</a>
+        <div class="pt-2 pb-1">
+          <a href="https://github.com/albertolicea00/BancaRemota" target="_blank" rel="noopener"
+            class="flex items-center gap-2 px-3 py-3 rounded-xl text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.21.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z" />
+            </svg>
+            <span x-text="githubStars !== null ? 'GitHub · ★ ' + githubStars : 'GitHub'"></span>
+          </a>
+        </div>
       </div>
     </div>
   </nav>
@@ -120,7 +159,8 @@
     <!-- ════════════════════════════════════════
          1·2·3·4 — HERO + MOCKUP CAROUSEL
     ════════════════════════════════════════ -->
-    <section id="hero" class="pt-28 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-white via-gray-50 to-white dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 text-gray-900 dark:text-white overflow-hidden relative transition-colors duration-300">
+    <section id="hero"
+      class="pt-28 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-white via-gray-50 to-white dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 text-gray-900 dark:text-white overflow-hidden relative transition-colors duration-300">
 
       <!-- Background blobs -->
       <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
@@ -131,21 +171,25 @@
 
       <div class="relative max-w-3xl mx-auto text-center">
 
-        <div class="inline-flex items-center gap-2 bg-gold/10 border border-gold/30 text-gold rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-widest mb-6">
+        <div
+          class="inline-flex items-center gap-2 bg-gold/10 border border-gold/30 text-gold rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-widest mb-6">
           <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
           Beta pública · Open Source
         </div>
 
         <div class="flex justify-center mb-6">
           <div class="relative">
-            <img src="assets/icon-black.png" alt="Banca Remota" class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl shadow-xl dark:hidden" />
-            <img src="assets/icon-white.png" alt="Banca Remota" class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl shadow-xl hidden dark:block" />
-            <span class="absolute -top-3 -right-3 w-9 h-9 flex items-center justify-center bg-gradient-to-tr from-gold to-[#dbab46] text-white text-[13px] font-black rounded-full shadow-md border-[3px] border-white dark:border-gray-950">V2</span>
+            <img src="assets/icon-black.png" alt="Banca Remota"
+              class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl shadow-xl dark:hidden" />
+            <img src="assets/icon-white.png" alt="Banca Remota"
+              class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl shadow-xl hidden dark:block" />
+            <span
+              class="absolute -top-3 -right-3 w-9 h-9 flex items-center justify-center bg-gradient-to-tr from-gold to-[#dbab46] text-white text-[13px] font-black rounded-full shadow-md border-[3px] border-white dark:border-gray-950">V2</span>
           </div>
         </div>
 
         <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-5">
-          Banca cubana<br/>
+          Banca cubana<br />
           <span class="text-gold">desde tu iPhone</span>
         </h1>
 
@@ -153,15 +197,22 @@
           Consulta saldos, transfiere y paga servicios —
           <strong class="text-gray-900 dark:text-white">sin internet</strong>, directo por la red telefónica.
         </p>
-        <p class="text-sm text-gray-500 dark:text-white/40 mb-8">Compatible con BPA, BANDEC y BM · iOS 16+ · Datos 100% locales</p>
+        <p class="text-sm text-gray-500 dark:text-white/40 mb-8">Compatible con BPA, BANDEC y BM · iOS 16+ · Datos 100%
+          locales</p>
 
         <div class="flex flex-col sm:flex-row gap-3 justify-center mb-8">
           <button @click="notifyOpen = true" class="btn-primary">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+            </svg>
             Avísame cuando esté en App Store
           </button>
           <a href="https://github.com/albertolicea00/BancaRemota" target="_blank" rel="noopener" class="btn-ghost">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.21.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.21.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z" />
+            </svg>
             Ver en GitHub
           </a>
         </div>
@@ -169,14 +220,16 @@
         <!-- Bank badges -->
         <div class="flex items-center justify-center gap-3 flex-wrap mb-12">
           <span class="text-xs text-gray-500 dark:text-white/30 uppercase tracking-widest">Compatible con</span>
-          <img src="assets/banks/bpa-icon.svg"    alt="BPA"    class="h-7 opacity-70 hover:opacity-100 transition-opacity dark:invert" title="Banco Popular de Ahorro" />
-          <img src="assets/banks/bandec-icon.svg" alt="BANDEC" class="h-7 opacity-70 hover:opacity-100 transition-opacity dark:invert" title="BANDEC" />
-          <img src="assets/banks/bm-icon.svg"     alt="BM"     class="h-7 opacity-70 hover:opacity-100 transition-opacity dark:invert" title="Banco Metropolitano" />
+          <img src="assets/banks/bpa-icon.svg" alt="BPA"
+            class="h-7 opacity-70 hover:opacity-100 transition-opacity dark:invert" title="Banco Popular de Ahorro" />
+          <img src="assets/banks/bandec-icon.svg" alt="BANDEC"
+            class="h-7 opacity-70 hover:opacity-100 transition-opacity dark:invert" title="BANDEC" />
+          <img src="assets/banks/bm-icon.svg" alt="BM"
+            class="h-7 opacity-70 hover:opacity-100 transition-opacity dark:invert" title="Banco Metropolitano" />
         </div>
 
         <!-- Card stack — mobile only (desktop covered by features section) -->
-        <div class="flex justify-center lg:hidden mt-12 pt-12"
-             x-data="cardStack([
+        <div class="flex justify-center lg:hidden mt-12 pt-12" x-data="cardStack([
                {id:'home',     light:'assets/mockups/home-view-light.webp',     dark:'assets/mockups/home-view-dark.webp'},
                {id:'bpa',      light:'assets/mockups/bpm-view-light.webp',      dark:'assets/mockups/bpm-view-dark.webp'},
                {id:'bandec',   light:'assets/mockups/bandec-view-light.webp',   dark:'assets/mockups/bandec-view-dark.webp'},
@@ -189,18 +242,14 @@
                {id:'settings', light:'assets/mockups/settings-view-light.webp', dark:'assets/mockups/settings-view-dark.webp'},
              ])">
           <div class="relative select-none" style="width:13rem;height:27rem;touch-action:none;"
-               @pointerdown="startDrag($event)"
-               @pointermove.window="drag($event)"
-               @pointerup.window="endDrag()"
-               @pointercancel.window="endDrag()">
+            @pointerdown="startDrag($event)" @pointermove.window="drag($event)" @pointerup.window="endDrag()"
+            @pointercancel.window="endDrag()">
             <template x-for="(card, i) in cards" :key="card.id">
-              <div class="absolute inset-0"
-                   :style="fanStyle(i)"
-                   :class="i === 0 ? 'cursor-grab active:cursor-grabbing' : 'pointer-events-none'">
+              <div class="absolute inset-0" :style="fanStyle(i)"
+                :class="i === 0 ? 'cursor-grab active:cursor-grabbing' : 'pointer-events-none'">
                 <img :src="darkMode ? card.dark : card.light" :alt="card.id"
-                     class="w-full h-full object-cover object-top rounded-[2.25rem] ring-1 ring-gold/40"
-                     :class="i === 0 ? 'shadow-2xl shadow-black/50' : 'shadow-lg shadow-black/20'"
-                     draggable="false" />
+                  class="w-full h-full object-cover object-top rounded-[2.25rem] ring-1 ring-gold/40"
+                  :class="i === 0 ? 'shadow-2xl shadow-black/50' : 'shadow-lg shadow-black/20'" draggable="false" />
               </div>
             </template>
           </div>
@@ -225,31 +274,38 @@
           <!-- Feature selector list (left — visible on all breakpoints) -->
           <div class="space-y-2">
 
-            <button @click="feat = 'banking'"  :class="feat === 'banking'  ? 'feat-active' : 'feat-inactive'" class="feat-btn">
+            <button @click="feat = 'banking'" :class="feat === 'banking'  ? 'feat-active' : 'feat-inactive'"
+              class="feat-btn">
               <div class="feat-btn-icon">💳</div>
               <div class="text-left">
                 <p class="feat-btn-title">Operaciones bancarias</p>
-                <p class="feat-btn-desc">BPA, BANDEC y BM completos — cualquier operación USSD organizada por categoría.</p>
+                <p class="feat-btn-desc">BPA, BANDEC y BM completos — cualquier operación USSD organizada por categoría.
+                </p>
               </div>
             </button>
 
-            <button @click="feat = 'favorites'" :class="feat === 'favorites' ? 'feat-active' : 'feat-inactive'" class="feat-btn">
+            <button @click="feat = 'favorites'" :class="feat === 'favorites' ? 'feat-active' : 'feat-inactive'"
+              class="feat-btn">
               <div class="feat-btn-icon">⭐</div>
               <div class="text-left">
                 <p class="feat-btn-title">Favoritos personalizables</p>
-                <p class="feat-btn-desc">Fija operaciones frecuentes en el home. Arrastra para reordenar. Color a tu gusto.</p>
+                <p class="feat-btn-desc">Fija operaciones frecuentes en el home. Arrastra para reordenar. Color a tu
+                  gusto.</p>
               </div>
             </button>
 
-            <button @click="feat = 'accounts'"  :class="feat === 'accounts'  ? 'feat-active' : 'feat-inactive'" class="feat-btn">
+            <button @click="feat = 'accounts'" :class="feat === 'accounts'  ? 'feat-active' : 'feat-inactive'"
+              class="feat-btn">
               <div class="feat-btn-icon">🏦</div>
               <div class="text-left">
                 <p class="feat-btn-title">Cuentas bancarias</p>
-                <p class="feat-btn-desc">Guarda datos de tus tarjetas con número enmascarado. Un toque copia al portapapeles.</p>
+                <p class="feat-btn-desc">Guarda datos de tus tarjetas con número enmascarado. Un toque copia al
+                  portapapeles.</p>
               </div>
             </button>
 
-            <button @click="feat = 'nauta'"     :class="feat === 'nauta'     ? 'feat-active' : 'feat-inactive'" class="feat-btn">
+            <button @click="feat = 'nauta'" :class="feat === 'nauta'     ? 'feat-active' : 'feat-inactive'"
+              class="feat-btn">
               <div class="feat-btn-icon">🌐</div>
               <div class="text-left">
                 <p class="feat-btn-title">Cuentas Nauta</p>
@@ -257,27 +313,33 @@
               </div>
             </button>
 
-            <button @click="feat = 'services'"  :class="feat === 'services'  ? 'feat-active' : 'feat-inactive'" class="feat-btn">
+            <button @click="feat = 'services'" :class="feat === 'services'  ? 'feat-active' : 'feat-inactive'"
+              class="feat-btn">
               <div class="feat-btn-icon">📄</div>
               <div class="text-left">
                 <p class="feat-btn-title">Facturas de servicios</p>
-                <p class="feat-btn-desc">Contratos de electricidad, agua, gas y teléfono — cópialos al hacer pagos USSD.</p>
+                <p class="feat-btn-desc">Contratos de electricidad, agua, gas y teléfono — cópialos al hacer pagos USSD.
+                </p>
               </div>
             </button>
 
-            <button @click="feat = 'keys'"      :class="feat === 'keys'      ? 'feat-active' : 'feat-inactive'" class="feat-btn">
+            <button @click="feat = 'keys'" :class="feat === 'keys'      ? 'feat-active' : 'feat-inactive'"
+              class="feat-btn">
               <div class="feat-btn-icon">🔑</div>
               <div class="text-left">
                 <p class="feat-btn-title">Claves protegidas</p>
-                <p class="feat-btn-desc">Gestor local de PINs y contraseñas. <strong>Solo con Face ID / Touch ID.</strong></p>
+                <p class="feat-btn-desc">Gestor local de PINs y contraseñas. <strong>Solo con Face ID / Touch
+                    ID.</strong></p>
               </div>
             </button>
 
-            <button @click="feat = 'settings'"  :class="feat === 'settings'  ? 'feat-active' : 'feat-inactive'" class="feat-btn">
+            <button @click="feat = 'settings'" :class="feat === 'settings'  ? 'feat-active' : 'feat-inactive'"
+              class="feat-btn">
               <div class="feat-btn-icon">🎨</div>
               <div class="text-left">
                 <p class="feat-btn-title">Personalización</p>
-                <p class="feat-btn-desc">Tema claro/oscuro, Face ID, color de favoritos, accesos rápidos y más desde Ajustes.</p>
+                <p class="feat-btn-desc">Tema claro/oscuro, Face ID, color de favoritos, accesos rápidos y más desde
+                  Ajustes.</p>
               </div>
             </button>
 
@@ -287,113 +349,120 @@
           <div class="hidden lg:flex justify-center items-center" style="transform: scale(2);">
             <div class="relative" style="width:10rem;height:21rem;">
 
-            <!-- helper macro: a swipeable mini stack for each feature -->
-            <div x-show="feat === 'banking'" x-transition.opacity.duration.400ms
-                 x-data="cardStack([
+              <!-- helper macro: a swipeable mini stack for each feature -->
+              <div x-show="feat === 'banking'" x-transition.opacity.duration.400ms x-data="cardStack([
                    {id:'bpa',    light:'assets/mockups/bpm-view-light.webp',    dark:'assets/mockups/bpm-view-dark.webp'},
                    {id:'bandec', light:'assets/mockups/bandec-view-light.webp', dark:'assets/mockups/bandec-view-dark.webp'},
                    {id:'bm',     light:'assets/mockups/bm-view-light.webp',     dark:'assets/mockups/bm-view-dark.webp'},
-                 ], true)"
-                 class="absolute inset-0 select-none" style="touch-action:none;"
-                 @pointerdown="startDrag($event)" @pointermove.window="drag($event)"
-                 @pointerup.window="endDrag()" @pointercancel.window="endDrag()">
-              <template x-for="(card,i) in cards" :key="card.id">
-                <div class="absolute inset-0" :style="fanStyle(i)" :class="i===0?'cursor-grab active:cursor-grabbing':'pointer-events-none'">
-                  <img :src="darkMode?card.dark:card.light" :alt="card.id" class="w-full h-full object-cover object-top rounded-[1.75rem] ring-1 ring-gold/40" :class="i === 0 ? 'shadow-2xl shadow-black/40' : 'shadow-md shadow-black/10'" draggable="false"/>
-                </div>
-              </template>
-            </div>
+                 ], true)" class="absolute inset-0 select-none" style="touch-action:none;"
+                @pointerdown="startDrag($event)" @pointermove.window="drag($event)" @pointerup.window="endDrag()"
+                @pointercancel.window="endDrag()">
+                <template x-for="(card,i) in cards" :key="card.id">
+                  <div class="absolute inset-0" :style="fanStyle(i)"
+                    :class="i===0?'cursor-grab active:cursor-grabbing':'pointer-events-none'">
+                    <img :src="darkMode?card.dark:card.light" :alt="card.id"
+                      class="w-full h-full object-cover object-top rounded-[1.75rem] ring-1 ring-gold/40"
+                      :class="i === 0 ? 'shadow-2xl shadow-black/40' : 'shadow-md shadow-black/10'" draggable="false" />
+                  </div>
+                </template>
+              </div>
 
-            <div x-show="feat === 'favorites'" x-transition.opacity.duration.400ms
-                 x-data="cardStack([
+              <div x-show="feat === 'favorites'" x-transition.opacity.duration.400ms x-data="cardStack([
                    {id:'home',     light:'assets/mockups/home-view-light.webp',     dark:'assets/mockups/home-view-dark.webp'},
                    {id:'settings', light:'assets/mockups/settings-view-light.webp', dark:'assets/mockups/settings-view-dark.webp'},
-                 ], true)"
-                 class="absolute inset-0 select-none" style="touch-action:none;"
-                 @pointerdown="startDrag($event)" @pointermove.window="drag($event)"
-                 @pointerup.window="endDrag()" @pointercancel.window="endDrag()">
-              <template x-for="(card,i) in cards" :key="card.id">
-                <div class="absolute inset-0" :style="fanStyle(i)" :class="i===0?'cursor-grab active:cursor-grabbing':'pointer-events-none'">
-                  <img :src="darkMode?card.dark:card.light" :alt="card.id" class="w-full h-full object-cover object-top rounded-[1.75rem] ring-1 ring-gold/40" :class="i === 0 ? 'shadow-2xl shadow-black/40' : 'shadow-md shadow-black/10'" draggable="false"/>
-                </div>
-              </template>
-            </div>
+                 ], true)" class="absolute inset-0 select-none" style="touch-action:none;"
+                @pointerdown="startDrag($event)" @pointermove.window="drag($event)" @pointerup.window="endDrag()"
+                @pointercancel.window="endDrag()">
+                <template x-for="(card,i) in cards" :key="card.id">
+                  <div class="absolute inset-0" :style="fanStyle(i)"
+                    :class="i===0?'cursor-grab active:cursor-grabbing':'pointer-events-none'">
+                    <img :src="darkMode?card.dark:card.light" :alt="card.id"
+                      class="w-full h-full object-cover object-top rounded-[1.75rem] ring-1 ring-gold/40"
+                      :class="i === 0 ? 'shadow-2xl shadow-black/40' : 'shadow-md shadow-black/10'" draggable="false" />
+                  </div>
+                </template>
+              </div>
 
-            <div x-show="feat === 'accounts'" x-transition.opacity.duration.400ms
-                 x-data="cardStack([
+              <div x-show="feat === 'accounts'" x-transition.opacity.duration.400ms x-data="cardStack([
                    {id:'card',     light:'assets/mockups/card-view-light.webp',     dark:'assets/mockups/card-view-dark.webp'},
                    {id:'card-add', light:'assets/mockups/card-add-view-light.webp', dark:'assets/mockups/card-add-view-dark.webp'},
-                 ], true)"
-                 class="absolute inset-0 select-none" style="touch-action:none;"
-                 @pointerdown="startDrag($event)" @pointermove.window="drag($event)"
-                 @pointerup.window="endDrag()" @pointercancel.window="endDrag()">
-              <template x-for="(card,i) in cards" :key="card.id">
-                <div class="absolute inset-0" :style="fanStyle(i)" :class="i===0?'cursor-grab active:cursor-grabbing':'pointer-events-none'">
-                  <img :src="darkMode?card.dark:card.light" :alt="card.id" class="w-full h-full object-cover object-top rounded-[1.75rem] ring-1 ring-gold/40" :class="i === 0 ? 'shadow-2xl shadow-black/40' : 'shadow-md shadow-black/10'" draggable="false"/>
-                </div>
-              </template>
-            </div>
+                 ], true)" class="absolute inset-0 select-none" style="touch-action:none;"
+                @pointerdown="startDrag($event)" @pointermove.window="drag($event)" @pointerup.window="endDrag()"
+                @pointercancel.window="endDrag()">
+                <template x-for="(card,i) in cards" :key="card.id">
+                  <div class="absolute inset-0" :style="fanStyle(i)"
+                    :class="i===0?'cursor-grab active:cursor-grabbing':'pointer-events-none'">
+                    <img :src="darkMode?card.dark:card.light" :alt="card.id"
+                      class="w-full h-full object-cover object-top rounded-[1.75rem] ring-1 ring-gold/40"
+                      :class="i === 0 ? 'shadow-2xl shadow-black/40' : 'shadow-md shadow-black/10'" draggable="false" />
+                  </div>
+                </template>
+              </div>
 
-            <div x-show="feat === 'nauta'" x-transition.opacity.duration.400ms
-                 x-data="cardStack([
+              <div x-show="feat === 'nauta'" x-transition.opacity.duration.400ms x-data="cardStack([
                    {id:'nauta',     light:'assets/mockups/nauta-view-light.webp',     dark:'assets/mockups/nauta-view-dark.webp'},
                    {id:'nauta-add', light:'assets/mockups/nauta-add-view-light.webp', dark:'assets/mockups/nauta-add-view-dark.webp'},
-                 ], true)"
-                 class="absolute inset-0 select-none" style="touch-action:none;"
-                 @pointerdown="startDrag($event)" @pointermove.window="drag($event)"
-                 @pointerup.window="endDrag()" @pointercancel.window="endDrag()">
-              <template x-for="(card,i) in cards" :key="card.id">
-                <div class="absolute inset-0" :style="fanStyle(i)" :class="i===0?'cursor-grab active:cursor-grabbing':'pointer-events-none'">
-                  <img :src="darkMode?card.dark:card.light" :alt="card.id" class="w-full h-full object-cover object-top rounded-[1.75rem] ring-1 ring-gold/40" :class="i === 0 ? 'shadow-2xl shadow-black/40' : 'shadow-md shadow-black/10'" draggable="false"/>
-                </div>
-              </template>
-            </div>
+                 ], true)" class="absolute inset-0 select-none" style="touch-action:none;"
+                @pointerdown="startDrag($event)" @pointermove.window="drag($event)" @pointerup.window="endDrag()"
+                @pointercancel.window="endDrag()">
+                <template x-for="(card,i) in cards" :key="card.id">
+                  <div class="absolute inset-0" :style="fanStyle(i)"
+                    :class="i===0?'cursor-grab active:cursor-grabbing':'pointer-events-none'">
+                    <img :src="darkMode?card.dark:card.light" :alt="card.id"
+                      class="w-full h-full object-cover object-top rounded-[1.75rem] ring-1 ring-gold/40"
+                      :class="i === 0 ? 'shadow-2xl shadow-black/40' : 'shadow-md shadow-black/10'" draggable="false" />
+                  </div>
+                </template>
+              </div>
 
-            <div x-show="feat === 'services'" x-transition.opacity.duration.400ms
-                 x-data="cardStack([
+              <div x-show="feat === 'services'" x-transition.opacity.duration.400ms x-data="cardStack([
                    {id:'services',     light:'assets/mockups/services-view-light.webp',     dark:'assets/mockups/services-view-dark.webp'},
                    {id:'services-add', light:'assets/mockups/services-add-view-light.webp', dark:'assets/mockups/services-add-view-dark.webp'},
-                 ], true)"
-                 class="absolute inset-0 select-none" style="touch-action:none;"
-                 @pointerdown="startDrag($event)" @pointermove.window="drag($event)"
-                 @pointerup.window="endDrag()" @pointercancel.window="endDrag()">
-              <template x-for="(card,i) in cards" :key="card.id">
-                <div class="absolute inset-0" :style="fanStyle(i)" :class="i===0?'cursor-grab active:cursor-grabbing':'pointer-events-none'">
-                  <img :src="darkMode?card.dark:card.light" :alt="card.id" class="w-full h-full object-cover object-top rounded-[1.75rem] ring-1 ring-gold/40" :class="i === 0 ? 'shadow-2xl shadow-black/40' : 'shadow-md shadow-black/10'" draggable="false"/>
-                </div>
-              </template>
-            </div>
+                 ], true)" class="absolute inset-0 select-none" style="touch-action:none;"
+                @pointerdown="startDrag($event)" @pointermove.window="drag($event)" @pointerup.window="endDrag()"
+                @pointercancel.window="endDrag()">
+                <template x-for="(card,i) in cards" :key="card.id">
+                  <div class="absolute inset-0" :style="fanStyle(i)"
+                    :class="i===0?'cursor-grab active:cursor-grabbing':'pointer-events-none'">
+                    <img :src="darkMode?card.dark:card.light" :alt="card.id"
+                      class="w-full h-full object-cover object-top rounded-[1.75rem] ring-1 ring-gold/40"
+                      :class="i === 0 ? 'shadow-2xl shadow-black/40' : 'shadow-md shadow-black/10'" draggable="false" />
+                  </div>
+                </template>
+              </div>
 
-            <div x-show="feat === 'keys'" x-transition.opacity.duration.400ms
-                 x-data="cardStack([
+              <div x-show="feat === 'keys'" x-transition.opacity.duration.400ms x-data="cardStack([
                    {id:'key',     light:'assets/mockups/key-view-light.webp',     dark:'assets/mockups/key-view-dark.webp'},
                    {id:'key-add', light:'assets/mockups/key-add-view-light.webp', dark:'assets/mockups/key-add-view-dark.webp'},
-                 ], true)"
-                 class="absolute inset-0 select-none" style="touch-action:none;"
-                 @pointerdown="startDrag($event)" @pointermove.window="drag($event)"
-                 @pointerup.window="endDrag()" @pointercancel.window="endDrag()">
-              <template x-for="(card,i) in cards" :key="card.id">
-                <div class="absolute inset-0" :style="fanStyle(i)" :class="i===0?'cursor-grab active:cursor-grabbing':'pointer-events-none'">
-                  <img :src="darkMode?card.dark:card.light" :alt="card.id" class="w-full h-full object-cover object-top rounded-[1.75rem] ring-1 ring-gold/40" :class="i === 0 ? 'shadow-2xl shadow-black/40' : 'shadow-md shadow-black/10'" draggable="false"/>
-                </div>
-              </template>
-            </div>
+                 ], true)" class="absolute inset-0 select-none" style="touch-action:none;"
+                @pointerdown="startDrag($event)" @pointermove.window="drag($event)" @pointerup.window="endDrag()"
+                @pointercancel.window="endDrag()">
+                <template x-for="(card,i) in cards" :key="card.id">
+                  <div class="absolute inset-0" :style="fanStyle(i)"
+                    :class="i===0?'cursor-grab active:cursor-grabbing':'pointer-events-none'">
+                    <img :src="darkMode?card.dark:card.light" :alt="card.id"
+                      class="w-full h-full object-cover object-top rounded-[1.75rem] ring-1 ring-gold/40"
+                      :class="i === 0 ? 'shadow-2xl shadow-black/40' : 'shadow-md shadow-black/10'" draggable="false" />
+                  </div>
+                </template>
+              </div>
 
-            <div x-show="feat === 'settings'" x-transition.opacity.duration.400ms
-                 x-data="cardStack([
+              <div x-show="feat === 'settings'" x-transition.opacity.duration.400ms x-data="cardStack([
                    {id:'settings', light:'assets/mockups/settings-view-light.webp', dark:'assets/mockups/settings-view-dark.webp'},
                    {id:'home',     light:'assets/mockups/home-view-light.webp',     dark:'assets/mockups/home-view-dark.webp'},
-                 ], true)"
-                 class="absolute inset-0 select-none" style="touch-action:none;"
-                 @pointerdown="startDrag($event)" @pointermove.window="drag($event)"
-                 @pointerup.window="endDrag()" @pointercancel.window="endDrag()">
-              <template x-for="(card,i) in cards" :key="card.id">
-                <div class="absolute inset-0" :style="fanStyle(i)" :class="i===0?'cursor-grab active:cursor-grabbing':'pointer-events-none'">
-                  <img :src="darkMode?card.dark:card.light" :alt="card.id" class="w-full h-full object-cover object-top rounded-[1.75rem] ring-1 ring-gold/40" :class="i === 0 ? 'shadow-2xl shadow-black/40' : 'shadow-md shadow-black/10'" draggable="false"/>
-                </div>
-              </template>
-            </div>
-            
+                 ], true)" class="absolute inset-0 select-none" style="touch-action:none;"
+                @pointerdown="startDrag($event)" @pointermove.window="drag($event)" @pointerup.window="endDrag()"
+                @pointercancel.window="endDrag()">
+                <template x-for="(card,i) in cards" :key="card.id">
+                  <div class="absolute inset-0" :style="fanStyle(i)"
+                    :class="i===0?'cursor-grab active:cursor-grabbing':'pointer-events-none'">
+                    <img :src="darkMode?card.dark:card.light" :alt="card.id"
+                      class="w-full h-full object-cover object-top rounded-[1.75rem] ring-1 ring-gold/40"
+                      :class="i === 0 ? 'shadow-2xl shadow-black/40' : 'shadow-md shadow-black/10'" draggable="false" />
+                  </div>
+                </template>
+              </div>
+
             </div>
 
           </div>
@@ -419,17 +488,20 @@
           <div class="step-card">
             <div class="step-number">1</div>
             <h3 class="step-title">Elige tu banco</h3>
-            <p class="step-desc">Selecciona BPA, BANDEC o BM. La app carga todas las operaciones disponibles organizadas por categoría.</p>
+            <p class="step-desc">Selecciona BPA, BANDEC o BM. La app carga todas las operaciones disponibles organizadas
+              por categoría.</p>
           </div>
           <div class="step-card">
             <div class="step-number">2</div>
             <h3 class="step-title">Selecciona la operación</h3>
-            <p class="step-desc">Encuentra lo que necesitas — saldo, transferencia, recarga — o búscalo en tus favoritos del home.</p>
+            <p class="step-desc">Encuentra lo que necesitas — saldo, transferencia, recarga — o búscalo en tus favoritos
+              del home.</p>
           </div>
           <div class="step-card">
             <div class="step-number">3</div>
             <h3 class="step-title">Llama y listo</h3>
-            <p class="step-desc">La app abre el marcador con el código USSD listo para llamar. Tú solo confirmas. Sin escribir nada.</p>
+            <p class="step-desc">La app abre el marcador con el código USSD listo para llamar. Tú solo confirmas. Sin
+              escribir nada.</p>
           </div>
         </div>
 
@@ -439,22 +511,28 @@
         ════════════════════════════════════════ -->
         <div id="manual" class="text-center mt-24 mb-10">
           <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Manual Completo</h3>
-          <p class="text-gray-500 dark:text-gray-400 mt-2">Guía paso a paso para configurar y usar todas las funciones avanzadas.</p>
+          <p class="text-gray-500 dark:text-gray-400 mt-2">Guía paso a paso para configurar y usar todas las funciones
+            avanzadas.</p>
         </div>
 
         <div x-data="{ open: null }" class="space-y-4 max-w-4xl mx-auto">
 
           <div class="manual-step" :class="open === 1 ? 'ring-2 ring-gold' : ''">
-            <button @click="open = open === 1 ? null : 1" class="w-full flex items-center justify-between p-5 text-left">
+            <button @click="open = open === 1 ? null : 1"
+              class="w-full flex items-center justify-between p-5 text-left">
               <div class="flex items-center gap-4">
                 <span class="step-badge">1</span>
                 <span class="font-semibold text-gray-900 dark:text-white">Instalación desde GitHub</span>
               </div>
-              <svg class="w-5 h-5 text-gray-400 transition-transform" :class="open === 1 ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              <svg class="w-5 h-5 text-gray-400 transition-transform" :class="open === 1 ? 'rotate-180' : ''"
+                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
             </button>
             <div x-show="open === 1" x-transition class="px-5 pb-5 text-sm text-gray-600 dark:text-gray-300 space-y-2">
               <ol class="list-decimal list-inside space-y-1.5">
-                <li>Clona el repositorio: <code class="code-inline">git clone https://github.com/albertolicea00/BancaRemota</code></li>
+                <li>Clona el repositorio: <code
+                    class="code-inline">git clone https://github.com/albertolicea00/BancaRemota</code></li>
                 <li>Abre <code class="code-inline">BancaRemota.xcodeproj</code> en Xcode 15+.</li>
                 <li>En <em>Signing &amp; Capabilities</em> configura tu cuenta de desarrollador Apple.</li>
                 <li>Conecta tu iPhone y selecciónalo como destino de compilación.</li>
@@ -468,12 +546,17 @@
           </div>
 
           <div class="manual-step" :class="open === 2 ? 'ring-2 ring-gold' : ''">
-            <button @click="open = open === 2 ? null : 2" class="w-full flex items-center justify-between p-5 text-left">
+            <button @click="open = open === 2 ? null : 2"
+              class="w-full flex items-center justify-between p-5 text-left">
               <div class="flex items-center gap-4">
                 <span class="step-badge">2</span>
-                <span class="font-semibold text-gray-900 dark:text-white">Primera vez: elegir banco y autenticarse</span>
+                <span class="font-semibold text-gray-900 dark:text-white">Primera vez: elegir banco y
+                  autenticarse</span>
               </div>
-              <svg class="w-5 h-5 text-gray-400 transition-transform" :class="open === 2 ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              <svg class="w-5 h-5 text-gray-400 transition-transform" :class="open === 2 ? 'rotate-180' : ''"
+                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
             </button>
             <div x-show="open === 2" x-transition class="px-5 pb-5 text-sm text-gray-600 dark:text-gray-300">
               <ol class="list-decimal list-inside space-y-1.5">
@@ -487,12 +570,16 @@
           </div>
 
           <div class="manual-step" :class="open === 3 ? 'ring-2 ring-gold' : ''">
-            <button @click="open = open === 3 ? null : 3" class="w-full flex items-center justify-between p-5 text-left">
+            <button @click="open = open === 3 ? null : 3"
+              class="w-full flex items-center justify-between p-5 text-left">
               <div class="flex items-center gap-4">
                 <span class="step-badge">3</span>
                 <span class="font-semibold text-gray-900 dark:text-white">Gestionar Favoritos</span>
               </div>
-              <svg class="w-5 h-5 text-gray-400 transition-transform" :class="open === 3 ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              <svg class="w-5 h-5 text-gray-400 transition-transform" :class="open === 3 ? 'rotate-180' : ''"
+                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
             </button>
             <div x-show="open === 3" x-transition class="px-5 pb-5 text-sm text-gray-600 dark:text-gray-300">
               <ol class="list-decimal list-inside space-y-1.5">
@@ -506,12 +593,16 @@
           </div>
 
           <div class="manual-step" :class="open === 4 ? 'ring-2 ring-gold' : ''">
-            <button @click="open = open === 4 ? null : 4" class="w-full flex items-center justify-between p-5 text-left">
+            <button @click="open = open === 4 ? null : 4"
+              class="w-full flex items-center justify-between p-5 text-left">
               <div class="flex items-center gap-4">
                 <span class="step-badge">4</span>
                 <span class="font-semibold text-gray-900 dark:text-white">Guardar tarjetas y cuentas</span>
               </div>
-              <svg class="w-5 h-5 text-gray-400 transition-transform" :class="open === 4 ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              <svg class="w-5 h-5 text-gray-400 transition-transform" :class="open === 4 ? 'rotate-180' : ''"
+                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
             </button>
             <div x-show="open === 4" x-transition class="px-5 pb-5 text-sm text-gray-600 dark:text-gray-300">
               <ol class="list-decimal list-inside space-y-1.5">
@@ -524,12 +615,16 @@
           </div>
 
           <div class="manual-step" :class="open === 5 ? 'ring-2 ring-gold' : ''">
-            <button @click="open = open === 5 ? null : 5" class="w-full flex items-center justify-between p-5 text-left">
+            <button @click="open = open === 5 ? null : 5"
+              class="w-full flex items-center justify-between p-5 text-left">
               <div class="flex items-center gap-4">
                 <span class="step-badge">5</span>
                 <span class="font-semibold text-gray-900 dark:text-white">Activar Face ID y proteger claves</span>
               </div>
-              <svg class="w-5 h-5 text-gray-400 transition-transform" :class="open === 5 ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              <svg class="w-5 h-5 text-gray-400 transition-transform" :class="open === 5 ? 'rotate-180' : ''"
+                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
             </button>
             <div x-show="open === 5" x-transition class="px-5 pb-5 text-sm text-gray-600 dark:text-gray-300">
               <ol class="list-decimal list-inside space-y-1.5">
@@ -542,12 +637,16 @@
           </div>
 
           <div class="manual-step" :class="open === 6 ? 'ring-2 ring-gold' : ''">
-            <button @click="open = open === 6 ? null : 6" class="w-full flex items-center justify-between p-5 text-left">
+            <button @click="open = open === 6 ? null : 6"
+              class="w-full flex items-center justify-between p-5 text-left">
               <div class="flex items-center gap-4">
                 <span class="step-badge">6</span>
                 <span class="font-semibold text-gray-900 dark:text-white">Ajustes de la app</span>
               </div>
-              <svg class="w-5 h-5 text-gray-400 transition-transform" :class="open === 6 ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              <svg class="w-5 h-5 text-gray-400 transition-transform" :class="open === 6 ? 'rotate-180' : ''"
+                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
             </button>
             <div x-show="open === 6" x-transition class="px-5 pb-5 text-sm text-gray-600 dark:text-gray-300">
               <ul class="space-y-1.5 list-disc list-inside">
@@ -576,24 +675,35 @@
         </div>
 
         <!-- USSD codes warning marquee -->
-        <div class="relative w-screen left-1/2 -translate-x-1/2 overflow-hidden mb-12 border-y border-gold/30 bg-gold/5 dark:bg-gold/10 py-3">
+        <div
+          class="relative w-screen left-1/2 -translate-x-1/2 overflow-hidden mb-12 border-y border-gold/30 bg-gold/5 dark:bg-gold/10 py-3">
           <div class="marquee-track flex gap-12 whitespace-nowrap text-sm font-medium text-gold">
             <span class="marquee-content">
-              📡 Los códigos USSD son gestionados por los propios bancos y suelen ser bastante estables en el tiempo &nbsp;·&nbsp;
-              ⚠️ Nuevas funcionalidades bancarias pueden requerir actualizar el archivo <code>codes.json</code> de la app &nbsp;·&nbsp;
-              🔄 Si un código deja de funcionar, puedes editarlo directamente en <code>codes.json</code> sin tocar nada más &nbsp;·&nbsp;
+              📡 Los códigos USSD son gestionados por los propios bancos y suelen ser bastante estables en el tiempo
+              &nbsp;·&nbsp;
+              ⚠️ Nuevas funcionalidades bancarias pueden requerir actualizar el archivo <code>codes.json</code> de la
+              app &nbsp;·&nbsp;
+              🔄 Si un código deja de funcionar, puedes editarlo directamente en <code>codes.json</code> sin tocar nada
+              más &nbsp;·&nbsp;
               📥 Descarga la última versión del listado de códigos desde GitHub &nbsp;·&nbsp;
-              🛠️ Los códigos pueden cambiar por decisión del banco sin previo aviso — si algo falla, revisa primero el JSON &nbsp;·&nbsp;
-              💡 ¿Encontraste un código nuevo o desactualizado? Abre un PR en GitHub y ayuda a la comunidad &nbsp;·&nbsp;
+              🛠️ Los códigos pueden cambiar por decisión del banco sin previo aviso — si algo falla, revisa primero el
+              JSON &nbsp;·&nbsp;
+              💡 ¿Encontraste un código nuevo o desactualizado? Abre un PR en GitHub y ayuda a la comunidad
+              &nbsp;·&nbsp;
             </span>
             <!-- Identical copy for continuous seamless loop -->
             <span class="marquee-content" aria-hidden="true">
-              📡 Los códigos USSD son gestionados por los propios bancos y suelen ser bastante estables en el tiempo &nbsp;·&nbsp;
-              ⚠️ Nuevas funcionalidades bancarias pueden requerir actualizar el archivo <code>codes.json</code> de la app &nbsp;·&nbsp;
-              🔄 Si un código deja de funcionar, puedes editarlo directamente en <code>codes.json</code> sin tocar nada más &nbsp;·&nbsp;
+              📡 Los códigos USSD son gestionados por los propios bancos y suelen ser bastante estables en el tiempo
+              &nbsp;·&nbsp;
+              ⚠️ Nuevas funcionalidades bancarias pueden requerir actualizar el archivo <code>codes.json</code> de la
+              app &nbsp;·&nbsp;
+              🔄 Si un código deja de funcionar, puedes editarlo directamente en <code>codes.json</code> sin tocar nada
+              más &nbsp;·&nbsp;
               📥 Descarga la última versión del listado de códigos desde GitHub &nbsp;·&nbsp;
-              🛠️ Los códigos pueden cambiar por decisión del banco sin previo aviso — si algo falla, revisa primero el JSON &nbsp;·&nbsp;
-              💡 ¿Encontraste un código nuevo o desactualizado? Abre un PR en GitHub y ayuda a la comunidad &nbsp;·&nbsp;
+              🛠️ Los códigos pueden cambiar por decisión del banco sin previo aviso — si algo falla, revisa primero el
+              JSON &nbsp;·&nbsp;
+              💡 ¿Encontraste un código nuevo o desactualizado? Abre un PR en GitHub y ayuda a la comunidad
+              &nbsp;·&nbsp;
             </span>
           </div>
         </div>
@@ -624,24 +734,30 @@
         </div>
 
         <!-- Download codes.json button -->
-        <div class="mb-8 bg-white dark:bg-gray-800 rounded-2xl p-5 border border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
+        <div
+          class="mb-8 bg-white dark:bg-gray-800 rounded-2xl p-5 border border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
           <div class="flex items-start gap-4">
             <span class="text-3xl flex-shrink-0">📄</span>
             <div>
-              <p class="font-bold text-gray-900 dark:text-white">Listado de códigos USSD — <code class="text-gold font-mono text-sm">codes.json</code></p>
-              <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">El archivo que alimenta la app: bancos, categorías y todos los códigos USSD organizados. Actualizable sin recompilar.</p>
+              <p class="font-bold text-gray-900 dark:text-white">Listado de códigos USSD — <code
+                  class="text-gold font-mono text-sm">codes.json</code></p>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">El archivo que alimenta la app: bancos,
+                categorías y todos los códigos USSD organizados. Actualizable sin recompilar.</p>
             </div>
           </div>
           <a href="https://raw.githubusercontent.com/albertolicea00/BancaRemota/refs/heads/main/BancaRemota/codes.json"
-             download="codes.json"
-             target="_blank" rel="noopener"
-             class="flex-shrink-0 inline-flex items-center gap-2 bg-gold hover:bg-gold/80 text-gray-900 font-bold px-5 py-2.5 rounded-xl text-sm transition-all whitespace-nowrap shadow shadow-gold/30">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+            download="codes.json" target="_blank" rel="noopener"
+            class="flex-shrink-0 inline-flex items-center gap-2 bg-gold hover:bg-gold/80 text-gray-900 font-bold px-5 py-2.5 rounded-xl text-sm transition-all whitespace-nowrap shadow shadow-gold/30">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
             Descargar codes.json
           </a>
         </div>
 
-        <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 flex flex-col sm:flex-row gap-6 items-center justify-around text-center">
+        <div
+          class="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 flex flex-col sm:flex-row gap-6 items-center justify-around text-center">
           <div class="flex items-center gap-3">
             <span class="text-3xl">🍎</span>
             <div class="text-left">
@@ -681,23 +797,58 @@
         </div>
 
         <div class="overflow-x-auto rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm">
-          <table class="w-full text-sm">
+          <table class="w-full text-sm min-w-[480px]">
             <thead>
               <tr class="bg-gray-900 dark:bg-gray-800 text-white">
-                <th class="px-6 py-4 text-left font-semibold rounded-tl-2xl">Característica</th>
-                <th class="px-6 py-4 text-center font-semibold text-gold">Banca Remota</th>
-                <th class="px-6 py-4 text-center font-semibold">Marcar manual</th>
-                <th class="px-6 py-4 text-center font-semibold rounded-tr-2xl">Apps similares</th>
+                <th class="px-3 sm:px-6 py-4 text-left font-semibold rounded-tl-2xl">Característica</th>
+                <th class="px-3 sm:px-6 py-4 text-center font-semibold text-gold">Banca Remota</th>
+                <th class="px-3 sm:px-6 py-4 text-center font-semibold">Manual</th>
+                <th class="px-3 sm:px-6 py-4 text-center font-semibold rounded-tr-2xl">Apps similares</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
-              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium">100% Gratis y sin anuncios</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center text-accent">✓</td><td class="px-6 py-3 text-center text-red-400">✗</td></tr>
-              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium">Disponible para iPhone (iOS)</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center text-accent">✓</td><td class="px-6 py-3 text-center">-</td></tr>
-              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium">Favoritos personalizables</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center text-red-400">✗</td><td class="px-6 py-3 text-center text-yellow-400">Parcial</td></tr>
-              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium">Gestor de claves local</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center text-red-400">✗</td><td class="px-6 py-3 text-center text-red-400">✗</td></tr>
-              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium">Face ID / Touch ID</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center text-red-400">✗</td><td class="px-6 py-3 text-center text-green-400">✓</td></tr>
-              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium">Sin servidores ni cuentas</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center text-accent">✓</td><td class="px-6 py-3 text-center">-</td></tr>
-              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50"><td class="px-6 py-3 font-medium">Código abierto</td><td class="px-6 py-3 text-center text-accent font-bold">✓</td><td class="px-6 py-3 text-center">–</td><td class="px-6 py-3 text-center text-red-400">✗</td></tr>
+              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                <td class="px-3 sm:px-6 py-3 font-medium">100% Gratis y sin anuncios</td>
+                <td class="px-3 sm:px-6 py-3 text-center text-accent font-bold">✓</td>
+                <td class="px-3 sm:px-6 py-3 text-center text-accent">✓</td>
+                <td class="px-3 sm:px-6 py-3 text-center text-red-400">✗</td>
+              </tr>
+              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                <td class="px-3 sm:px-6 py-3 font-medium">Disponible para iPhone</td>
+                <td class="px-3 sm:px-6 py-3 text-center text-accent font-bold">✓</td>
+                <td class="px-3 sm:px-6 py-3 text-center text-accent">✓</td>
+                <td class="px-3 sm:px-6 py-3 text-center">-</td>
+              </tr>
+              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                <td class="px-3 sm:px-6 py-3 font-medium">Favoritos personalizables</td>
+                <td class="px-3 sm:px-6 py-3 text-center text-accent font-bold">✓</td>
+                <td class="px-3 sm:px-6 py-3 text-center text-red-400">✗</td>
+                <td class="px-3 sm:px-6 py-3 text-center text-yellow-400">Parcial</td>
+              </tr>
+              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                <td class="px-3 sm:px-6 py-3 font-medium">Gestor de claves local</td>
+                <td class="px-3 sm:px-6 py-3 text-center text-accent font-bold">✓</td>
+                <td class="px-3 sm:px-6 py-3 text-center text-red-400">✗</td>
+                <td class="px-3 sm:px-6 py-3 text-center text-red-400">✗</td>
+              </tr>
+              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                <td class="px-3 sm:px-6 py-3 font-medium">Face ID / Touch ID</td>
+                <td class="px-3 sm:px-6 py-3 text-center text-accent font-bold">✓</td>
+                <td class="px-3 sm:px-6 py-3 text-center text-red-400">✗</td>
+                <td class="px-3 sm:px-6 py-3 text-center text-green-400">✓</td>
+              </tr>
+              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                <td class="px-3 sm:px-6 py-3 font-medium">Sin servidores ni cuentas</td>
+                <td class="px-3 sm:px-6 py-3 text-center text-accent font-bold">✓</td>
+                <td class="px-3 sm:px-6 py-3 text-center text-accent">✓</td>
+                <td class="px-3 sm:px-6 py-3 text-center">-</td>
+              </tr>
+              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                <td class="px-3 sm:px-6 py-3 font-medium">Código abierto</td>
+                <td class="px-3 sm:px-6 py-3 text-center text-accent font-bold">✓</td>
+                <td class="px-3 sm:px-6 py-3 text-center">–</td>
+                <td class="px-3 sm:px-6 py-3 text-center text-red-400">✗</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -720,7 +871,10 @@
             <div class="faq-item" :class="open === i ? 'border-gold/40' : ''">
               <button @click="open = open === i ? null : i" class="faq-question">
                 <span x-text="faq.q"></span>
-                <svg class="faq-icon" :class="open === i ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                <svg class="faq-icon" :class="open === i ? 'rotate-180' : ''" fill="none" stroke="currentColor"
+                  viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
               </button>
               <div x-show="open === i" x-transition class="faq-answer" x-html="faq.a"></div>
             </div>
@@ -742,12 +896,48 @@
         </div>
 
         <div class="space-y-4">
-          <div class="roadmap-item roadmap-done"><span class="roadmap-status" style="background:rgba(129,215,23,.15);color:#4a7f0a">✓ Listo</span><div><h4 class="font-semibold text-gray-900 dark:text-white">Operaciones USSD para BPA, BANDEC y BM</h4><p class="text-sm text-gray-400">Todas las operaciones disponibles para los tres bancos.</p></div></div>
-          <div class="roadmap-item roadmap-done"><span class="roadmap-status" style="background:rgba(129,215,23,.15);color:#4a7f0a">✓ Listo</span><div><h4 class="font-semibold text-gray-900 dark:text-white">Favoritos arrastrables y personalizables</h4><p class="text-sm text-gray-400">Color, orden y accesos rápidos desde el home.</p></div></div>
-          <div class="roadmap-item roadmap-done"><span class="roadmap-status" style="background:rgba(129,215,23,.15);color:#4a7f0a">✓ Listo</span><div><h4 class="font-semibold text-gray-900 dark:text-white">Gestor de cuentas, Nauta, facturas y claves</h4><p class="text-sm text-gray-400">Todo tu ecosistema financiero en un lugar, protegido con Face ID.</p></div></div>
-          <div class="roadmap-item roadmap-progress"><span class="roadmap-status" style="background:rgba(251,191,36,.15);color:#92600a">⚡ En progreso</span><div><h4 class="font-semibold text-gray-900 dark:text-white">Publicación en App Store</h4><p class="text-sm text-gray-400">Proceso de revisión de Apple y distribución pública.</p></div></div>
-          <div class="roadmap-item roadmap-planned"><span class="roadmap-status bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400">📋 Planeado</span><div><h4 class="font-semibold text-gray-900 dark:text-white">Widgets para pantalla de inicio</h4><p class="text-sm text-gray-400">Acceso a favoritos directamente desde el home de iOS.</p></div></div>
-          <div class="roadmap-item roadmap-planned"><span class="roadmap-status bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400">📋 Planeado</span><div><h4 class="font-semibold text-gray-900 dark:text-white">Sección de Tasa de Cambio</h4><p class="text-sm text-gray-400">Consulta de las tasas de cambio vigentes de forma rápida.</p></div></div>
+          <div class="roadmap-item roadmap-done"><span class="roadmap-status"
+              style="background:rgba(129,215,23,.15);color:#4a7f0a">✓ Listo</span>
+            <div>
+              <h4 class="font-semibold text-gray-900 dark:text-white">Operaciones USSD para BPA, BANDEC y BM</h4>
+              <p class="text-sm text-gray-400">Todas las operaciones disponibles para los tres bancos.</p>
+            </div>
+          </div>
+          <div class="roadmap-item roadmap-done"><span class="roadmap-status"
+              style="background:rgba(129,215,23,.15);color:#4a7f0a">✓ Listo</span>
+            <div>
+              <h4 class="font-semibold text-gray-900 dark:text-white">Favoritos arrastrables y personalizables</h4>
+              <p class="text-sm text-gray-400">Color, orden y accesos rápidos desde el home.</p>
+            </div>
+          </div>
+          <div class="roadmap-item roadmap-done"><span class="roadmap-status"
+              style="background:rgba(129,215,23,.15);color:#4a7f0a">✓ Listo</span>
+            <div>
+              <h4 class="font-semibold text-gray-900 dark:text-white">Gestor de cuentas, Nauta, facturas y claves</h4>
+              <p class="text-sm text-gray-400">Todo tu ecosistema financiero en un lugar, protegido con Face ID.</p>
+            </div>
+          </div>
+          <div class="roadmap-item roadmap-progress"><span class="roadmap-status"
+              style="background:rgba(251,191,36,.15);color:#92600a">⚡ En progreso</span>
+            <div>
+              <h4 class="font-semibold text-gray-900 dark:text-white">Publicación en App Store</h4>
+              <p class="text-sm text-gray-400">Proceso de revisión de Apple y distribución pública.</p>
+            </div>
+          </div>
+          <div class="roadmap-item roadmap-planned"><span
+              class="roadmap-status bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400">📋 Planeado</span>
+            <div>
+              <h4 class="font-semibold text-gray-900 dark:text-white">Widgets para pantalla de inicio</h4>
+              <p class="text-sm text-gray-400">Acceso a favoritos directamente desde el home de iOS.</p>
+            </div>
+          </div>
+          <div class="roadmap-item roadmap-planned"><span
+              class="roadmap-status bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400">📋 Planeado</span>
+            <div>
+              <h4 class="font-semibold text-gray-900 dark:text-white">Sección de Tasa de Cambio</h4>
+              <p class="text-sm text-gray-400">Consulta de las tasas de cambio vigentes de forma rápida.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -759,29 +949,35 @@
       <div class="max-w-md mx-auto text-center">
 
         <!-- Badge -->
-        <div class="inline-flex items-center gap-2 bg-gold/10 border border-gold/30 text-gold text-xs font-semibold uppercase tracking-widest rounded-full px-4 py-1.5 mb-5">
+        <div
+          class="inline-flex items-center gap-2 bg-gold/10 border border-gold/30 text-gold text-xs font-semibold uppercase tracking-widest rounded-full px-4 py-1.5 mb-5">
           <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
           Pronto en App Store
         </div>
 
         <h2 class="text-2xl font-black text-gray-900 dark:text-white mb-2">Avísame cuando esté lista</h2>
-        <p class="text-gray-500 dark:text-gray-400 text-sm mb-6 leading-relaxed">La app está en beta. Déjanos tu correo y serás el primero en saber cuando esté disponible en la App Store.</p>
+        <p class="text-gray-500 dark:text-gray-400 text-sm mb-6 leading-relaxed">La app está en beta. Déjanos tu correo
+          y serás el primero en saber cuando esté disponible en la App Store.</p>
 
         <!-- Form -->
         <div x-data="notifyForm()" class="mb-6">
           <form @submit.prevent="submit()" class="flex flex-col gap-3">
-            <input x-model="email" type="email" required placeholder="tucorreo@ejemplo.com"
-              :disabled="loading || sent"
+            <input x-model="email" type="email" required placeholder="tucorreo@ejemplo.com" :disabled="loading || sent"
               class="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-white/10 border border-gray-200 dark:border-white/15 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-gold disabled:opacity-50 transition" />
             <button type="submit" :disabled="loading || sent"
               class="w-full px-6 py-3 bg-gold hover:bg-gold/85 text-white font-bold rounded-xl transition-all disabled:opacity-60 flex items-center justify-center gap-2 shadow shadow-gold/30">
-              <span x-show="!loading && !sent" class="flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>Notificarme</span>
+              <span x-show="!loading && !sent" class="flex items-center gap-2"><svg class="w-4 h-4" fill="none"
+                  stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                </svg>Notificarme</span>
               <span x-show="loading" class="animate-pulse">Enviando...</span>
               <span x-show="sent">✓ ¡Listo, te avisamos!</span>
             </button>
           </form>
           <p x-show="error" x-text="error" x-transition class="text-red-500 dark:text-red-400 text-xs mt-2"></p>
-          <p x-show="sent" x-transition class="text-accent text-xs mt-2 font-medium">¡Suscrito! Te avisaremos en cuanto la app esté en la App Store. 🎉</p>
+          <p x-show="sent" x-transition class="text-accent text-xs mt-2 font-medium">¡Suscrito! Te avisaremos en cuanto
+            la app esté en la App Store. 🎉</p>
         </div>
 
         <!-- Divider -->
@@ -795,12 +991,18 @@
         <div class="flex flex-col sm:flex-row gap-3 justify-center">
           <a href="https://t.me/BancaRemotaCuba" target="_blank" rel="noopener"
             class="inline-flex items-center justify-center gap-2 bg-[#229ED9] hover:bg-[#1a8bbf] text-white font-semibold px-6 py-3 rounded-xl transition-all shadow-sm">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+            </svg>
             Canal de Telegram
           </a>
           <a href="https://github.com/albertolicea00/BancaRemota" target="_blank" rel="noopener"
             class="inline-flex items-center justify-center gap-2 bg-gray-900 dark:bg-white/10 hover:bg-gray-800 dark:hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-xl transition-all shadow-sm">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.21.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.21.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z" />
+            </svg>
             Seguir en GitHub
           </a>
         </div>
@@ -813,64 +1015,65 @@
   <!-- ════════════════════════════════════════
        MODAL — AVÍSAME CUANDO ESTÉ LISTA
   ════════════════════════════════════════ -->
-  <div x-show="notifyOpen"
-       x-transition:enter="transition ease-out duration-200"
-       x-transition:enter-start="opacity-0"
-       x-transition:enter-end="opacity-100"
-       x-transition:leave="transition ease-in duration-150"
-       x-transition:leave-start="opacity-100"
-       x-transition:leave-end="opacity-0"
-       class="fixed inset-0 z-50 flex items-center justify-center p-4"
-       style="display:none">
+  <div x-show="notifyOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0"
+    x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150"
+    x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+    class="fixed inset-0 z-50 flex items-center justify-center p-4" style="display:none">
 
     <!-- Backdrop -->
     <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="notifyOpen = false"></div>
 
     <!-- Card -->
-    <div x-show="notifyOpen"
-         x-transition:enter="transition ease-out duration-200"
-         x-transition:enter-start="opacity-0 scale-95 translate-y-2"
-         x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-         x-transition:leave="transition ease-in duration-150"
-         x-transition:leave-start="opacity-100 scale-100 translate-y-0"
-         x-transition:leave-end="opacity-0 scale-95 translate-y-2"
-         class="relative w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-2xl overflow-hidden"
-         @keydown.escape.window="notifyOpen = false">
+    <div x-show="notifyOpen" x-transition:enter="transition ease-out duration-200"
+      x-transition:enter-start="opacity-0 scale-95 translate-y-2"
+      x-transition:enter-end="opacity-100 scale-100 translate-y-0" x-transition:leave="transition ease-in duration-150"
+      x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+      x-transition:leave-end="opacity-0 scale-95 translate-y-2"
+      class="relative w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-2xl overflow-hidden"
+      @keydown.escape.window="notifyOpen = false">
 
       <!-- Gold top bar -->
       <div class="h-1 bg-gradient-to-r from-gold via-[#dbab46] to-gold"></div>
 
       <!-- Close button -->
       <button @click="notifyOpen = false"
-              class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-gray-500 dark:text-gray-400">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-gray-500 dark:text-gray-400">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
       </button>
 
       <div class="p-8">
         <!-- Badge -->
-        <div class="inline-flex items-center gap-2 bg-gold/10 border border-gold/30 text-gold text-xs font-semibold uppercase tracking-widest rounded-full px-3 py-1 mb-5">
+        <div
+          class="inline-flex items-center gap-2 bg-gold/10 border border-gold/30 text-gold text-xs font-semibold uppercase tracking-widest rounded-full px-3 py-1 mb-5">
           <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
           Pronto en App Store
         </div>
 
         <h2 class="text-2xl font-black text-gray-900 dark:text-white mb-2">Avísame cuando esté lista</h2>
-        <p class="text-gray-500 dark:text-gray-400 text-sm mb-6 leading-relaxed">La app está en beta. Déjanos tu correo y serás el primero en saber cuando esté disponible en la App Store.</p>
+        <p class="text-gray-500 dark:text-gray-400 text-sm mb-6 leading-relaxed">La app está en beta. Déjanos tu correo
+          y serás el primero en saber cuando esté disponible en la App Store.</p>
 
         <!-- Form -->
         <div x-data="notifyForm()">
           <form @submit.prevent="submit()" class="flex flex-col gap-3">
-            <input x-model="email" type="email" required placeholder="tucorreo@ejemplo.com"
-              :disabled="loading || sent"
+            <input x-model="email" type="email" required placeholder="tucorreo@ejemplo.com" :disabled="loading || sent"
               class="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-white/10 border border-gray-200 dark:border-white/15 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-gold disabled:opacity-50 transition" />
             <button type="submit" :disabled="loading || sent"
               class="w-full px-6 py-3 bg-gold hover:bg-gold/85 text-white font-bold rounded-xl transition-all disabled:opacity-60 flex items-center justify-center gap-2 shadow shadow-gold/30">
-              <span x-show="!loading && !sent" class="flex items-center gap-2"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>Notificarme</span>
+              <span x-show="!loading && !sent" class="flex items-center gap-2"><svg class="w-4 h-4" fill="none"
+                  stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                </svg>Notificarme</span>
               <span x-show="loading" class="animate-pulse">Enviando...</span>
               <span x-show="sent">✓ ¡Listo, te avisamos!</span>
             </button>
           </form>
           <p x-show="error" x-text="error" x-transition class="text-red-500 dark:text-red-400 text-xs mt-2"></p>
-          <p x-show="sent" x-transition class="text-accent text-xs mt-2 font-medium">¡Suscrito! Te avisaremos en cuanto la app esté en la App Store. 🎉</p>
+          <p x-show="sent" x-transition class="text-accent text-xs mt-2 font-medium">¡Suscrito! Te avisaremos en cuanto
+            la app esté en la App Store. 🎉</p>
         </div>
 
         <!-- Divider -->
@@ -884,12 +1087,18 @@
         <div class="flex gap-3">
           <a href="https://t.me/BancaRemotaCuba" target="_blank" rel="noopener"
             class="flex-1 inline-flex items-center justify-center gap-2 bg-[#229ED9] hover:bg-[#1a8bbf] text-white font-semibold px-4 py-2.5 rounded-xl transition-all text-sm">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+            </svg>
             Telegram
           </a>
           <a href="https://github.com/albertolicea00/BancaRemota" target="_blank" rel="noopener"
             class="flex-1 inline-flex items-center justify-center gap-2 bg-gray-900 dark:bg-white/10 hover:bg-gray-800 dark:hover:bg-white/20 text-white font-semibold px-4 py-2.5 rounded-xl transition-all text-sm">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.21.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.21.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z" />
+            </svg>
             GitHub
           </a>
         </div>
@@ -900,7 +1109,8 @@
   <!-- ════════════════════════════════════════
        14 — FOOTER
   ════════════════════════════════════════ -->
-  <footer class="bg-gray-50 dark:bg-gray-950 text-gray-600 dark:text-gray-400 py-16 px-4 sm:px-6 lg:px-8 border-t border-gray-200 dark:border-gray-800 transition-colors duration-300">
+  <footer
+    class="bg-gray-50 dark:bg-gray-950 text-gray-600 dark:text-gray-400 py-16 px-4 sm:px-6 lg:px-8 border-t border-gray-200 dark:border-gray-800 transition-colors duration-300">
     <div class="max-w-6xl mx-auto">
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
@@ -908,30 +1118,36 @@
         <div class="lg:col-span-1">
           <div class="flex items-center gap-2.5 mb-4">
             <img src="assets/icon-black.png" alt="Banca Remota" class="w-8 h-8 rounded-lg shadow-sm dark:hidden" />
-            <img src="assets/icon-white.png" alt="Banca Remota" class="w-8 h-8 rounded-lg shadow-sm hidden dark:block" />
+            <img src="assets/icon-white.png" alt="Banca Remota"
+              class="w-8 h-8 rounded-lg shadow-sm hidden dark:block" />
             <span class="text-gray-900 dark:text-white font-bold text-lg">Banca Remota</span>
           </div>
-          <p class="text-sm leading-relaxed mb-4 text-gray-500 dark:text-gray-400">App nativa para iPhone que simplifica las operaciones bancarias cubanas mediante USSD. Sin internet.</p>
+          <p class="text-sm leading-relaxed mb-4 text-gray-500 dark:text-gray-400">App nativa para iPhone que simplifica
+            las operaciones bancarias cubanas mediante USSD. Sin internet.</p>
         </div>
 
         <div>
           <h4 class="text-gray-900 dark:text-white font-semibold mb-4 text-sm">Navegación</h4>
           <ul class="space-y-2 text-sm">
-            <li><a href="#features"     class="footer-link">Funciones</a></li>
+            <li><a href="#features" class="footer-link">Funciones</a></li>
             <li><a href="#how-it-works" class="footer-link">Cómo funciona</a></li>
-            <li><a href="#manual"       class="footer-link">Manual de uso</a></li>
-            <li><a href="#faq"          class="footer-link">FAQ</a></li>
-            <li><a href="#roadmap"      class="footer-link">Roadmap</a></li>
+            <li><a href="#manual" class="footer-link">Manual de uso</a></li>
+            <li><a href="#faq" class="footer-link">FAQ</a></li>
+            <li><a href="#roadmap" class="footer-link">Roadmap</a></li>
           </ul>
         </div>
 
         <div>
           <h4 class="text-gray-900 dark:text-white font-semibold mb-4 text-sm">Proyecto</h4>
           <ul class="space-y-2 text-sm">
-            <li><a href="https://github.com/albertolicea00/BancaRemota"                          target="_blank" rel="noopener" class="footer-link">GitHub</a></li>
-            <li><a href="https://github.com/albertolicea00/BancaRemota/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener" class="footer-link">Contribuir</a></li>
-            <li><a href="https://github.com/albertolicea00/BancaRemota/issues"                   target="_blank" rel="noopener" class="footer-link">Reportar bug</a></li>
-            <li><a href="https://github.com/albertolicea00/BancaRemota/releases"                 target="_blank" rel="noopener" class="footer-link">Releases</a></li>
+            <li><a href="https://github.com/albertolicea00/BancaRemota" target="_blank" rel="noopener"
+                class="footer-link">GitHub</a></li>
+            <li><a href="https://github.com/albertolicea00/BancaRemota/blob/main/CONTRIBUTING.md" target="_blank"
+                rel="noopener" class="footer-link">Contribuir</a></li>
+            <li><a href="https://github.com/albertolicea00/BancaRemota/issues" target="_blank" rel="noopener"
+                class="footer-link">Reportar bug</a></li>
+            <li><a href="https://github.com/albertolicea00/BancaRemota/releases" target="_blank" rel="noopener"
+                class="footer-link">Releases</a></li>
           </ul>
         </div>
 
@@ -939,20 +1155,32 @@
           <h4 class="text-gray-900 dark:text-white font-semibold mb-4 text-sm">Comunidad</h4>
           <ul class="space-y-2 text-sm">
             <li>
-              <a href="https://t.me/BancaRemotaCuba" target="_blank" rel="noopener" class="footer-link flex items-center gap-2">
-                <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+              <a href="https://t.me/BancaRemotaCuba" target="_blank" rel="noopener"
+                class="footer-link flex items-center gap-2">
+                <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+                </svg>
                 Telegram
               </a>
             </li>
             <li>
-              <a href="https://github.com/albertolicea00" target="_blank" rel="noopener" class="footer-link flex items-center gap-2">
-                <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.21.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+              <a href="https://github.com/albertolicea00" target="_blank" rel="noopener"
+                class="footer-link flex items-center gap-2">
+                <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.21.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z" />
+                </svg>
                 GitHub
               </a>
             </li>
             <li>
-              <a href="https://www.linkedin.com/in/albertolicea00" target="_blank" rel="noopener" class="footer-link flex items-center gap-2">
-                <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              <a href="https://www.linkedin.com/in/albertolicea00" target="_blank" rel="noopener"
+                class="footer-link flex items-center gap-2">
+                <svg class="w-4 h-4 text-gold" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                </svg>
                 LinkedIn
               </a>
             </li>
@@ -961,12 +1189,15 @@
 
       </div>
 
-      <div class="border-t border-gray-200 dark:border-gray-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-600 dark:text-gray-600">
+      <div
+        class="border-t border-gray-200 dark:border-gray-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-600 dark:text-gray-600">
         <p>© <span x-text="new Date().getFullYear()">2026</span> Alberto Licea. Inspirada en la app original de
-          <a href="https://www.linkedin.com/in/henrycruzmederos" target="_blank" rel="noopener" class="hover:text-gold underline transition-colors">Henry Cruz</a>.
+          <a href="https://www.linkedin.com/in/henrycruzmederos" target="_blank" rel="noopener"
+            class="hover:text-gold underline transition-colors">Henry Cruz</a>.
         </p>
         <div class="flex gap-4 items-center">
-          <a href="https://github.com/albertolicea00/BancaRemota/blob/main/LICENSE" target="_blank" rel="noopener" class="hover:text-gold transition-colors">MIT License</a>
+          <a href="https://github.com/albertolicea00/BancaRemota/blob/main/LICENSE" target="_blank" rel="noopener"
+            class="hover:text-gold transition-colors">MIT License</a>
           <span class="text-gray-800">·</span>
           <span>App nativa iOS · Sin internet · Datos locales</span>
         </div>
@@ -980,4 +1211,5 @@
   <script src="app.js"></script>
 
 </body>
+
 </html>
