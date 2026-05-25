@@ -2,6 +2,7 @@ function app() {
   return {
     mobileMenuOpen: false,
     notifyOpen: false,
+    githubStars: null,
     darkMode: localStorage.getItem('darkMode') === 'true' ||
       (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches),
     faqs: [
@@ -38,6 +39,10 @@ function app() {
         }
       });
       window.addEventListener('notify:open', () => { this.notifyOpen = true; });
+      fetch('https://api.github.com/repos/albertolicea00/BancaRemota')
+        .then(r => r.json())
+        .then(d => { if (d.stargazers_count !== undefined) this.githubStars = d.stargazers_count; })
+        .catch(() => {});
     }
   }
 }
