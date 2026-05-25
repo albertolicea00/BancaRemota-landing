@@ -27,3 +27,21 @@ npx serve .
 ## Deploy
 
 Push to `main` → Vercel auto-deploys. Add env vars from `.env.example` in the Vercel dashboard.
+
+## Colors
+
+| Token | Hex | |
+|---|---|---|
+| `--color-gold` | `#B38B4D` | Primary brand accent |
+| `--color-accent` | `#81D717` | Lime highlights |
+| `--color-bpa` | `#1E5F52` | BPA green |
+| `--color-bandec` | `#5B2A1F` | BANDEC brown |
+| `--color-bm` | `#1A3A6B` | BM navy |
+
+## Contributing
+
+See the main project's [CONTRIBUTING.md](https://github.com/albertolicea00/BancaRemota/blob/main/CONTRIBUTING.md). Issues, PRs, and commit messages must be in English.
+
+---
+
+*Part of the [Banca Remota](https://github.com/albertolicea00/BancaRemota) project by [Alberto Licea](https://www.linkedin.com/in/albertolicea00).*
