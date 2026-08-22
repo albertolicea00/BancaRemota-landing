@@ -161,16 +161,16 @@
          1·2·3·4 — HERO + MOCKUP CAROUSEL
     ════════════════════════════════════════ -->
     <section id="hero"
-      class="pt-28 pb-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-gray-50 to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-900 text-gray-900 dark:text-white overflow-hidden relative transition-colors duration-300">
+      class="pt-20 pb-8 sm:pt-24 sm:pb-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-gray-50 to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-900 text-gray-900 dark:text-white overflow-hidden relative transition-colors duration-300 min-h-screen min-h-[100dvh] flex flex-col justify-between items-center">
 
       <!-- Background blobs -->
       <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div class="absolute top-0 left-1/3 w-96 h-96 rounded-full bg-gold opacity-10 blur-3xl"></div>
-        <div class="absolute bottom-0 right-1/4 w-80 h-80 rounded-full bg-bpa opacity-15 blur-3xl"></div>
+        <div class="absolute bottom-10 right-1/4 w-80 h-80 rounded-full bg-bpa opacity-15 blur-3xl"></div>
         <div class="absolute top-1/2 left-0 w-64 h-64 rounded-full bg-bandec opacity-10 blur-3xl"></div>
       </div>
 
-      <div class="relative max-w-3xl mx-auto text-center">
+      <div class="relative max-w-3xl mx-auto text-center w-full my-auto py-4 flex flex-col items-center justify-center">
 
         <div class="flex justify-center mb-6">
           <div class="relative">
@@ -213,7 +213,7 @@
         </div>
 
         <!-- Bank badges -->
-        <div class="flex items-center justify-center gap-3 flex-wrap mb-12">
+        <div class="flex items-center justify-center gap-3 flex-wrap">
           <span class="text-xs text-gray-500 dark:text-white/30 uppercase tracking-widest">Compatible con</span>
           <img src="assets/banks/bpa-icon.svg" alt="BPA"
             class="h-7 opacity-70 hover:opacity-100 transition-opacity dark:invert" title="Banco Popular de Ahorro" />
@@ -223,34 +223,47 @@
             class="h-7 opacity-70 hover:opacity-100 transition-opacity dark:invert" title="Banco Metropolitano" />
         </div>
 
-        <!-- Card stack — mobile only (desktop covered by features section) -->
-        <div class="flex justify-center lg:hidden mt-12 pt-12" x-data="cardStack([
-               {id:'home',     light:'assets/mockups/home-view-light.webp',     dark:'assets/mockups/home-view-dark.webp'},
-               {id:'bpa',      light:'assets/mockups/bpm-view-light.webp',      dark:'assets/mockups/bpm-view-dark.webp'},
-               {id:'bandec',   light:'assets/mockups/bandec-view-light.webp',   dark:'assets/mockups/bandec-view-dark.webp'},
-               {id:'bm',       light:'assets/mockups/bm-view-light.webp',       dark:'assets/mockups/bm-view-dark.webp'},
-               {id:'cards',    light:'assets/mockups/card-view-light.webp',     dark:'assets/mockups/card-view-dark.webp'},
-               {id:'card-add', light:'assets/mockups/card-add-view-light.webp', dark:'assets/mockups/card-add-view-dark.webp'},
-               {id:'nauta',    light:'assets/mockups/nauta-view-light.webp',    dark:'assets/mockups/nauta-view-dark.webp'},
-               {id:'services', light:'assets/mockups/services-view-light.webp', dark:'assets/mockups/services-view-dark.webp'},
-               {id:'keys',     light:'assets/mockups/key-view-light.webp',      dark:'assets/mockups/key-view-dark.webp'},
-               {id:'settings', light:'assets/mockups/settings-view-light.webp', dark:'assets/mockups/settings-view-dark.webp'},
-             ])">
-          <div class="relative select-none" style="width:13rem;height:27rem;touch-action:none;"
-            @pointerdown="startDrag($event)" @pointermove.window="drag($event)" @pointerup.window="endDrag()"
-            @pointercancel.window="endDrag()">
-            <template x-for="(card, i) in cards" :key="card.id">
-              <div class="absolute inset-0" :style="fanStyle(i)"
-                :class="i === 0 ? 'cursor-grab active:cursor-grabbing' : 'pointer-events-none'">
-                <img :src="darkMode ? card.dark : card.light" :alt="card.id"
-                  class="w-full h-full object-cover object-top rounded-[2.25rem] ring-1 ring-gold/40"
-                  :class="i === 0 ? 'shadow-2xl shadow-black/50' : 'shadow-lg shadow-black/20'" draggable="false" />
-              </div>
-            </template>
-          </div>
-        </div>
-
       </div>
+
+      <!-- Scroll indicator (desktop only) -->
+      <a href="#features"
+        class="hidden lg:inline-flex flex-col items-center gap-2 mb-2 text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-white/40 hover:text-gold dark:hover:text-gold transition-colors cursor-pointer group"
+        aria-label="Desplaza para ver más">
+        <span>Desplaza para ver más</span>
+        <div class="w-5 h-8 rounded-full border-2 border-current flex justify-center pt-1.5 p-0.5">
+          <div class="w-1 h-2 rounded-full bg-current animate-bounce"></div>
+        </div>
+      </a>
+
+      <!-- Card stack interactive carousel (mobile only — desktop covered by features section) -->
+      <div class="flex justify-center lg:hidden mt-4 pb-2" x-data="cardStack([
+             {id:'home',     light:'assets/mockups/home-view-light.webp',     dark:'assets/mockups/home-view-dark.webp'},
+             {id:'bpa',      light:'assets/mockups/bpm-view-light.webp',      dark:'assets/mockups/bpm-view-dark.webp'},
+             {id:'bandec',   light:'assets/mockups/bandec-view-light.webp',   dark:'assets/mockups/bandec-view-dark.webp'},
+             {id:'bm',       light:'assets/mockups/bm-view-light.webp',       dark:'assets/mockups/bm-view-dark.webp'},
+             {id:'cards',    light:'assets/mockups/card-view-light.webp',     dark:'assets/mockups/card-view-dark.webp'},
+             {id:'card-add', light:'assets/mockups/card-add-view-light.webp', dark:'assets/mockups/card-add-view-dark.webp'},
+             {id:'nauta',    light:'assets/mockups/nauta-view-light.webp',    dark:'assets/mockups/nauta-view-dark.webp'},
+             {id:'services', light:'assets/mockups/services-view-light.webp', dark:'assets/mockups/services-view-dark.webp'},
+             {id:'keys',     light:'assets/mockups/key-view-light.webp',      dark:'assets/mockups/key-view-dark.webp'},
+             {id:'settings', light:'assets/mockups/settings-view-light.webp', dark:'assets/mockups/settings-view-dark.webp'},
+           ])">
+        <div class="relative select-none w-56 h-[27rem] sm:w-64 sm:h-[30rem]" style="touch-action:none;"
+          @pointerdown="startDrag($event)" @pointermove.window="drag($event)" @pointerup.window="endDrag()"
+          @pointercancel.window="endDrag()">
+          <template x-for="(card, i) in cards" :key="card.id">
+            <div class="absolute inset-0" :style="fanStyle(i)"
+              :class="i === 0 ? 'cursor-grab active:cursor-grabbing' : 'pointer-events-none'">
+              <img :src="darkMode ? card.dark : card.light" :alt="card.id"
+                class="w-full h-full object-cover object-top rounded-[2.25rem] ring-1 ring-gold/40"
+                :class="i === 0 ? 'shadow-2xl shadow-black/50' : 'shadow-lg shadow-black/20'" draggable="false" />
+            </div>
+          </template>
+        </div>
+      </div>
+
+      <!-- Seamless bottom section gradient fade -->
+      <div class="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-gray-50 dark:from-gray-900 to-transparent pointer-events-none"></div>
     </section>
 
     <!-- ════════════════════════════════════════
