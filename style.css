@@ -94,9 +94,8 @@ html { scroll-behavior: smooth; }
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  border: 1px solid color-mix(in srgb, var(--color-gold) 25%, transparent);
+  color: var(--color-gold);
   padding: 0.25rem 0.875rem;
-  border-radius: 9999px;
   margin-bottom: 0.75rem;
 }
 
