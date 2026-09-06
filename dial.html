@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es" x-data="{ darkMode: document.documentElement.classList.contains('dark') }"
+  :class="{ 'dark': darkMode }" style="overflow-x:hidden">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Llamar operaciones — Banca Remota</title>
+  <meta name="description"
+    content="Códigos USSD reales de BPA, BANDEC y BM — toca Llamar y confirma la llamada." />
+  <meta name="theme-color" content="#B38B4D" />
+  <link rel="icon" type="image/png" href="assets/icon-white.png" />
+  <link rel="apple-touch-icon" href="assets/icon-white.png" />
+
+  <!-- Tailwind CDN + config (same as index.html) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            bpa: '#1E5F52',
+            bandec: '#5B2A1F',
+            accent: '#81D717',
+            gold: '#B38B4D',
+            bm: '#1A3A6B',
+          },
+          fontFamily: {
+            sans: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'Segoe UI', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <!-- Alpine.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Pre-render Dark Mode Init to prevent FOUC -->
+  <script>
+    if (localStorage.getItem('darkMode') === 'true' || (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
+
+  <style>
+    [x-cloak] { display: none !important; }
+
+    /* Bottom app-style tab bar (mobile only) */
+    .tab-bar {
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    .tab-icon-pill {
+      width: 2rem; height: 2rem;
+      border-radius: 0.75rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .op-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      background: #fff;
+      border-radius: 1.1rem;
+      padding: 0.9rem 1rem;
+      border: 1px solid #f3f4f6;
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow 0.15s, transform 0.15s;
+    }
+    .op-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.08); transform: translateY(-1px); }
+    .dark .op-card { background: #1f2937; border-color: #374151; }
+    .op-card-title { font-weight: 700; font-size: 0.9rem; color: #111827; }
+    .dark .op-card-title { color: #fff; }
+    .op-card-desc { font-size: 0.775rem; color: #6b7280; margin-top: 0.1rem; }
+    .dark .op-card-desc { color: #9ca3af; }
+    .op-card-code { font-size: 0.7rem; font-family: ui-monospace, monospace; color: #9ca3af; margin-top: 0.3rem; }
+    .op-card-icon {
+      width: 2.5rem; height: 2.5rem;
+      border-radius: 9999px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 font-sans antialiased transition-colors duration-300 overflow-x-hidden">
+
+  <!-- ════════════════════════════════════════
+       NAV (simplified — links back to landing page)
+  ════════════════════════════════════════ -->
+  <nav style="z-index: 9999;"
+    class="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2.5 font-bold text-gold text-lg">
+        <img src="assets/icon-black.png" alt="Banca Remota" class="w-8 h-8 dark:hidden rounded-lg shadow-sm" />
+        <img src="assets/icon-white.png" alt="Banca Remota" class="w-8 h-8 hidden dark:block rounded-lg shadow-sm" />
+        <span class="text-gray-900 dark:text-white font-bold">Banca Remota</span>
+      </a>
+
+      <a href="index.html"
+        class="hidden sm:inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-gold dark:hover:text-gold transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Volver al inicio
+      </a>
+
+      <button @click="darkMode = !darkMode; localStorage.setItem('darkMode', darkMode)"
+        class="w-9 h-9 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+        :title="darkMode ? 'Modo claro' : 'Modo oscuro'">
+        <span x-show="!darkMode"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+          </svg></span>
+        <span x-show="darkMode"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M12 3v2.25m0 13.5V21m8.974-8.974h-2.25M4.25 12h2.25m13.308-7.308l-1.591 1.591M6.829 17.171l-1.591 1.591m12.932 0l-1.591-1.591M6.829 6.829L5.238 5.238M17.5 12A5.5 5.5 0 1112 6.5a5.5 5.5 0 015.5 5.5z" />
+          </svg></span>
+      </button>
+    </div>
+  </nav>
+
+  <div x-data="dialOps()" x-cloak>
+
+  <main class="pt-24 pb-28 md:pb-16 px-4 sm:px-6 lg:px-8 min-h-screen bg-gray-50 dark:bg-gray-900 relative overflow-hidden">
+
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+      <div class="absolute top-0 right-0 w-96 h-96 rounded-full bg-bm opacity-[0.10] dark:opacity-[0.05] blur-3xl"></div>
+      <div class="absolute bottom-0 left-1/4 w-80 h-80 rounded-full bg-gold opacity-[0.12] dark:opacity-[0.06] blur-3xl"></div>
+    </div>
+
+    <div class="max-w-6xl mx-auto relative">
+
+      <div class="text-center mb-10">
+        <span class="section-badge">Marcador USSD</span>
+        <h1 class="section-title">Llama directo por USSD</h1>
+        <p class="section-subtitle">Elige tu banco y toca la operación para llamar.</p>
+      </div>
+
+      <!-- ════════════════════════════════════════
+           DESKTOP/TABLET: 3 columns · MOBILE: 1 column driven by bottom tabs
+      ════════════════════════════════════════ -->
+      <div class="grid md:grid-cols-3 gap-6 items-start">
+        <template x-for="bank in banks" :key="bank.id">
+          <section :class="activeBank === bank.id ? 'block' : 'hidden md:block'"
+            class="bank-card !items-stretch !text-left"
+            :style="{ borderColor: 'color-mix(in srgb, ' + bank.hex + ' 35%, transparent)' }">
+
+            <!-- Column header -->
+            <div class="w-full flex items-center gap-3 mb-3">
+              <div class="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 p-2"
+                :style="{ background: 'color-mix(in srgb, ' + bank.hex + ' 16%, transparent)' }">
+                <img :src="'assets/banks/' + bank.id + '-icon.svg'" :alt="bank.shortName"
+                  class="w-full h-full object-contain dark:invert" />
+              </div>
+              <div class="min-w-0">
+                <p class="font-extrabold text-gray-900 dark:text-white leading-tight" x-text="bank.shortName"></p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 truncate" x-text="bank.name"></p>
+              </div>
+            </div>
+
+            <!-- Categories -->
+            <div class="w-full space-y-4">
+              <template x-for="cat in bank.categories" :key="cat.name">
+                <div>
+                  <p class="text-[0.7rem] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-1.5"
+                    x-text="cat.name"></p>
+                  <div class="space-y-2">
+                    <template x-for="op in cat.operations" :key="op.id">
+                      <a :href="telHref(op.ussdCode)" class="op-card" title="Llamar código USSD">
+                        <span class="min-w-0">
+                          <span class="op-card-title block truncate" x-text="op.name"></span>
+                          <span class="op-card-desc block truncate" x-text="op.description"></span>
+                          <span class="op-card-code block" x-text="op.ussdCode"></span>
+                        </span>
+                        <span class="op-card-icon" :style="{ background: bank.hex }">
+                          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.75">
+                            <path stroke-linecap="round" stroke-linejoin="round" :d="iconPath(op.iconName)" />
+                          </svg>
+                        </span>
+                      </a>
+                    </template>
+                  </div>
+                </div>
+              </template>
+            </div>
+          </section>
+        </template>
+      </div>
+    </div>
+  </main>
+
+  <!-- ════════════════════════════════════════
+       MOBILE BOTTOM TAB BAR (app-style)
+  ════════════════════════════════════════ -->
+  <nav aria-label="Seleccionar banco"
+    class="tab-bar md:hidden fixed bottom-0 inset-x-0 z-50 flex bg-white/90 dark:bg-gray-950/90 backdrop-blur-md border-t border-gray-100 dark:border-gray-800">
+    <template x-for="bank in banks" :key="bank.id">
+      <button @click="activeBank = bank.id" class="flex-1 flex flex-col items-center justify-center py-2 gap-1">
+        <span class="tab-icon-pill"
+          :style="{ background: activeBank === bank.id ? 'color-mix(in srgb, ' + bank.hex + ' 18%, transparent)' : 'transparent' }">
+          <img :src="'assets/banks/' + bank.id + '-icon.svg'" :alt="bank.shortName"
+            class="w-4 h-4 object-contain dark:invert transition-opacity"
+            :class="activeBank === bank.id ? 'opacity-100' : 'opacity-40'" />
+        </span>
+        <span class="text-[0.7rem] font-bold transition-colors"
+          :style="{ color: activeBank === bank.id ? bank.hex : '#9ca3af' }" x-text="bank.shortName"></span>
+      </button>
+    </template>
+  </nav>
+
+  </div>
+
+  <script>
+    function dialOps() {
+      return {
+        activeBank: 'bpa',
+        banks: [],
+        iconGroups: {},
+        iconPaths: {},
+
+        async init() {
+          const [codes, icons] = await Promise.all([
+            fetch('codes.json').then(r => r.json()),
+            fetch('op-icons.json').then(r => r.json()),
+          ]);
+          this.banks = codes.banks.map(bank => ({
+            id: bank.id,
+            name: bank.name,
+            shortName: bank.shortName,
+            hex: '#' + bank.themeColorHex,
+            categories: bank.categories,
+          }));
+          this.iconGroups = icons.groups;
+          this.iconPaths = icons.paths;
+        },
+
+        iconPath(iconName) {
+          const group = this.iconGroups[iconName] || 'default';
+          return this.iconPaths[group] || this.iconPaths.default;
+        },
+
+        telHref(code) {
+          return 'tel:' + code.replace(/#/g, '%23');
+        },
+      };
+    }
+  </script>
+
+</body>
+
+</html>
