@@ -1,0 +1,886 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import CardStack from '../components/CardStack.astro';
+
+const faqs = [
+  {
+    q: '¿Necesito internet para usar la app?',
+    a: 'No. Banca Remota no usa internet en ningún momento. Las operaciones se realizan mediante códigos USSD sobre la red telefónica de ETECSA, igual que cuando marcas el código manualmente en el teléfono.',
+  },
+  {
+    q: '¿Es seguro guardar mis datos en la app?',
+    a: 'Sí. Todos los datos se guardan localmente en tu iPhone (UserDefaults). No hay servidores, no hay nube, y la sección de claves requiere Face ID / Touch ID. El código es open source: puedes verificarlo tú mismo.',
+  },
+  {
+    q: '¿Cuándo estará en la App Store?',
+    a: 'Actualmente está en beta — solo disponible instalando desde el código fuente en GitHub. <button onclick="window.dispatchEvent(new CustomEvent(\'notify:open\'))" class="text-gold underline cursor-pointer">Suscríbete</button> para recibir una notificación en cuanto se publique.',
+  },
+  {
+    q: '¿Cuánto cuesta la app?',
+    a: 'Cero. Nada. Ya bastante caro te salió el iPhone como para que también tengas que pagar por revisar tu banco.',
+  },
+  {
+    q: '¿La app realiza las operaciones bancarias por mí?',
+    a: 'No. La app solo abre el marcador del iPhone con el código USSD correcto preescrito. Tú confirmas la llamada y el banco responde por la red telefónica. Banca Remota es un lanzador de códigos, no un bot.',
+  },
+  {
+    q: '¿Puedo contribuir al proyecto?',
+    a: 'Sí. Mira <code class="code-inline">CONTRIBUTING.md</code> en el repositorio. Issues, PRs y commits deben estar en inglés, aunque la UI de la app está en español.',
+  },
+];
+
+const heroCards = [
+  { id: 'home', light: 'home-view-light.webp', dark: 'home-view-dark.webp' },
+  { id: 'bpa', light: 'bpm-view-light.webp', dark: 'bpm-view-dark.webp' },
+  { id: 'bandec', light: 'bandec-view-light.webp', dark: 'bandec-view-dark.webp' },
+  { id: 'bm', light: 'bm-view-light.webp', dark: 'bm-view-dark.webp' },
+  { id: 'cards', light: 'card-view-light.webp', dark: 'card-view-dark.webp' },
+  { id: 'card-add', light: 'card-add-view-light.webp', dark: 'card-add-view-dark.webp' },
+  { id: 'nauta', light: 'nauta-view-light.webp', dark: 'nauta-view-dark.webp' },
+  { id: 'services', light: 'services-view-light.webp', dark: 'services-view-dark.webp' },
+  { id: 'keys', light: 'key-view-light.webp', dark: 'key-view-dark.webp' },
+  { id: 'settings', light: 'settings-view-light.webp', dark: 'settings-view-dark.webp' },
+];
+
+const featurePanels = [
+  {
+    feat: 'banking',
+    cards: [
+      { id: 'bpa', light: 'bpm-view-light.webp', dark: 'bpm-view-dark.webp' },
+      { id: 'bandec', light: 'bandec-view-light.webp', dark: 'bandec-view-dark.webp' },
+      { id: 'bm', light: 'bm-view-light.webp', dark: 'bm-view-dark.webp' },
+    ],
+  },
+  {
+    feat: 'favorites',
+    cards: [
+      { id: 'home', light: 'home-view-light.webp', dark: 'home-view-dark.webp' },
+      { id: 'settings', light: 'settings-view-light.webp', dark: 'settings-view-dark.webp' },
+    ],
+  },
+  {
+    feat: 'accounts',
+    cards: [
+      { id: 'card', light: 'card-view-light.webp', dark: 'card-view-dark.webp' },
+      { id: 'card-add', light: 'card-add-view-light.webp', dark: 'card-add-view-dark.webp' },
+    ],
+  },
+  {
+    feat: 'nauta',
+    cards: [
+      { id: 'nauta', light: 'nauta-view-light.webp', dark: 'nauta-view-dark.webp' },
+      { id: 'nauta-add', light: 'nauta-add-view-light.webp', dark: 'nauta-add-view-dark.webp' },
+    ],
+  },
+  {
+    feat: 'services',
+    cards: [
+      { id: 'services', light: 'services-view-light.webp', dark: 'services-view-dark.webp' },
+      { id: 'services-add', light: 'services-add-view-light.webp', dark: 'services-add-view-dark.webp' },
+    ],
+  },
+  {
+    feat: 'keys',
+    cards: [
+      { id: 'key', light: 'key-view-light.webp', dark: 'key-view-dark.webp' },
+      { id: 'key-add', light: 'key-add-view-light.webp', dark: 'key-add-view-dark.webp' },
+    ],
+  },
+  {
+    feat: 'settings',
+    cards: [
+      { id: 'settings', light: 'settings-view-light.webp', dark: 'settings-view-dark.webp' },
+      { id: 'home', light: 'home-view-light.webp', dark: 'home-view-dark.webp' },
+    ],
+  },
+];
+
+const featureButtons = [
+  {
+    feat: 'banking',
+    title: 'Operaciones bancarias',
+    desc: 'BPA, BANDEC y BM completos — cualquier operación USSD organizada por categoría.',
+    icon: 'M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z',
+  },
+  {
+    feat: 'favorites',
+    title: 'Favoritos personalizables',
+    desc: 'Fija operaciones frecuentes en el home. Arrastra para reordenar. Color a tu gusto.',
+    icon: 'M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z',
+  },
+  {
+    feat: 'accounts',
+    title: 'Cuentas bancarias',
+    desc: 'Guarda datos de tus tarjetas con número enmascarado. Un toque copia al portapapeles.',
+    icon: 'M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z',
+  },
+  {
+    feat: 'nauta',
+    title: 'Cuentas Nauta',
+    desc: 'Usuarios Nauta Nacional e Internacional organizados por grupos.',
+    icon: 'M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9',
+  },
+  {
+    feat: 'services',
+    title: 'Facturas de servicios',
+    desc: 'Contratos de electricidad, agua, gas y teléfono — cópialos al hacer pagos USSD.',
+    icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
+  },
+  {
+    feat: 'keys',
+    title: 'Claves protegidas',
+    desc: 'Gestor local de PINs y contraseñas. <strong>Solo con Face ID / Touch ID.</strong>',
+    icon: 'M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z',
+  },
+  {
+    feat: 'settings',
+    title: 'Personalización',
+    desc: 'Tema claro/oscuro, Face ID, color de favoritos, accesos rápidos y más desde Ajustes.',
+    icon: 'M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4',
+  },
+];
+
+---
+
+<BaseLayout
+  title="Banca Remota — Banca cubana desde tu iPhone"
+  description="App nativa para iPhone que simplifica las operaciones bancarias cubanas mediante códigos USSD. Sin internet. Compatible con BPA, BANDEC y BM."
+  ogImage="/assets/og-image.jpg"
+>
+  <Nav variant="full" />
+
+  <main>
+    <!-- ════════════════════════════════════════
+         HERO + MOCKUP CAROUSEL
+    ════════════════════════════════════════ -->
+    <section
+      id="hero"
+      class="pt-20 pb-8 sm:pt-24 sm:pb-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-gray-50 to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-900 text-gray-900 dark:text-white overflow-hidden relative transition-colors duration-300 min-h-screen min-h-[100dvh] flex flex-col justify-between items-center"
+    >
+      <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div class="absolute top-0 left-1/3 w-96 h-96 rounded-full bg-gold opacity-10 blur-3xl"></div>
+        <div class="absolute bottom-10 right-1/4 w-80 h-80 rounded-full bg-bpa opacity-15 blur-3xl"></div>
+        <div class="absolute top-1/2 left-0 w-64 h-64 rounded-full bg-bandec opacity-10 blur-3xl"></div>
+      </div>
+
+      <div class="relative max-w-3xl mx-auto text-center w-full my-auto py-4 flex flex-col items-center justify-center">
+        <div class="flex justify-center mb-6">
+          <div class="relative">
+            <img src="/assets/icon-black.png" alt="Banca Remota" class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl shadow-xl dark:hidden" />
+            <img src="/assets/icon-white.png" alt="Banca Remota" class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl shadow-xl hidden dark:block" />
+            <span class="absolute -top-3 -right-3 w-9 h-9 flex items-center justify-center bg-gradient-to-tr from-gold to-[#dbab46] text-white text-[13px] font-black rounded-full shadow-md border-[3px] border-white dark:border-gray-950">V2</span>
+          </div>
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black leading-tight mb-5">
+          Banca cubana<br />
+          <span class="text-gold">desde tu iPhone</span>
+        </h1>
+
+        <p class="text-xl text-gray-600 dark:text-white/70 leading-relaxed mb-3">
+          Consulta saldos, transfiere y paga servicios —
+          <strong class="text-gray-900 dark:text-white">sin internet</strong>, directo por la red telefónica.
+        </p>
+        <p class="text-sm text-gray-500 dark:text-white/40 mb-8">Compatible con BPA, BANDEC y BM · iOS 16+ · Datos 100% locales</p>
+
+        <div class="flex flex-col sm:flex-row gap-3 justify-center mb-8">
+          <button type="button" data-notify-open class="btn-primary">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+            </svg>
+            Avísame cuando esté en App Store
+          </button>
+          <a href="https://github.com/albertolicea00/BancaRemota" target="_blank" rel="noopener" class="btn-ghost">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.21.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z" />
+            </svg>
+            Ver en GitHub
+          </a>
+        </div>
+
+        <!-- Bank badges -->
+        <!--
+        <div class="flex items-center justify-center gap-3 flex-wrap">
+          <span class="text-xs text-gray-500 dark:text-white/30 uppercase tracking-widest">Compatible con</span>
+          <img src="/assets/banks/bpa-icon.svg" alt="BPA"
+            class="h-7 opacity-70 hover:opacity-100 transition-opacity dark:invert" title="Banco Popular de Ahorro" />
+          <img src="/assets/banks/bandec-icon.svg" alt="BANDEC"
+            class="h-7 opacity-70 hover:opacity-100 transition-opacity dark:invert" title="BANDEC" />
+          <img src="/assets/banks/bm-icon.svg" alt="BM"
+            class="h-7 opacity-70 hover:opacity-100 transition-opacity dark:invert" title="Banco Metropolitano" />
+        </div>
+        -->
+      </div>
+
+      <a
+        href="#features"
+        class="hidden lg:inline-flex flex-col items-center gap-2 mb-2 text-xs font-semibold uppercase tracking-widest text-gray-400 dark:text-white/40 hover:text-gold dark:hover:text-gold transition-colors cursor-pointer group"
+        aria-label="Desplaza para ver más"
+      >
+        <span>Desplaza para ver más</span>
+        <div class="w-5 h-8 rounded-full border-2 border-current flex justify-center pt-1.5 p-0.5">
+          <div class="w-1 h-2 rounded-full bg-current animate-bounce"></div>
+        </div>
+      </a>
+
+      <!-- Card stack interactive carousel (mobile only — desktop covered by features section) -->
+      <div class="flex justify-center lg:hidden mt-4 pb-2">
+        <CardStack cards={heroCards} containerClass="w-56 h-[27rem] sm:w-64 sm:h-[30rem]" />
+      </div>
+
+      <div class="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-gray-50 dark:from-gray-900 to-transparent pointer-events-none"></div>
+    </section>
+
+    <!-- ════════════════════════════════════════
+         FUNCIONES PRINCIPALES
+    ════════════════════════════════════════ -->
+    <section id="features" class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900 relative overflow-hidden">
+      <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div class="absolute top-0 right-0 w-96 h-96 rounded-full bg-bm opacity-[0.12] dark:opacity-[0.06] blur-3xl"></div>
+        <div class="absolute bottom-0 left-1/4 w-80 h-80 rounded-full bg-gold opacity-[0.13] dark:opacity-[0.07] blur-3xl"></div>
+      </div>
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+          <span class="section-badge">Funciones</span>
+          <h2 class="section-title">Todo lo que necesitas para tu banca cubana</h2>
+          <p class="section-subtitle">Diseñado para cubanos que saben que el tiempo es valioso.</p>
+        </div>
+
+        <div id="feature-selector" class="grid lg:grid-cols-2 gap-10 items-center">
+          <!-- Feature selector list (left — visible on all breakpoints) -->
+          <div class="space-y-2">
+            {
+              featureButtons.map((btn, i) => (
+                <button
+                  type="button"
+                  data-feat-button={btn.feat}
+                  class={`feat-btn ${i === 0 ? 'feat-active' : 'feat-inactive'}`}
+                >
+                  <div class="feat-btn-icon">
+                    <svg class="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={btn.icon} />
+                    </svg>
+                  </div>
+                  <div class="text-left">
+                    <p class="feat-btn-title">{btn.title}</p>
+                    <p class="feat-btn-desc" set:html={btn.desc} />
+                  </div>
+                </button>
+              ))
+            }
+          </div>
+
+          <!-- Mockup card stack (right — desktop only) -->
+          <div class="hidden lg:flex justify-center items-center" style="transform: scale(2);">
+            <div class="relative" style="width:10rem;height:21rem;">
+              {
+                featurePanels.map((panel, i) => (
+                  <div data-feat-panel={panel.feat} class={i === 0 ? '' : 'hidden'}>
+                    <CardStack cards={panel.cards} compact={true} containerClass="absolute inset-0" />
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════
+         CÓMO FUNCIONA
+    ════════════════════════════════════════ -->
+    <section id="how-it-works" class="py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-950 relative overflow-hidden">
+      <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div class="absolute top-1/3 right-0 w-72 h-72 rounded-full bg-bpa opacity-[0.10] dark:opacity-[0.07] blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 rounded-full bg-bandec opacity-[0.08] dark:opacity-[0.06] blur-3xl"></div>
+      </div>
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-16">
+          <span class="section-badge">Cómo funciona</span>
+          <h2 class="section-title">Tres pasos, sin complicaciones</h2>
+          <p class="section-subtitle">No se requiere internet. Solo tu teléfono y la red de tu operadora.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 text-center mb-16">
+          <div class="step-card">
+            <div class="step-number">1</div>
+            <h3 class="step-title">Elige tu banco</h3>
+            <p class="step-desc">Selecciona BPA, BANDEC o BM. La app carga todas las operaciones disponibles organizadas por categoría.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">2</div>
+            <h3 class="step-title">Selecciona la operación</h3>
+            <p class="step-desc">Encuentra lo que necesitas — saldo, transferencia, recarga — o búscalo en tus favoritos del home.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-number">3</div>
+            <h3 class="step-title">Llama y listo</h3>
+            <p class="step-desc">La app abre el marcador con el código USSD listo para llamar. Tú solo confirmas. Sin escribir nada.</p>
+          </div>
+        </div>
+
+        <!-- ════════════════════════════════════════
+             MANUAL DE USUARIO INTEGRADO
+        ════════════════════════════════════════ -->
+        <div id="manual" class="text-center mt-24 mb-10">
+          <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Manual Completo</h3>
+          <p class="text-gray-500 dark:text-gray-400 mt-2">Guía paso a paso para configurar y usar todas las funciones avanzadas.</p>
+        </div>
+
+        <div class="space-y-4 max-w-4xl mx-auto" data-accordion data-accordion-active-class="ring-2 ring-gold">
+          <div class="manual-step" data-accordion-item>
+            <button type="button" data-accordion-trigger class="w-full flex items-center justify-between p-5 text-left">
+              <div class="flex items-center gap-4">
+                <span class="step-badge">1</span>
+                <span class="font-semibold text-gray-900 dark:text-white">Instalación desde GitHub</span>
+              </div>
+              <svg data-accordion-chevron class="w-5 h-5 text-gray-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div data-accordion-body class="hidden px-5 pb-5 text-sm text-gray-600 dark:text-gray-300 space-y-2">
+              <ol class="list-decimal list-inside space-y-1.5">
+                <li>Clona el repositorio: <code class="code-inline">git clone https://github.com/albertolicea00/BancaRemota</code></li>
+                <li>Abre <code class="code-inline">BancaRemota.xcodeproj</code> en Xcode 15+.</li>
+                <li>En <em>Signing &amp; Capabilities</em> configura tu cuenta de desarrollador Apple.</li>
+                <li>Conecta tu iPhone y selecciónalo como destino de compilación.</li>
+                <li>Presiona <kbd class="kbd">⌘R</kbd> para compilar e instalar en tu dispositivo.</li>
+              </ol>
+              <p class="text-gold mt-3 flex items-start gap-1.5">
+                <svg class="w-4 h-4 flex-shrink-0 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                <span>Requiere iPhone físico — los simuladores no pueden realizar llamadas USSD.</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="manual-step" data-accordion-item>
+            <button type="button" data-accordion-trigger class="w-full flex items-center justify-between p-5 text-left">
+              <div class="flex items-center gap-4">
+                <span class="step-badge">2</span>
+                <span class="font-semibold text-gray-900 dark:text-white">Primera vez: elegir banco y autenticarse</span>
+              </div>
+              <svg data-accordion-chevron class="w-5 h-5 text-gray-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div data-accordion-body class="hidden px-5 pb-5 text-sm text-gray-600 dark:text-gray-300">
+              <ol class="list-decimal list-inside space-y-1.5">
+                <li>Al abrir la app, selecciona tu banco (BPA, BANDEC o BM).</li>
+                <li>Ve a la categoría <strong>Sesión</strong> y toca <strong>Autenticarse</strong>.</li>
+                <li>La app abre el marcador del iPhone con el código USSD precargado.</li>
+                <li>Confirma la llamada — el banco te pedirá tu PIN por pantalla USSD.</li>
+                <li>Una vez autenticado, tienes acceso a todas las operaciones de tu sesión.</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="manual-step" data-accordion-item>
+            <button type="button" data-accordion-trigger class="w-full flex items-center justify-between p-5 text-left">
+              <div class="flex items-center gap-4">
+                <span class="step-badge">3</span>
+                <span class="font-semibold text-gray-900 dark:text-white">Gestionar Favoritos</span>
+              </div>
+              <svg data-accordion-chevron class="w-5 h-5 text-gray-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div data-accordion-body class="hidden px-5 pb-5 text-sm text-gray-600 dark:text-gray-300">
+              <ol class="list-decimal list-inside space-y-1.5">
+                <li>En la pantalla principal verás las operaciones marcadas como favoritas por defecto.</li>
+                <li>Para añadir: toca el ⭐ al lado de cualquier operación en la lista del banco.</li>
+                <li>Para reordenar: mantén pulsado y arrastra las tarjetas de favoritos.</li>
+                <li>Para personalizar el color: ve a <strong>Ajustes → Color de favoritos</strong>.</li>
+                <li>Para restaurar los favoritos por defecto: <strong>Ajustes → Restablecer favoritos</strong>.</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="manual-step" data-accordion-item>
+            <button type="button" data-accordion-trigger class="w-full flex items-center justify-between p-5 text-left">
+              <div class="flex items-center gap-4">
+                <span class="step-badge">4</span>
+                <span class="font-semibold text-gray-900 dark:text-white">Guardar tarjetas y cuentas</span>
+              </div>
+              <svg data-accordion-chevron class="w-5 h-5 text-gray-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div data-accordion-body class="hidden px-5 pb-5 text-sm text-gray-600 dark:text-gray-300">
+              <ol class="list-decimal list-inside space-y-1.5">
+                <li>Ve al menú <strong>Cuentas</strong> desde la navegación principal.</li>
+                <li>Toca <strong>+</strong> para añadir una tarjeta.</li>
+                <li>Introduce número, titular, móvil asociado y elige un color identificador.</li>
+                <li>El número se muestra enmascarado — toca el ícono de copia para obtener el número completo.</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="manual-step" data-accordion-item>
+            <button type="button" data-accordion-trigger class="w-full flex items-center justify-between p-5 text-left">
+              <div class="flex items-center gap-4">
+                <span class="step-badge">5</span>
+                <span class="font-semibold text-gray-900 dark:text-white">Activar Face ID y proteger claves</span>
+              </div>
+              <svg data-accordion-chevron class="w-5 h-5 text-gray-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div data-accordion-body class="hidden px-5 pb-5 text-sm text-gray-600 dark:text-gray-300">
+              <ol class="list-decimal list-inside space-y-1.5">
+                <li>Ve a <strong>Ajustes → Face ID / Touch ID</strong> y actívalo.</li>
+                <li>Configura el tiempo de expiración de sesión a tu preferencia.</li>
+                <li>La sección <strong>Claves</strong> solo se desbloqueará con biometría exitosa.</li>
+                <li>Puedes guardar PINs de tarjetas, contraseñas de Nauta y cualquier clave por categoría.</li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="manual-step" data-accordion-item>
+            <button type="button" data-accordion-trigger class="w-full flex items-center justify-between p-5 text-left">
+              <div class="flex items-center gap-4">
+                <span class="step-badge">6</span>
+                <span class="font-semibold text-gray-900 dark:text-white">Ajustes de la app</span>
+              </div>
+              <svg data-accordion-chevron class="w-5 h-5 text-gray-400 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div data-accordion-body class="hidden px-5 pb-5 text-sm text-gray-600 dark:text-gray-300">
+              <ul class="space-y-1.5 list-disc list-inside">
+                <li><strong>Tema:</strong> claro, oscuro o según el sistema.</li>
+                <li><strong>Face ID / Touch ID:</strong> activar y configurar sesión.</li>
+                <li><strong>Accesos directos en home:</strong> mostrar u ocultar el menú rápido.</li>
+                <li><strong>Color de favoritos:</strong> elige el color de tus tarjetas de favoritos.</li>
+                <li><strong>Restablecer favoritos:</strong> vuelve a los favoritos predeterminados.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════
+         COMPATIBILIDAD
+    ════════════════════════════════════════ -->
+    <section id="banks" class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900 relative overflow-hidden">
+      <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div class="absolute top-0 left-1/3 w-80 h-80 rounded-full bg-gold opacity-[0.12] dark:opacity-[0.06] blur-3xl"></div>
+        <div class="absolute bottom-1/4 right-0 w-64 h-64 rounded-full bg-bm opacity-[0.13] dark:opacity-[0.07] blur-3xl"></div>
+      </div>
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-10">
+          <span class="section-badge">Compatibilidad</span>
+          <h2 class="section-title">Bancos soportados</h2>
+        </div>
+
+        <!-- USSD codes warning marquee -->
+        <div class="overflow-hidden mb-12 border-y border-gold/30 bg-gold/5 dark:bg-gold/10 py-3" style="width:100vw;margin-left:calc(50% - 50vw)">
+          <div class="marquee-track flex gap-12 whitespace-nowrap text-sm font-medium text-gold">
+            <span class="marquee-content">
+              <svg class="inline w-3.5 h-3.5 align-middle" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"/></svg> Los códigos USSD son gestionados por los propios bancos y suelen ser bastante estables en el tiempo
+              &nbsp;·&nbsp;
+              <svg class="inline w-3.5 h-3.5 align-middle" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> Nuevas funcionalidades bancarias pueden requerir actualizar el archivo <code>codes.json</code> de la
+              app &nbsp;·&nbsp;
+              <svg class="inline w-3.5 h-3.5 align-middle" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg> Si un código deja de funcionar, puedes editarlo directamente en <code>codes.json</code> sin tocar nada
+              más &nbsp;·&nbsp;
+              <svg class="inline w-3.5 h-3.5 align-middle" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg> Descarga la última versión del listado de códigos desde GitHub &nbsp;·&nbsp;
+              <svg class="inline w-3.5 h-3.5 align-middle" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Los códigos pueden cambiar por decisión del banco sin previo aviso — si algo falla, revisa primero el
+              JSON &nbsp;·&nbsp;
+              <svg class="inline w-3.5 h-3.5 align-middle" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m1.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg> ¿Encontraste un código nuevo o desactualizado? Abre un PR en GitHub y ayuda a la comunidad
+              &nbsp;·&nbsp;
+            </span>
+            <!-- Identical copy for continuous seamless loop -->
+            <span class="marquee-content" aria-hidden="true">
+              <svg class="inline w-3.5 h-3.5 align-middle" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"/></svg> Los códigos USSD son gestionados por los propios bancos y suelen ser bastante estables en el tiempo
+              &nbsp;·&nbsp;
+              <svg class="inline w-3.5 h-3.5 align-middle" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> Nuevas funcionalidades bancarias pueden requerir actualizar el archivo <code>codes.json</code> de la
+              app &nbsp;·&nbsp;
+              <svg class="inline w-3.5 h-3.5 align-middle" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg> Si un código deja de funcionar, puedes editarlo directamente en <code>codes.json</code> sin tocar nada
+              más &nbsp;·&nbsp;
+              <svg class="inline w-3.5 h-3.5 align-middle" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg> Descarga la última versión del listado de códigos desde GitHub &nbsp;·&nbsp;
+              <svg class="inline w-3.5 h-3.5 align-middle" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Los códigos pueden cambiar por decisión del banco sin previo aviso — si algo falla, revisa primero el
+              JSON &nbsp;·&nbsp;
+              <svg class="inline w-3.5 h-3.5 align-middle" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m1.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg> ¿Encontraste un código nuevo o desactualizado? Abre un PR en GitHub y ayuda a la comunidad
+              &nbsp;·&nbsp;
+            </span>
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-3 gap-6 mb-12">
+          <div class="bank-card" style="border-color: rgba(30,95,82,.4)">
+            <img src="/assets/banks/bpa-logo.png" alt="BPA" class="h-14 object-contain mx-auto mb-3 rounded-xl" />
+            <h3 class="font-bold text-center">Banco Popular de Ahorro</h3>
+            <p class="text-xs text-center text-gray-400 mt-1">*444*40*01#</p>
+            <span class="bank-badge" style="background:rgba(30,95,82,.12);color:#1E5F52">Soporte completo</span>
+          </div>
+
+          <div class="bank-card" style="border-color: rgba(91,42,31,.4)">
+            <img src="/assets/banks/bandec-logo.png" alt="BANDEC" class="h-14 object-contain mx-auto mb-3 rounded-xl" />
+            <h3 class="font-bold text-center">BANDEC</h3>
+            <p class="text-xs text-center text-gray-400 mt-1">*444*40*02#</p>
+            <span class="bank-badge" style="background:rgba(91,42,31,.12);color:#5B2A1F">Soporte completo</span>
+          </div>
+
+          <div class="bank-card" style="border-color: rgba(26,58,107,.4)">
+            <img src="/assets/banks/bm-logo.png" alt="BM" class="h-14 object-contain mx-auto mb-3 rounded-xl" />
+            <h3 class="font-bold text-center">Banco Metropolitano</h3>
+            <p class="text-xs text-center text-gray-400 mt-1">*444*40*03#</p>
+            <span class="bank-badge" style="background:rgba(26,58,107,.12);color:#1A3A6B">Soporte completo</span>
+          </div>
+        </div>
+
+        <!-- Download codes.json button -->
+        <div class="mb-8 bg-white dark:bg-gray-800 rounded-2xl p-5 border border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
+          <div class="flex items-start gap-4">
+            <svg class="w-8 h-8 text-gold flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <div>
+              <p class="font-bold text-gray-900 dark:text-white">Listado de códigos USSD — <code class="text-gold font-mono text-sm">codes.json</code></p>
+              <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">El archivo que alimenta la app: bancos, categorías y todos los códigos USSD organizados. Actualizable sin recompilar.</p>
+            </div>
+          </div>
+          <a
+            href="https://raw.githubusercontent.com/albertolicea00/BancaRemota/refs/heads/main/BancaRemota/codes.json"
+            download="codes.json"
+            target="_blank"
+            rel="noopener"
+            class="flex-shrink-0 inline-flex items-center gap-2 bg-gold hover:bg-gold/80 text-gray-900 font-bold px-5 py-2.5 rounded-xl text-sm transition-all whitespace-nowrap shadow shadow-gold/30"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+            Descargar codes.json
+          </a>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 flex flex-col sm:flex-row gap-6 items-center justify-around text-center">
+          <div class="flex items-center gap-3">
+            <svg class="w-8 h-8 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 8.25h3"/></svg>
+            <div class="text-left">
+              <p class="font-bold">iOS 16.0+</p>
+              <p class="text-sm text-gray-400">iPhone exclusivamente</p>
+            </div>
+          </div>
+          <div class="w-px h-10 bg-gray-200 dark:bg-gray-700 hidden sm:block"></div>
+          <div class="flex items-center gap-3">
+            <svg class="w-8 h-8 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"/></svg>
+            <div class="text-left">
+              <p class="font-bold">Red ETECSA</p>
+              <p class="text-sm text-gray-400">Sin internet · USSD</p>
+            </div>
+          </div>
+          <div class="w-px h-10 bg-gray-200 dark:bg-gray-700 hidden sm:block"></div>
+          <div class="flex items-center gap-3">
+            <svg class="w-8 h-8 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/></svg>
+            <div class="text-left">
+              <p class="font-bold">Open Source</p>
+              <p class="text-sm text-gray-400">MIT License · GitHub</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════
+         VENTAJAS
+    ════════════════════════════════════════ -->
+    <section id="advantages" class="py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-950 relative overflow-hidden">
+      <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div class="absolute top-0 right-1/4 w-96 h-96 rounded-full bg-bpa opacity-[0.10] dark:opacity-[0.05] blur-3xl"></div>
+        <div class="absolute bottom-0 left-0 w-72 h-72 rounded-full bg-gold opacity-[0.11] dark:opacity-[0.06] blur-3xl"></div>
+      </div>
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-16">
+          <span class="section-badge">Ventajas</span>
+          <h2 class="section-title">¿Por qué Banca Remota?</h2>
+          <p class="section-subtitle">Comparado con otras opciones disponibles en Cuba.</p>
+        </div>
+
+        <div class="rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="bg-gray-900 dark:bg-gray-800 text-white">
+                <th class="px-3 sm:px-6 py-3 text-left font-semibold">Característica</th>
+                <th class="px-3 sm:px-6 py-3 text-center font-semibold text-gold">Banca Remota</th>
+                <th class="px-3 sm:px-6 py-3 text-center font-semibold">Manual</th>
+                <th class="hidden sm:table-cell px-6 py-3 text-center font-semibold">Apps similares</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
+              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                <td class="px-3 sm:px-6 py-2.5 font-medium">100% Gratis y sin anuncios</td>
+                <td class="px-3 sm:px-6 py-2.5 text-center text-accent font-bold"><svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg></td>
+                <td class="px-3 sm:px-6 py-2.5 text-center text-accent"><svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg></td>
+                <td class="hidden sm:table-cell px-6 py-2.5 text-center text-red-400"><svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg></td>
+              </tr>
+              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                <td class="px-3 sm:px-6 py-2.5 font-medium">Disponible para iPhone</td>
+                <td class="px-3 sm:px-6 py-2.5 text-center text-accent font-bold"><svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg></td>
+                <td class="px-3 sm:px-6 py-2.5 text-center text-accent"><svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg></td>
+                <td class="hidden sm:table-cell px-6 py-2.5 text-center text-gray-400">–</td>
+              </tr>
+              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                <td class="px-3 sm:px-6 py-2.5 font-medium">Favoritos personalizables</td>
+                <td class="px-3 sm:px-6 py-2.5 text-center text-accent font-bold"><svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg></td>
+                <td class="px-3 sm:px-6 py-2.5 text-center text-red-400"><svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg></td>
+                <td class="hidden sm:table-cell px-6 py-2.5 text-center text-yellow-400">Parcial</td>
+              </tr>
+              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                <td class="px-3 sm:px-6 py-2.5 font-medium">Gestor de claves local</td>
+                <td class="px-3 sm:px-6 py-2.5 text-center text-accent font-bold"><svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg></td>
+                <td class="px-3 sm:px-6 py-2.5 text-center text-red-400"><svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg></td>
+                <td class="hidden sm:table-cell px-6 py-2.5 text-center text-red-400"><svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg></td>
+              </tr>
+              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                <td class="px-3 sm:px-6 py-2.5 font-medium">Face ID / Touch ID</td>
+                <td class="px-3 sm:px-6 py-2.5 text-center text-accent font-bold"><svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg></td>
+                <td class="px-3 sm:px-6 py-2.5 text-center text-red-400"><svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg></td>
+                <td class="hidden sm:table-cell px-6 py-2.5 text-center text-green-400"><svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg></td>
+              </tr>
+              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                <td class="px-3 sm:px-6 py-2.5 font-medium">Sin servidores ni cuentas</td>
+                <td class="px-3 sm:px-6 py-2.5 text-center text-accent font-bold"><svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg></td>
+                <td class="px-3 sm:px-6 py-2.5 text-center text-accent"><svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg></td>
+                <td class="hidden sm:table-cell px-6 py-2.5 text-center text-gray-400">–</td>
+              </tr>
+              <tr class="bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                <td class="px-3 sm:px-6 py-2.5 font-medium">Código abierto</td>
+                <td class="px-3 sm:px-6 py-2.5 text-center text-accent font-bold"><svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg></td>
+                <td class="px-3 sm:px-6 py-2.5 text-center text-gray-400">–</td>
+                <td class="hidden sm:table-cell px-6 py-2.5 text-center text-red-400"><svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════
+         FAQ
+    ════════════════════════════════════════ -->
+    <section id="faq" class="py-24 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900 relative overflow-hidden">
+      <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div class="absolute top-0 left-0 w-80 h-80 rounded-full bg-bandec opacity-[0.10] dark:opacity-[0.05] blur-3xl"></div>
+        <div class="absolute bottom-0 right-1/3 w-72 h-72 rounded-full bg-bm opacity-[0.12] dark:opacity-[0.06] blur-3xl"></div>
+      </div>
+      <div class="max-w-3xl mx-auto">
+        <div class="text-center mb-16">
+          <span class="section-badge">FAQ</span>
+          <h2 class="section-title">Preguntas frecuentes</h2>
+        </div>
+
+        <div class="space-y-3" data-accordion data-accordion-active-class="border-gold/40">
+          {
+            faqs.map((faq) => (
+              <div class="faq-item" data-accordion-item>
+                <button type="button" data-accordion-trigger class="faq-question">
+                  <span>{faq.q}</span>
+                  <svg data-accordion-chevron class="faq-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                <div data-accordion-body class="hidden faq-answer" set:html={faq.a} />
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════
+         ROADMAP
+    ════════════════════════════════════════ -->
+    <section id="roadmap" class="py-24 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-950 relative overflow-hidden">
+      <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div class="absolute top-1/4 right-0 w-80 h-80 rounded-full bg-gold opacity-[0.11] dark:opacity-[0.07] blur-3xl"></div>
+        <div class="absolute bottom-0 left-1/4 w-64 h-64 rounded-full bg-bpa opacity-[0.10] dark:opacity-[0.06] blur-3xl"></div>
+      </div>
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-16">
+          <span class="section-badge">Roadmap</span>
+          <h2 class="section-title">Próximas funciones</h2>
+          <p class="section-subtitle">Lo que viene en las siguientes versiones.</p>
+        </div>
+
+        <div class="space-y-4">
+          <div class="roadmap-item roadmap-done"><span class="roadmap-status" style="background:rgba(129,215,23,.15);color:#4a7f0a"><svg class="inline w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg> Listo</span>
+            <div>
+              <h4 class="font-semibold text-gray-900 dark:text-white">Operaciones USSD para BPA, BANDEC y BM</h4>
+              <p class="text-sm text-gray-400">Todas las operaciones disponibles para los tres bancos.</p>
+            </div>
+          </div>
+          <div class="roadmap-item roadmap-done"><span class="roadmap-status" style="background:rgba(129,215,23,.15);color:#4a7f0a"><svg class="inline w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg> Listo</span>
+            <div>
+              <h4 class="font-semibold text-gray-900 dark:text-white">Favoritos arrastrables y personalizables</h4>
+              <p class="text-sm text-gray-400">Color, orden y accesos rápidos desde el home.</p>
+            </div>
+          </div>
+          <div class="roadmap-item roadmap-done"><span class="roadmap-status" style="background:rgba(129,215,23,.15);color:#4a7f0a"><svg class="inline w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg> Listo</span>
+            <div>
+              <h4 class="font-semibold text-gray-900 dark:text-white">Gestor de cuentas, Nauta, facturas y claves</h4>
+              <p class="text-sm text-gray-400">Todo tu ecosistema financiero en un lugar, protegido con Face ID.</p>
+            </div>
+          </div>
+          <div class="roadmap-item roadmap-progress"><span class="roadmap-status" style="background:rgba(251,191,36,.15);color:#92600a"><svg class="inline w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg> En progreso</span>
+            <div>
+              <h4 class="font-semibold text-gray-900 dark:text-white">Publicación en App Store</h4>
+              <p class="text-sm text-gray-400">Proceso de revisión de Apple y distribución pública.</p>
+            </div>
+          </div>
+          <div class="roadmap-item roadmap-planned"><span class="roadmap-status bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400"><svg class="inline w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg> Planeado</span>
+            <div>
+              <h4 class="font-semibold text-gray-900 dark:text-white">Widgets para pantalla de inicio</h4>
+              <p class="text-sm text-gray-400">Acceso a favoritos directamente desde el home de iOS.</p>
+            </div>
+          </div>
+          <div class="roadmap-item roadmap-planned"><span class="roadmap-status bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400"><svg class="inline w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg> Planeado</span>
+            <div>
+              <h4 class="font-semibold text-gray-900 dark:text-white">Sección de Tasa de Cambio</h4>
+              <p class="text-sm text-gray-400">Consulta de las tasas de cambio vigentes de forma rápida.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════
+         COMUNIDAD
+    ════════════════════════════════════════ -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900 relative overflow-hidden">
+      <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div class="absolute top-0 right-1/4 w-80 h-80 rounded-full bg-gold opacity-[0.13] dark:opacity-[0.08] blur-3xl"></div>
+        <div class="absolute bottom-0 left-1/4 w-64 h-64 rounded-full bg-bpa opacity-[0.12] dark:opacity-[0.07] blur-3xl"></div>
+      </div>
+      <div class="max-w-md mx-auto text-center">
+        <div class="inline-flex items-center gap-2 text-gold text-xs font-semibold uppercase tracking-widest rounded-full px-4 py-1.5 mb-5">
+          <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+          Pronto en App Store
+        </div>
+
+        <h2 class="text-2xl font-black text-gray-900 dark:text-white mb-2">Avísame cuando esté lista</h2>
+        <p class="text-gray-500 dark:text-gray-400 text-sm mb-6 leading-relaxed">La app está en beta. Déjanos tu correo y serás el primero en saber cuando esté disponible en la App Store.</p>
+
+        <div class="mb-6" data-notify-form>
+          <form class="flex flex-col gap-3">
+            <input type="email" required placeholder="tucorreo@ejemplo.com" class="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-white/10 border border-gray-200 dark:border-white/15 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-gold disabled:opacity-50 transition" />
+            <button type="submit" class="w-full px-6 py-3 bg-gold hover:bg-gold/85 text-white font-bold rounded-xl transition-all disabled:opacity-60 flex items-center justify-center gap-2 shadow shadow-gold/30">
+              <span data-state="idle" class="flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                </svg>Notificarme
+              </span>
+              <span data-state="loading" class="hidden animate-pulse">Enviando...</span>
+              <span data-state="sent" class="hidden"><svg class="inline w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> ¡Listo, te avisamos!</span>
+            </button>
+          </form>
+          <p data-notify-error class="hidden text-red-500 dark:text-red-400 text-xs mt-2"></p>
+          <p data-notify-success class="hidden text-accent text-xs mt-2 font-medium">¡Suscrito! Te avisaremos en cuanto la app esté en la App Store.</p>
+        </div>
+
+        <div class="flex items-center gap-3 mb-6">
+          <div class="flex-1 h-px bg-gray-200 dark:bg-white/10"></div>
+          <span class="text-xs text-gray-400 dark:text-gray-500">o únete a la comunidad</span>
+          <div class="flex-1 h-px bg-gray-200 dark:bg-white/10"></div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+          <a href="https://t.me/BancaRemotaCuba" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 bg-[#229ED9] hover:bg-[#1a8bbf] text-white font-semibold px-6 py-3 rounded-xl transition-all shadow-sm">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+            </svg>
+            Canal de Telegram
+          </a>
+          <a href="https://github.com/albertolicea00/BancaRemota" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 bg-gray-900 dark:bg-white/10 hover:bg-gray-800 dark:hover:bg-white/20 text-white font-semibold px-6 py-3 rounded-xl transition-all shadow-sm">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.21.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z" />
+            </svg>
+            Seguir en GitHub
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ════════════════════════════════════════
+       MODAL — AVÍSAME CUANDO ESTÉ LISTA
+  ════════════════════════════════════════ -->
+  <div data-notify-modal class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div data-notify-backdrop class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+
+    <div class="relative w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-2xl overflow-hidden">
+      <div class="h-1 bg-gradient-to-r from-gold via-[#dbab46] to-gold"></div>
+
+      <button type="button" data-notify-close class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-gray-500 dark:text-gray-400">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <div class="p-8">
+        <div class="inline-flex items-center gap-2 text-gold text-xs font-semibold uppercase tracking-widest rounded-full px-3 py-1 mb-5">
+          <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
+          Pronto en App Store
+        </div>
+
+        <h2 class="text-2xl font-black text-gray-900 dark:text-white mb-2">Avísame cuando esté lista</h2>
+        <p class="text-gray-500 dark:text-gray-400 text-sm mb-6 leading-relaxed">La app está en beta. Déjanos tu correo y serás el primero en saber cuando esté disponible en la App Store.</p>
+
+        <div data-notify-form>
+          <form class="flex flex-col gap-3">
+            <input type="email" required placeholder="tucorreo@ejemplo.com" class="w-full px-4 py-3 rounded-xl bg-gray-50 dark:bg-white/10 border border-gray-200 dark:border-white/15 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-gold disabled:opacity-50 transition" />
+            <button type="submit" class="w-full px-6 py-3 bg-gold hover:bg-gold/85 text-white font-bold rounded-xl transition-all disabled:opacity-60 flex items-center justify-center gap-2 shadow shadow-gold/30">
+              <span data-state="idle" class="flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                </svg>Notificarme
+              </span>
+              <span data-state="loading" class="hidden animate-pulse">Enviando...</span>
+              <span data-state="sent" class="hidden"><svg class="inline w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> ¡Listo, te avisamos!</span>
+            </button>
+          </form>
+          <p data-notify-error class="hidden text-red-500 dark:text-red-400 text-xs mt-2"></p>
+          <p data-notify-success class="hidden text-accent text-xs mt-2 font-medium">¡Suscrito! Te avisaremos en cuanto la app esté en la App Store.</p>
+        </div>
+
+        <div class="flex items-center gap-3 my-5">
+          <div class="flex-1 h-px bg-gray-200 dark:bg-white/10"></div>
+          <span class="text-xs text-gray-400 dark:text-gray-500">o únete a la comunidad</span>
+          <div class="flex-1 h-px bg-gray-200 dark:bg-white/10"></div>
+        </div>
+
+        <div class="flex gap-3">
+          <a href="https://t.me/BancaRemotaCuba" target="_blank" rel="noopener" class="flex-1 inline-flex items-center justify-center gap-2 bg-[#229ED9] hover:bg-[#1a8bbf] text-white font-semibold px-4 py-2.5 rounded-xl transition-all text-sm">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+            </svg>
+            Telegram
+          </a>
+          <a href="https://github.com/albertolicea00/BancaRemota" target="_blank" rel="noopener" class="flex-1 inline-flex items-center justify-center gap-2 bg-gray-900 dark:bg-white/10 hover:bg-gray-800 dark:hover:bg-white/20 text-white font-semibold px-4 py-2.5 rounded-xl transition-all text-sm">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.21.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z" />
+            </svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <Footer />
+
+  <script>
+    import { initFeatureTabs } from '../scripts/featureTabs.js';
+    import { initAllAccordions } from '../scripts/accordion.js';
+    import { initNotifyModal } from '../scripts/notifyModal.js';
+    import { initAllNotifyForms } from '../scripts/notifyForm.js';
+
+    const featureSelector = document.getElementById('feature-selector');
+    if (featureSelector) initFeatureTabs(featureSelector);
+    initAllAccordions();
+    initNotifyModal();
+    initAllNotifyForms();
+  </script>
+</BaseLayout>

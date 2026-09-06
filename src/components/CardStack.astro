@@ -1,0 +1,58 @@
+---
+// Draggable fanned mockup-screenshot carousel — reused for the hero stack and
+// each "Funciones principales" feature-panel stack. Renders a flash-free
+// initial layout at build time (same math the client script uses to animate),
+// then src/scripts/cardStack.js takes over pointer handling after mount.
+import { computeStyle } from '../scripts/cardStackMath.js';
+
+interface Card {
+  id: string;
+  light: string;
+  dark: string;
+}
+interface Props {
+  cards: Card[];
+  compact?: boolean;
+  containerClass?: string;
+}
+const { cards, compact = false, containerClass = '' } = Astro.props;
+const scale = compact ? 0.55 : 1;
+const radiusClass = compact ? 'rounded-[1.75rem]' : 'rounded-[2.25rem]';
+const frontShadowClass = compact ? 'shadow-2xl shadow-black/40' : 'shadow-2xl shadow-black/50';
+const backShadowClass = compact ? 'shadow-md shadow-black/10' : 'shadow-lg shadow-black/20';
+
+const restState = { dragging: false, dragX: 0, dragY: 0, flying: false, flyDir: 1 };
+function initialStyle(i: number) {
+  const s = computeStyle(i, restState, scale);
+  return `transform:${s.transform};z-index:${s.zIndex};transition:${s.transition};`;
+}
+---
+
+<div class={`relative select-none card-stack ${containerClass}`} style="touch-action:none;" data-compact={compact ? 'true' : 'false'}>
+  {
+    cards.map((card, i) => (
+      <div
+        class={`absolute inset-0 card-face cursor-grab active:cursor-grabbing ${i === 0 ? frontShadowClass : `pointer-events-none ${backShadowClass}`}`}
+        style={initialStyle(i)}
+      >
+        <img
+          src={`/assets/mockups/${card.light}`}
+          alt={card.id}
+          class={`w-full h-full object-cover object-top ring-1 ring-gold/40 dark:hidden ${radiusClass}`}
+          draggable="false"
+        />
+        <img
+          src={`/assets/mockups/${card.dark}`}
+          alt={card.id}
+          class={`w-full h-full object-cover object-top ring-1 ring-gold/40 hidden dark:block ${radiusClass}`}
+          draggable="false"
+        />
+      </div>
+    ))
+  }
+</div>
+
+<script>
+  import { initAllCardStacks } from '../scripts/cardStack.js';
+  initAllCardStacks();
+</script>

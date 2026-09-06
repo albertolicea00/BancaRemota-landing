@@ -1,0 +1,185 @@
+---
+// variant="full": logo + section links + GitHub star link + mobile menu (index page).
+// variant="simple": logo + "Volver al inicio" + dark toggle only (dial page).
+interface Props {
+  variant?: 'full' | 'simple';
+}
+const { variant = 'full' } = Astro.props;
+const isIndex = Astro.url.pathname === '/' || Astro.url.pathname === '/index.html';
+const homeHref = isIndex ? '#' : '/';
+---
+
+<nav
+  style="z-index: 9999;"
+  class="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800"
+>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <a href={homeHref} class="flex items-center gap-2.5 font-bold text-gold text-lg">
+      <img src="/assets/icon-black.png" alt="Banca Remota" class="w-8 h-8 dark:hidden rounded-lg shadow-sm" />
+      <img src="/assets/icon-white.png" alt="Banca Remota" class="w-8 h-8 hidden dark:block rounded-lg shadow-sm" />
+      <span class="text-gray-900 dark:text-white font-bold">Banca Remota</span>
+    </a>
+
+    {
+      variant === 'full' ? (
+        <div class="hidden md:flex items-center gap-6 text-sm text-gray-600 dark:text-gray-400">
+          <a href="#features" class="nav-link">Funciones</a>
+          <a href="#how-it-works" class="nav-link">Cómo funciona</a>
+          <a href="#manual" class="nav-link">Manual</a>
+          <a href="#banks" class="nav-link">Bancos</a>
+          <a href="#faq" class="nav-link">FAQ</a>
+        </div>
+      ) : (
+        <a
+          href="/"
+          class="hidden sm:inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-gold dark:hover:text-gold transition-colors"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Volver al inicio
+        </a>
+      )
+    }
+
+    <div class="flex items-center gap-3">
+      <button
+        type="button"
+        data-dark-toggle
+        title="Cambiar modo claro/oscuro"
+        class="w-9 h-9 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+      >
+        <span class="dark:hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z"
+            ></path>
+          </svg>
+        </span>
+        <span class="hidden dark:block">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 3v2.25m0 13.5V21m8.974-8.974h-2.25M4.25 12h2.25m13.308-7.308l-1.591 1.591M6.829 17.171l-1.591 1.591m12.932 0l-1.591-1.591M6.829 6.829L5.238 5.238M17.5 12A5.5 5.5 0 1112 6.5a5.5 5.5 0 015.5 5.5z"
+            ></path>
+          </svg>
+        </span>
+      </button>
+
+      {
+        variant === 'full' && (
+          <>
+            <a
+              href="https://github.com/albertolicea00/BancaRemota"
+              target="_blank"
+              rel="noopener"
+              class="hidden sm:inline-flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-gold dark:hover:border-gold transition-colors"
+            >
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.21.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z" />
+              </svg>
+              <span data-github-stars data-format="compact">GitHub</span>
+            </a>
+
+            <button
+              type="button"
+              data-mobile-menu-toggle
+              class="md:hidden p-2 text-gray-600 dark:text-gray-300 ml-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            >
+              <svg data-menu-icon-open class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+              <svg data-menu-icon-close class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </>
+        )
+      }
+    </div>
+  </div>
+
+  {
+    variant === 'full' && (
+      <div
+        data-mobile-menu
+        class="hidden md:hidden border-t border-gray-100 dark:border-gray-800 bg-white/95 dark:bg-gray-950/95 backdrop-blur-md"
+      >
+        <div class="px-4 pt-2 pb-6 space-y-1 shadow-lg">
+          <a href="#features" data-mobile-menu-link class="block px-3 py-3 rounded-xl text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">Funciones</a>
+          <a href="#how-it-works" data-mobile-menu-link class="block px-3 py-3 rounded-xl text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">Cómo funciona</a>
+          <a href="#manual" data-mobile-menu-link class="block px-3 py-3 rounded-xl text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">Manual</a>
+          <a href="#banks" data-mobile-menu-link class="block px-3 py-3 rounded-xl text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">Bancos</a>
+          <a href="#faq" data-mobile-menu-link class="block px-3 py-3 rounded-xl text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800">FAQ</a>
+          <div class="pt-2 pb-1">
+            <a
+              href="https://github.com/albertolicea00/BancaRemota"
+              target="_blank"
+              rel="noopener"
+              class="flex items-center gap-2 px-3 py-3 rounded-xl text-base font-medium text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
+            >
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.21.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z" />
+              </svg>
+              <span data-github-stars data-format="full">GitHub</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    )
+  }
+</nav>
+
+<script>
+  // Dark-mode toggle button: the pre-paint inline script in BaseLayout already
+  // set the `dark` class on <html> before first paint (no Alpine involved there
+  // even in the original) — this just wires up the click to flip it afterwards.
+  document.querySelectorAll('[data-dark-toggle]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('darkMode', String(isDark));
+    });
+  });
+
+  // Keep in sync with system theme changes when the user hasn't made an explicit choice.
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!localStorage.getItem('darkMode')) {
+      document.documentElement.classList.toggle('dark', e.matches);
+    }
+  });
+
+  // Mobile hamburger menu.
+  const menuToggle = document.querySelector('[data-mobile-menu-toggle]');
+  const menuPanel = document.querySelector('[data-mobile-menu]');
+  const iconOpen = document.querySelector('[data-menu-icon-open]');
+  const iconClose = document.querySelector('[data-menu-icon-close]');
+
+  function setMenuOpen(open) {
+    menuPanel?.classList.toggle('hidden', !open);
+    iconOpen?.classList.toggle('hidden', open);
+    iconClose?.classList.toggle('hidden', !open);
+  }
+
+  menuToggle?.addEventListener('click', () => {
+    const isOpen = !menuPanel?.classList.contains('hidden');
+    setMenuOpen(!isOpen);
+  });
+
+  document.querySelectorAll('[data-mobile-menu-link]').forEach((link) => {
+    link.addEventListener('click', () => setMenuOpen(false));
+  });
+
+  // GitHub star count.
+  fetch('https://api.github.com/repos/albertolicea00/BancaRemota')
+    .then((r) => r.json())
+    .then((d) => {
+      if (d.stargazers_count === undefined) return;
+      document.querySelectorAll('[data-github-stars]').forEach((el) => {
+        el.textContent = el.getAttribute('data-format') === 'full' ? `GitHub · ★ ${d.stargazers_count}` : `★ ${d.stargazers_count}`;
+      });
+    })
+    .catch(() => {});
+</script>

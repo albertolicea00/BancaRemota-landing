@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import BankCard from '../components/BankCard.astro';
+import OpRow from '../components/OpRow.astro';
+import codesData from '../data/codes.json';
+import iconsData from '../data/op-icons.json';
+
+interface Operation {
+  id: string;
+  name: string;
+  description?: string;
+  ussdCode: string;
+  iconName: string;
+}
+interface Category {
+  name: string;
+  operations: Operation[];
+}
+interface BankSource {
+  id: string;
+  name: string;
+  shortName: string;
+  themeColorHex: string;
+  categories: Category[];
+}
+
+const banks = (codesData.banks as BankSource[]).map((bank) => ({
+  id: bank.id,
+  name: bank.name,
+  shortName: bank.shortName,
+  hex: `#${bank.themeColorHex}`,
+  categories: bank.categories,
+}));
+
+function iconPath(iconName: string) {
+  const groups = iconsData.groups as Record<string, string>;
+  const paths = iconsData.paths as Record<string, string>;
+  const group = groups[iconName] || 'default';
+  return paths[group] || paths.default;
+}
+---
+
+<BaseLayout
+  title="Llamar operaciones — Banca Remota"
+  description="Códigos USSD reales de BPA, BANDEC y BM — toca Llamar y confirma la llamada."
+>
+  <Nav variant="simple" />
+
+  <main class="pt-24 pb-28 md:pb-16 px-4 sm:px-6 lg:px-8 min-h-screen bg-gray-50 dark:bg-gray-900 relative overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+      <div class="absolute top-0 right-0 w-96 h-96 rounded-full bg-bm opacity-[0.10] dark:opacity-[0.05] blur-3xl"></div>
+      <div class="absolute bottom-0 left-1/4 w-80 h-80 rounded-full bg-gold opacity-[0.12] dark:opacity-[0.06] blur-3xl"></div>
+    </div>
+
+    <div class="max-w-6xl mx-auto relative">
+      <div class="text-center mb-10">
+        <span class="section-badge">Marcador USSD</span>
+        <h1 class="section-title">Llama directo por USSD</h1>
+        <p class="section-subtitle">Elige tu banco y toca la operación para llamar.</p>
+      </div>
+
+      <!-- ════════════════════════════════════════
+           DESKTOP/TABLET: 3 columns · MOBILE: 1 column driven by bottom tabs
+      ════════════════════════════════════════ -->
+      <div class="grid md:grid-cols-3 gap-6 items-start">
+        {
+          banks.map((bank, i) => (
+            <section
+              data-bank-panel={bank.id}
+              class={`bank-card !items-stretch !text-left ${i === 0 ? 'block' : 'hidden md:block'}`}
+              style={`border-color: color-mix(in srgb, ${bank.hex} 35%, transparent)`}
+            >
+              <BankCard variant="header" bankId={bank.id} shortName={bank.shortName} name={bank.name} hex={bank.hex} />
+
+              <div class="w-full space-y-4">
+                {bank.categories.map((cat) => (
+                  <div>
+                    <p class="text-[0.7rem] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-1.5">{cat.name}</p>
+                    <div class="space-y-2">
+                      {cat.operations.map((op) => (
+                        <OpRow name={op.name} description={op.description} code={op.ussdCode} iconD={iconPath(op.iconName)} hex={bank.hex} />
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          ))
+        }
+      </div>
+    </div>
+  </main>
+
+  <!-- ════════════════════════════════════════
+       MOBILE BOTTOM TAB BAR (app-style)
+  ════════════════════════════════════════ -->
+  <nav
+    aria-label="Seleccionar banco"
+    class="tab-bar md:hidden fixed bottom-0 inset-x-0 z-50 flex bg-white/90 dark:bg-gray-950/90 backdrop-blur-md border-t border-gray-100 dark:border-gray-800"
+  >
+    {banks.map((bank, i) => <BankCard variant="tab" bankId={bank.id} shortName={bank.shortName} hex={bank.hex} active={i === 0} />)}
+  </nav>
+
+  <Footer />
+
+  <script>
+    import { initDialTabs } from '../scripts/dialTabs.js';
+    initDialTabs();
+  </script>
+</BaseLayout>

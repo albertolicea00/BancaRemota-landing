@@ -476,3 +476,56 @@ kbd.kbd {
   to   { opacity: 1; transform: translateY(0); }
 }
 .animate-fadeIn { animation: fadeIn 0.35s ease both; }
+
+/* ══════════════════════════════════════════
+   DIAL PAGE — USSD operation rows + mobile tab bar
+   (ported from dial.html's page-scoped <style> block;
+   global here since OpRow.astro/BankCard.astro are separate files)
+══════════════════════════════════════════ */
+[data-cloak] { display: none !important; }
+
+.tab-bar {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.tab-icon-pill {
+  width: 2rem; height: 2rem;
+  border-radius: 0.75rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+  background: transparent;
+}
+/* Active/inactive visuals for BankCard's "tab" variant — toggled purely via the
+   data-active attribute (set by dialTabs.js) + the --bank-hex custom property
+   (set inline per bank), no per-click style computation needed. */
+[data-bank-tab] [data-tab-icon] { opacity: 0.4; transition: opacity 0.2s; }
+[data-bank-tab] [data-tab-label] { color: #9ca3af; transition: color 0.2s; }
+[data-bank-tab][data-active="true"] [data-tab-pill] { background: color-mix(in srgb, var(--bank-hex, #B38B4D) 18%, transparent); }
+[data-bank-tab][data-active="true"] [data-tab-icon] { opacity: 1; }
+[data-bank-tab][data-active="true"] [data-tab-label] { color: var(--bank-hex, #B38B4D); }
+.op-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  background: #fff;
+  border-radius: 1.1rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid #f3f4f6;
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+.op-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.08); transform: translateY(-1px); }
+.dark .op-card { background: #1f2937; border-color: #374151; }
+.op-card-title { font-weight: 700; font-size: 0.9rem; color: #111827; }
+.dark .op-card-title { color: #fff; }
+.op-card-desc { font-size: 0.775rem; color: #6b7280; margin-top: 0.1rem; }
+.dark .op-card-desc { color: #9ca3af; }
+.op-card-code { font-size: 0.7rem; font-family: ui-monospace, monospace; color: #9ca3af; margin-top: 0.3rem; }
+.op-card-icon {
+  width: 2.5rem; height: 2.5rem;
+  border-radius: 9999px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  color: #fff;
+}

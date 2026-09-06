@@ -1,0 +1,27 @@
+---
+// One tappable USSD operation row — whole row is a tel: link. Fully static per
+// operation (data comes from codes.json + op-icons.json at build time), so no
+// client JS at all here.
+interface Props {
+  name: string;
+  description?: string;
+  code: string;
+  iconD: string;
+  hex: string;
+}
+const { name, description = '', code, iconD, hex } = Astro.props;
+const telHref = `tel:${code.replace(/#/g, '%23')}`;
+---
+
+<a href={telHref} class="op-card" title="Llamar código USSD">
+  <span class="min-w-0">
+    <span class="op-card-title block truncate">{name}</span>
+    <span class="op-card-desc block truncate">{description}</span>
+    <span class="op-card-code block">{code}</span>
+  </span>
+  <span class="op-card-icon" style={`background:${hex}`}>
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.75">
+      <path stroke-linecap="round" stroke-linejoin="round" d={iconD} />
+    </svg>
+  </span>
+</a>
