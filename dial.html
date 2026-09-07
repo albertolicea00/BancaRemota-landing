@@ -77,10 +77,6 @@
        h-16 inner bar) regardless of scroll — see header-toggle-wrap. */
     #header-toggle-wrap { top: calc(env(safe-area-inset-top, 0px) + 4rem); }
 
-    /* Installed as a standalone iOS app, dial.html IS the app's home —
-       leaving to index.html would strand the user with no browser chrome
-       to get back. */
-    .ios-standalone .back-home-link { display: none; }
     .ios-standalone .brand-logo-link { cursor: default; }
 
     /* Bottom app-style tab bar (mobile only) */
@@ -139,7 +135,8 @@
       </a>
 
       <a href="index.html" aria-label="Volver al inicio" class="back-home-link
-        inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-gold dark:hover:text-gold transition-colors">
+        inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-gold dark:hover:text-gold transition-colors"
+        onclick="if (document.documentElement.classList.contains('ios-standalone')) { window.open('index.html', '_blank'); return false; }">
         <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>
