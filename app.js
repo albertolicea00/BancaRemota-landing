@@ -125,6 +125,74 @@ function cardStack(cards, compact = false) {
   }
 }
 
+// Pins the feature section on screen (desktop only) and steps through the
+// tabs one at a time as the user scrolls, releasing back to normal scroll
+// once the last tab has been reached.
+//
+// Uses manually-toggled fixed/absolute/static positioning instead of
+// `position: sticky` — <html>/<body> carry `overflow-x: hidden` (to clip
+// decorative blobs sitewide) and ANY ancestor with a non-visible overflow
+// disables sticky for all descendants. `position: fixed` isn't affected by
+// ancestor overflow, so it works here.
+function featureSection() {
+  return {
+    feat: 'banking',
+    _ids: [],
+    _onScroll: null,
+    init() {
+      const mq = window.matchMedia('(min-width: 1024px)');
+      const sync = () => mq.matches ? this._pin() : this._unpin();
+      mq.addEventListener('change', sync);
+      sync();
+    },
+    _pin() {
+      if (this._onScroll) return;
+      const buttons = this.$el.querySelectorAll('.feat-btn');
+      this._ids = Array.from(buttons).map(btn => btn.dataset.feat);
+      const steps = this._ids.length;
+      const wrapper = this.$refs.pinWrapper;
+      const inner = this.$refs.pinInner;
+
+      wrapper.style.height = `${steps * 25}vh`;
+      Object.assign(inner.style, { height: '100vh', display: 'flex', alignItems: 'center' });
+
+      this._onScroll = () => {
+        const rect = wrapper.getBoundingClientRect();
+        const vh = window.innerHeight;
+        const total = rect.height - vh;
+        const progress = total > 0 ? Math.min(1, Math.max(0, -rect.top / total)) : 0;
+        const idx = Math.min(steps - 1, Math.floor(progress * steps));
+        this.feat = this._ids[idx];
+
+        if (rect.top > 0) {
+          // Not reached yet — sits in normal flow at the top of the wrapper.
+          Object.assign(inner.style, { position: 'static', top: '', left: '', width: '', bottom: '' });
+        } else if (rect.bottom <= vh) {
+          // Scrolled past — settle at the wrapper's bottom edge, no jump.
+          Object.assign(inner.style, { position: 'absolute', top: '', left: '0px', width: '100%', bottom: '0px' });
+        } else {
+          // Actively pinned — glued to the viewport top.
+          Object.assign(inner.style, { position: 'fixed', top: '0px', left: `${rect.left}px`, width: `${rect.width}px`, bottom: '' });
+        }
+      };
+      window.addEventListener('scroll', this._onScroll, { passive: true });
+      window.addEventListener('resize', this._onScroll);
+      this._onScroll();
+    },
+    _unpin() {
+      if (!this._onScroll) return;
+      window.removeEventListener('scroll', this._onScroll);
+      window.removeEventListener('resize', this._onScroll);
+      this._onScroll = null;
+      this.$refs.pinWrapper.style.height = '';
+      Object.assign(this.$refs.pinInner.style, {
+        position: '', top: '', left: '', width: '', bottom: '',
+        height: '', display: '', alignItems: ''
+      });
+    }
+  }
+}
+
 function notifyForm() {
   return {
     email: '',
