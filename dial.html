@@ -148,6 +148,24 @@
         <p class="section-subtitle">Elige tu banco y toca la operación para llamar.</p>
       </div>
 
+      <!-- Search by operation name -->
+      <div class="max-w-md mx-auto mb-10 relative">
+        <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none" fill="none"
+          stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M21 21l-4.35-4.35M18 10.5a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z" />
+        </svg>
+        <input x-model="query" type="text" placeholder="Buscar operación… ej. Consultar saldo"
+          class="w-full pl-11 pr-10 py-3 rounded-xl bg-gray-50 dark:bg-white/10 border border-gray-200 dark:border-white/15 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-gold transition" />
+        <button x-show="query" @click="query = ''" type="button"
+          class="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center rounded-full text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+          aria-label="Limpiar búsqueda">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
       <!-- ════════════════════════════════════════
            DESKTOP/TABLET: 3 columns · MOBILE: 1 column driven by bottom tabs
       ════════════════════════════════════════ -->
@@ -173,12 +191,12 @@
             <!-- Categories -->
             <div class="w-full space-y-4">
               <template x-for="cat in bank.categories" :key="cat.name">
-                <div>
+                <div x-show="categoryVisible(cat)">
                   <p class="text-[0.7rem] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-1.5"
                     x-text="cat.name"></p>
                   <div class="space-y-2">
                     <template x-for="op in cat.operations" :key="op.id">
-                      <a :href="telHref(op.ussdCode)" class="op-card" title="Llamar código USSD">
+                      <a x-show="matchesQuery(op)" :href="telHref(op.ussdCode)" class="op-card" title="Llamar código USSD">
                         <span class="min-w-0">
                           <span class="op-card-title block truncate" x-text="op.name"></span>
                           <span class="op-card-desc block truncate" x-text="op.description"></span>
@@ -194,6 +212,10 @@
                   </div>
                 </div>
               </template>
+              <p x-show="query.trim() && !bank.categories.some(cat => categoryVisible(cat))"
+                class="text-sm text-gray-400 dark:text-gray-500 italic py-6 text-center">
+                Sin resultados para “<span x-text="query"></span>”.
+              </p>
             </div>
           </section>
         </template>
@@ -229,6 +251,7 @@
         banks: [],
         iconGroups: {},
         iconPaths: {},
+        query: '',
 
         async init() {
           const [codes, icons] = await Promise.all([
@@ -253,6 +276,17 @@
 
         telHref(code) {
           return 'tel:' + code.replace(/#/g, '%23');
+        },
+
+        normalize(s) {
+          return (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+        },
+        matchesQuery(op) {
+          if (!this.query.trim()) return true;
+          return this.normalize(op.name).includes(this.normalize(this.query));
+        },
+        categoryVisible(cat) {
+          return cat.operations.some(op => this.matchesQuery(op));
         },
       };
     }
