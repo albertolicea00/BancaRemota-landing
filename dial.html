@@ -313,6 +313,20 @@
                     rel="noopener" class="text-gold underline hover:no-underline">ayúdanos a agregarla</a>.
                 </p>
               </div>
+
+              <!-- Sits after all operations, in normal document flow (not
+                   fixed) — for scrolling back up once you've gone far down
+                   a long list. -->
+              <div class="pt-2 flex justify-center">
+                <button @click="scrollToTop()" type="button"
+                  class="w-11 h-11 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400 flex items-center justify-center shadow-sm transition-colors"
+                  aria-label="Volver arriba">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                    stroke-linejoin="round" viewBox="0 0 24 24">
+                    <path d="M5 15l7-7 7 7" />
+                  </svg>
+                </button>
+              </div>
             </div>
           </section>
         </template>
@@ -574,6 +588,10 @@
         toggleHeader() {
           this.headerCollapsed = !this.headerCollapsed;
           localStorage.setItem('dialHeaderCollapsed', this.headerCollapsed);
+        },
+
+        scrollToTop() {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         },
 
         iconPath(iconName) {
