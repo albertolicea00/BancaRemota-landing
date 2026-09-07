@@ -81,6 +81,7 @@
        leaving to index.html would strand the user with no browser chrome
        to get back. */
     .ios-standalone .back-home-link { display: none; }
+    .ios-standalone .brand-logo-link { cursor: default; }
 
     /* Bottom app-style tab bar (mobile only) */
     .tab-bar {
@@ -130,7 +131,8 @@
   <nav id="dial-nav" style="z-index: 9999;"
     class="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      <a href="index.html" class="flex items-center gap-2.5 font-bold text-gold text-lg">
+      <a href="index.html" class="brand-logo-link flex items-center gap-2.5 font-bold text-gold text-lg"
+        onclick="return !document.documentElement.classList.contains('ios-standalone')">
         <img src="assets/icon-black.png" alt="Banca Remota" class="w-8 h-8 dark:hidden rounded-lg shadow-sm" />
         <img src="assets/icon-white.png" alt="Banca Remota" class="w-8 h-8 hidden dark:block rounded-lg shadow-sm" />
         <span class="hidden sm:inline text-gray-900 dark:text-white font-bold">Banca Remota</span>
@@ -155,7 +157,7 @@
           </svg>
           <span class="hidden sm:inline">Instalar</span>
         </button>
-
+        <!--
         <button @click="shareApp()" type="button"
           class="inline-flex items-center gap-1.5 h-9 px-3 rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-gray-600 dark:text-gray-300 text-sm font-medium"
           aria-label="Compartir app">
@@ -169,6 +171,7 @@
           </svg>
           <span class="hidden sm:inline">Compartir</span>
         </button>
+        -->
 
       <button @click="darkMode = !darkMode; localStorage.setItem('darkMode', darkMode)"
         class="w-9 h-9 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
@@ -220,6 +223,18 @@
         <span class="section-badge">Marcador USSD</span>
         <h1 class="section-title">Llama directo por USSD</h1>
         <p class="section-subtitle">Elige tu banco y toca la operación para llamar.</p>
+        <button @click="shareApp()" type="button"
+          class="mt-2 inline-flex items-center gap-1.5 text-sm text-gold hover:underline">
+          <svg class="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <circle cx="18" cy="5" r="3" />
+            <circle cx="6" cy="12" r="3" />
+            <circle cx="18" cy="19" r="3" />
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+          </svg>
+          Comparte esta app con quien la necesite
+        </button>
       </div>
 
       <!-- Search by operation name -->
