@@ -106,12 +106,13 @@
         <span class="text-gray-900 dark:text-white font-bold">Banca Remota</span>
       </a>
 
-      <a href="index.html"
-        class="hidden sm:inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-gold dark:hover:text-gold transition-colors">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <a href="index.html" aria-label="Volver al inicio"
+        class="inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-gold dark:hover:text-gold transition-colors">
+        <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>
-        Volver al inicio
+        <span class="sm:hidden">Inicio</span>
+        <span class="hidden sm:inline">Volver al inicio</span>
       </a>
 
       <button @click="darkMode = !darkMode; localStorage.setItem('darkMode', darkMode)"
@@ -212,10 +213,20 @@
                   </div>
                 </div>
               </template>
-              <p x-show="query.trim() && !bank.categories.some(cat => categoryVisible(cat))"
-                class="text-sm text-gray-400 dark:text-gray-500 italic py-6 text-center">
-                Sin resultados para “<span x-text="query"></span>”.
-              </p>
+              <div x-show="query.trim() && !bank.categories.some(cat => categoryVisible(cat))"
+                class="py-6 text-center">
+                <p class="text-sm text-gray-500 dark:text-gray-400 mb-1">
+                  Parece que la operación que buscas no se encuentra.
+                </p>
+                <p class="text-xs text-gray-400 dark:text-gray-500">
+                  Repórtalo en nuestra
+                  <a href="https://t.me/BancaRemotaCuba" target="_blank" rel="noopener"
+                    class="text-gold underline hover:no-underline">comunidad de Telegram</a>
+                  o
+                  <a href="https://github.com/albertolicea00/BancaRemota/blob/main/CONTRIBUTING.md" target="_blank"
+                    rel="noopener" class="text-gold underline hover:no-underline">ayúdanos a agregarla</a>.
+                </p>
+              </div>
             </div>
           </section>
         </template>
