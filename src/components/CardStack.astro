@@ -21,7 +21,7 @@ const radiusClass = compact ? 'rounded-[1.75rem]' : 'rounded-[2.25rem]';
 const frontShadowClass = compact ? 'shadow-2xl shadow-black/40' : 'shadow-2xl shadow-black/50';
 const backShadowClass = compact ? 'shadow-md shadow-black/10' : 'shadow-lg shadow-black/20';
 
-const restState = { dragging: false, dragX: 0, dragY: 0, flying: false, flyDir: 1 };
+const restState = { dragging: false, dragX: 0, dragY: 0, flying: false, flyDir: 1, snapInstant: false };
 function initialStyle(i: number) {
   const s = computeStyle(i, restState, scale);
   return `transform:${s.transform};z-index:${s.zIndex};transition:${s.transition};`;

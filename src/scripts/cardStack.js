@@ -16,7 +16,7 @@ export function initCardStack(container, { compact = false } = {}) {
   let cardEls = Array.from(container.querySelectorAll(':scope > .card-face'));
   if (cardEls.length === 0) return;
 
-  const state = { dragging: false, dragX: 0, dragY: 0, startX: 0, startY: 0, flying: false, flyDir: 1 };
+  const state = { dragging: false, dragX: 0, dragY: 0, startX: 0, startY: 0, flying: false, flyDir: 1, snapInstant: false };
 
   function applyStyle(el, i) {
     const s = computeStyle(i, state, scale);
@@ -81,7 +81,13 @@ export function initCardStack(container, { compact = false } = {}) {
     } else {
       state.dragX = 0;
       state.dragY = 0;
+      state.snapInstant = true;
       render();
+      // Re-arm the eased transition for the next legitimate use of the rest
+      // state (e.g. a card settling into front position after a swipe).
+      requestAnimationFrame(() => {
+        state.snapInstant = false;
+      });
     }
   }
 

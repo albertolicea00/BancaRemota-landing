@@ -18,10 +18,15 @@ export function computeStyle(i, state, scale) {
   if (i === 0) {
     if (state.dragging) {
       const rot = state.dragX * 0.07;
+      // Fades out a bit the further it's dragged, so pulling it away from
+      // center already reads as "leaving" — sets up the fade-back-in below.
+      const dist = Math.abs(state.dragX);
+      const opacity = Math.max(0.45, 1 - dist / 220);
       return {
         transform: `translate(${state.dragX}px,${state.dragY * 0.35}px) rotate(${rot}deg)`,
         zIndex: 50,
         transition: 'none',
+        opacity,
       };
     }
     if (state.flying) {
@@ -35,7 +40,14 @@ export function computeStyle(i, state, scale) {
     return {
       transform: 'rotate(0deg) translate(0,0)',
       zIndex: 50,
-      transition: 'transform 0.45s cubic-bezier(0.34,1.4,0.64,1)',
+      // An aborted drag (released before the swipe threshold) snaps its
+      // *position* back instantly — no visible slide-back from wherever it
+      // was dragged to — but fades its *opacity* back to fully visible over
+      // a short transition, so it "re-solidifies" in place instead of both
+      // sliding and popping back at once. The full eased transform
+      // transition is kept for the "next card settles into front position"
+      // moment right after a completed swipe.
+      transition: state.snapInstant ? 'opacity 0.3s ease' : 'transform 0.45s cubic-bezier(0.34,1.4,0.64,1)',
       opacity: 1,
     };
   }
