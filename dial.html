@@ -4,13 +4,28 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Llamar operaciones — Banca Remota</title>
   <meta name="description"
     content="Códigos USSD reales de BPA, BANDEC y BM — toca Llamar y confirma la llamada." />
   <meta name="theme-color" content="#B38B4D" />
   <link rel="icon" type="image/png" href="assets/icon-white.png" />
   <link rel="apple-touch-icon" href="assets/icon-white.png" />
+
+  <!-- iOS "Add to Home Screen": launched icon opens straight into this page,
+       standalone (no Safari chrome). Irrelevant to Android/desktop Chrome,
+       which use the web manifest instead — this site has none, by design. -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Banca Remota" />
+  <script>
+    (function () {
+      var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      if (isIOS) document.documentElement.classList.add('ios');
+      if (window.navigator.standalone === true) document.documentElement.classList.add('ios-standalone');
+    })();
+  </script>
 
   <!-- Tailwind CDN + config (same as index.html) -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -51,6 +66,17 @@
 
   <style>
     [x-cloak] { display: none !important; }
+
+    /* Clears the notch/status bar when launched standalone from the iOS
+       home screen (black-translucent draws content under it). A no-op
+       everywhere else since env() resolves to 0 without viewport-fit=cover
+       + standalone display. */
+    #dial-nav { padding-top: env(safe-area-inset-top, 0px); }
+
+    /* Installed as a standalone iOS app, dial.html IS the app's home —
+       leaving to index.html would strand the user with no browser chrome
+       to get back. */
+    .ios-standalone .back-home-link { display: none; }
 
     /* Bottom app-style tab bar (mobile only) */
     .tab-bar {
@@ -97,7 +123,7 @@
   <!-- ════════════════════════════════════════
        NAV (simplified — links back to landing page)
   ════════════════════════════════════════ -->
-  <nav style="z-index: 9999;"
+  <nav id="dial-nav" style="z-index: 9999;"
     class="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <a href="index.html" class="flex items-center gap-2.5 font-bold text-gold text-lg">
@@ -106,8 +132,8 @@
         <span class="text-gray-900 dark:text-white font-bold">Banca Remota</span>
       </a>
 
-      <a href="index.html" aria-label="Volver al inicio"
-        class="inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-gold dark:hover:text-gold transition-colors">
+      <a href="index.html" aria-label="Volver al inicio" class="back-home-link
+        inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-gold dark:hover:text-gold transition-colors">
         <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>
@@ -166,6 +192,17 @@
           </svg>
         </button>
       </div>
+
+      <!-- iOS-only: reopen the "Add to Home Screen" guide after it's been dismissed -->
+      <button x-show="isIOS && !isStandalone" @click="openInstallGuide()" type="button"
+        class="mx-auto mb-8 flex items-center gap-1.5 text-sm text-gold hover:underline">
+        <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" viewBox="0 0 24 24">
+          <path d="M12 16V4M12 4l-3.5 3.5M12 4l3.5 3.5" />
+          <path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+        </svg>
+        Instalar en mi iPhone
+      </button>
 
       <!-- ════════════════════════════════════════
            DESKTOP/TABLET: 3 columns · MOBILE: 1 column driven by bottom tabs
@@ -253,6 +290,75 @@
     </template>
   </nav>
 
+  <!-- ════════════════════════════════════════
+       MODAL — INSTALAR EN IPHONE (iOS only)
+  ════════════════════════════════════════ -->
+  <div x-show="showInstallGuide" x-transition:enter="transition ease-out duration-200"
+    x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+    x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
+    x-transition:leave-end="opacity-0" class="fixed inset-0 z-[9999] flex items-center justify-center p-4"
+    style="display:none">
+
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="dismissInstallGuide()"></div>
+
+    <div x-show="showInstallGuide" x-transition:enter="transition ease-out duration-200"
+      x-transition:enter-start="opacity-0 scale-95 translate-y-2"
+      x-transition:enter-end="opacity-100 scale-100 translate-y-0" x-transition:leave="transition ease-in duration-150"
+      x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+      x-transition:leave-end="opacity-0 scale-95 translate-y-2"
+      class="relative w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-2xl overflow-hidden"
+      @keydown.escape.window="dismissInstallGuide()">
+
+      <div class="h-1 bg-gradient-to-r from-gold via-[#dbab46] to-gold"></div>
+
+      <button @click="dismissInstallGuide()"
+        class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-gray-500 dark:text-gray-400">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <div class="p-8">
+        <div
+          class="inline-flex items-center gap-2 text-gold text-xs font-semibold uppercase tracking-widest rounded-full px-3 py-1 mb-5">
+          <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
+          Acceso directo en tu iPhone
+        </div>
+
+        <h2 class="text-2xl font-black text-gray-900 dark:text-white mb-2">Instala el marcador</h2>
+        <p class="text-gray-500 dark:text-gray-400 text-sm mb-6 leading-relaxed">Agrega esta página a tu pantalla de
+          inicio y ábrela directo, sin pasar por Safari cada vez.</p>
+
+        <ol class="space-y-4 mb-2">
+          <li class="flex items-start gap-3">
+            <span
+              class="w-7 h-7 flex-shrink-0 rounded-full bg-gold/15 text-gold font-bold text-sm flex items-center justify-center">1</span>
+            <p class="text-sm text-gray-700 dark:text-gray-300 pt-0.5">Toca el ícono de <strong>Compartir</strong>
+              <svg class="inline w-4 h-4 -mt-0.5" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <path d="M12 16V4M12 4l-3.5 3.5M12 4l3.5 3.5" />
+                <path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+              </svg>
+              en la barra de Safari.
+            </p>
+          </li>
+          <li class="flex items-start gap-3">
+            <span
+              class="w-7 h-7 flex-shrink-0 rounded-full bg-gold/15 text-gold font-bold text-sm flex items-center justify-center">2</span>
+            <p class="text-sm text-gray-700 dark:text-gray-300 pt-0.5">Desliza y elige <strong>Agregar a inicio</strong>.
+            </p>
+          </li>
+          <li class="flex items-start gap-3">
+            <span
+              class="w-7 h-7 flex-shrink-0 rounded-full bg-gold/15 text-gold font-bold text-sm flex items-center justify-center">3</span>
+            <p class="text-sm text-gray-700 dark:text-gray-300 pt-0.5">Toca <strong>Agregar</strong> arriba a la
+              derecha — listo.</p>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
   </div>
 
   <script>
@@ -263,6 +369,13 @@
         iconGroups: {},
         iconPaths: {},
         query: '',
+
+        // iOS "Add to Home Screen" is a manual, browser-driven flow (no
+        // install prompt API like Android/Chrome) — this just guides the
+        // user through it. Irrelevant on Android/desktop, so gated to iOS.
+        isIOS: false,
+        isStandalone: false,
+        showInstallGuide: false,
 
         async init() {
           const [codes, icons] = await Promise.all([
@@ -278,6 +391,20 @@
           }));
           this.iconGroups = icons.groups;
           this.iconPaths = icons.paths;
+
+          this.isIOS = document.documentElement.classList.contains('ios');
+          this.isStandalone = document.documentElement.classList.contains('ios-standalone');
+          if (this.isIOS && !this.isStandalone && !localStorage.getItem('installGuideDismissed')) {
+            setTimeout(() => { this.showInstallGuide = true }, 1500);
+          }
+        },
+
+        openInstallGuide() {
+          this.showInstallGuide = true;
+        },
+        dismissInstallGuide() {
+          this.showInstallGuide = false;
+          localStorage.setItem('installGuideDismissed', 'true');
         },
 
         iconPath(iconName) {
