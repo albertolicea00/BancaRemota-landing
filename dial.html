@@ -445,6 +445,27 @@
     const CODES_URL = 'https://raw.githubusercontent.com/albertolicea00/BancaRemota/refs/heads/main/BancaRemota/codes.json';
     const CODES_CACHE_KEY = 'codesJsonCache';
 
+    // Opens the native share sheet (iOS/Android/desktop browsers that support
+    // it) pointed at the site root, not this dial page — so whoever receives
+    // it lands on the landing page. Falls back to clipboard copy where
+    // navigator.share is unavailable (e.g. desktop Safari/Firefox).
+    async function shareApp() {
+      const url = location.origin + '/';
+      const shareData = {
+        title: 'Banca Remota',
+        text: 'Códigos USSD de BPA, BANDEC y BM sin instalar nada — Banca Remota:',
+        url,
+      };
+      if (navigator.share) {
+        try { await navigator.share(shareData); } catch (e) { /* user cancelled */ }
+      } else if (navigator.clipboard) {
+        try {
+          await navigator.clipboard.writeText(url);
+          alert('Enlace copiado: ' + url);
+        } catch (e) { /* clipboard denied */ }
+      }
+    }
+
     function dialOps() {
       return {
         activeBank: 'bpa',
