@@ -19,6 +19,10 @@ function app() {
         a: 'Actualmente está en beta — solo disponible instalando desde el código fuente en GitHub. <button onclick="window.dispatchEvent(new CustomEvent(\'notify:open\'))" class="text-gold underline cursor-pointer">Suscríbete</button> para recibir una notificación en cuanto se publique.'
       },
       {
+        q: '¿Puedo usar Banca Remota sin instalar la app?',
+        a: 'Sí. Entra a <a href="dial.html" class="text-gold underline hover:no-underline">/dial</a> — el marcador USSD corriendo directo en el navegador, sin Xcode ni cuenta de desarrollador. Agrégalo a tu pantalla de inicio y funciona incluso sin internet: después de la primera visita, la página y el listado de códigos quedan guardados en el propio navegador, así que abrirla semanas después sin conexión sigue funcionando.'
+      },
+      {
         q: '¿Cuánto cuesta la app?',
         a: 'Cero. Nada. Ya bastante caro te salió el iPhone como para que también tengas que pagar por revisar tu banco.'
       },
