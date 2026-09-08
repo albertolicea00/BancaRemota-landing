@@ -508,12 +508,11 @@
   </script>
 
   <script>
-    // codes.json lives in the source repo, not this static site — fetched from
-    // GitHub raw and cached in localStorage so the dialer works offline after
-    // the first load. Cache renders instantly; the network fetch then
-    // refreshes it silently in the background for next time.
+    // codes.json lives in the source repo, not this static site — fetched
+    // straight from GitHub raw. sw.js intercepts this same fetch and serves
+    // it cache-first (instant, works fully offline) with a silent background
+    // refresh, so there's no need to duplicate that caching here.
     const CODES_URL = 'https://raw.githubusercontent.com/albertolicea00/BancaRemota/refs/heads/main/BancaRemota/codes.json';
-    const CODES_CACHE_KEY = 'codesJsonCache';
 
     // Opens the native share sheet (iOS/Android/desktop browsers that support
     // it) pointed at the site root, not this dial page — so whoever receives
@@ -563,16 +562,11 @@
         },
 
         async loadCodes() {
-          const cached = localStorage.getItem(CODES_CACHE_KEY);
-          if (cached) this.applyCodes(JSON.parse(cached));
-
           try {
-            const res = await fetch(CODES_URL, { cache: 'no-store' });
-            const fresh = await res.json();
-            localStorage.setItem(CODES_CACHE_KEY, JSON.stringify(fresh));
-            this.applyCodes(fresh);
+            const res = await fetch(CODES_URL);
+            this.applyCodes(await res.json());
           } catch (e) {
-            if (!cached) console.error('No se pudo cargar codes.json (sin conexión y sin caché):', e);
+            console.error('Failed to load codes.json:', e);
           }
         },
 

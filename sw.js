@@ -8,7 +8,15 @@
 // anything else it sees (op-icons.json, the remote codes.json, etc.) via a
 // stale-while-revalidate strategy: serve the cached copy instantly, refetch
 // in the background to keep it fresh for next time.
-const CACHE_NAME = 'banca-remota-v1';
+const CACHE_NAME = 'banca-remota-v2';
+
+// codes.json is precached here too (not just left to runtime interception) —
+// on a brand-new install the page's own first fetch for it fires from
+// Alpine's init() before this worker has even finished registering
+// (registration only starts on the 'load' event, which fires later), so it's
+// otherwise never controlled/cached and a subsequent fully-offline open has
+// no data to show. Precaching it here closes that race.
+const CODES_URL = 'https://raw.githubusercontent.com/albertolicea00/BancaRemota/refs/heads/main/BancaRemota/codes.json';
 
 const PRECACHE_URLS = [
   '/',
@@ -22,6 +30,7 @@ const PRECACHE_URLS = [
   '/assets/banks/bpa-icon.svg',
   '/assets/banks/bandec-icon.svg',
   '/assets/banks/bm-icon.svg',
+  CODES_URL,
   'https://cdn.tailwindcss.com',
   'https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js',
 ];
@@ -30,18 +39,29 @@ self.addEventListener('install', (event) => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE_NAME);
     // Per-URL try/catch: cleanUrls redirects, a flaky CDN, or a renamed
-    // asset shouldn't sink the whole install (cache.addAll is all-or-nothing).
+    // asset shouldn't sink the whole install.
     await Promise.all(PRECACHE_URLS.map(async (url) => {
       try {
-        const isCrossOrigin = new URL(url, self.location.origin).origin !== self.location.origin;
-        // cache.add()/addAll() throw on an opaque response by spec — the
-        // only way in is a manual fetch + cache.put(), which has no such
-        // restriction. Needed for cross-origin CDN URLs with no
-        // Access-Control-Allow-Origin header (e.g. cdn.tailwindcss.com),
-        // where a no-cors fetch is the only kind that succeeds at all.
-        const requestOrUrl = isCrossOrigin ? new Request(url, { mode: 'no-cors' }) : url;
-        const response = await fetch(requestOrUrl);
-        await cache.put(requestOrUrl, response);
+        // Try a normal (cors) fetch first — needed to get a readable,
+        // inspectable response for CORS-friendly hosts like GitHub raw
+        // (codes.json is read as JSON by the page, so an opaque response
+        // would be useless here). cache.add()/addAll() can't be used at all
+        // for the no-cors fallback below — they throw on opaque responses
+        // by spec — so this goes through fetch + cache.put uniformly.
+        let response;
+        try {
+          response = await fetch(url);
+          if (!response.ok) throw new Error('status ' + response.status);
+          await cache.put(url, response);
+        } catch (corsErr) {
+          // Falls back to no-cors for cross-origin hosts with no
+          // Access-Control-Allow-Origin header (e.g. cdn.tailwindcss.com),
+          // where even the request above fails outright. Opaque response,
+          // but fine for a <script>/<img> the page never reads via JS.
+          const req = new Request(url, { mode: 'no-cors' });
+          response = await fetch(req);
+          await cache.put(req, response);
+        }
       } catch (err) {
         console.warn('[sw] precache failed for', url, err);
       }
@@ -75,7 +95,7 @@ async function staleWhileRevalidate(request) {
     networkFetch; // refresh in the background, don't block the response
     return cached;
   }
-  return (await networkFetch) || new Response('Sin conexión y sin copia en caché.', {
+  return (await networkFetch) || new Response('Sin conexión y sin copia en offline.', {
     status: 503,
     statusText: 'Offline',
   });
