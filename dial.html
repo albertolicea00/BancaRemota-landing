@@ -28,6 +28,9 @@
        standalone (no Safari chrome). Irrelevant to Android/desktop Chrome,
        which use the web manifest instead — this site has none, by design. -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
+  <!-- Standard, non-prefixed equivalent — Chrome deprecated the apple- one
+       for its own engine, but iOS Safari still requires it, so both stay. -->
+  <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Banca Remota" />
   <script>
