@@ -95,7 +95,7 @@ async function staleWhileRevalidate(request) {
     networkFetch; // refresh in the background, don't block the response
     return cached;
   }
-  return (await networkFetch) || new Response('Sin conexión y sin copia en offline.', {
+  return (await networkFetch) || new Response('Sin conexión y sin copia en caché.', {
     status: 503,
     statusText: 'Offline',
   });
@@ -103,5 +103,11 @@ async function staleWhileRevalidate(request) {
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
+  // Browser extensions (React/Vue devtools, etc.) inject their own
+  // chrome-extension:// / moz-extension:// requests into the page context.
+  // cache.put() throws on any non-http(s) scheme, so let those pass through
+  // untouched instead of trying to cache them.
+  const scheme = new URL(event.request.url).protocol;
+  if (scheme !== 'http:' && scheme !== 'https:') return;
   event.respondWith(staleWhileRevalidate(event.request));
 });
