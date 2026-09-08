@@ -496,6 +496,17 @@
   <!-- notifyForm() — shared with index.html's "Avísame" modal -->
   <script src="app.js"></script>
 
+  <!-- Offline shell — see sw.js. Caches this page, its assets, and the
+       Tailwind/Alpine CDN scripts so the installed app still opens with a
+       full working interface after weeks with no connection at all. -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch((err) => console.warn('SW registration failed:', err));
+      });
+    }
+  </script>
+
   <script>
     // codes.json lives in the source repo, not this static site — fetched from
     // GitHub raw and cached in localStorage so the dialer works offline after

@@ -1313,6 +1313,17 @@
   ════════════════════════════════════════ -->
   <script src="app.js"></script>
 
+  <!-- Offline shell — see sw.js. Registered here too so the site works
+       fully offline (and installs a service worker) regardless of whether
+       someone lands on the landing page or the dialer first. -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch((err) => console.warn('SW registration failed:', err));
+      });
+    }
+  </script>
+
 </body>
 
 </html>
